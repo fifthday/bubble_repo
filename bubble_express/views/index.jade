@@ -1,5 +1,234 @@
-extends layout
+html
+	head
+		title #{title}
 
-block content
-  h1= title
-  p Welcome to #{title}
+		script
+			var debug_no = 0;
+			var myuid = null;
+			var mytoken = null;
+			function login() {
+
+				var access_token = document.getElementById("access_token").value;
+				if(access_token != undefined) {
+					var method = "GET";
+					var url = "1/user/login";
+					var query = helper_make_query("sina_access_token", access_token);
+
+					doRequest(method, url, query, login_result);
+				}
+			}
+			function login_result(result) {
+				if(result != undefined) {
+					document.getElementById("login_result").innerHTML = result;
+					var json = JSON.parse(result);
+					if(json != undefined) {
+						myuid = json.uid;
+						mytoken = json.token;
+						document.getElementById("uid_token").innerHTML = "";
+						debug_log(myuid);
+						debug_log(mytoken);
+					}
+				} else {
+					document.getElementById("login_result").innerHTML = "Login Failed!"
+				}
+			}
+			function put_bubble() {
+				//- debug_log(myuid);
+				//- debug_log(mytoken);
+				
+				if(myuid == undefined) {
+					myuid =document.getElementById("res_id").value;
+				}
+				if(mytoken == undefined) {
+					mytoken = document.getElementById("res_id").value;
+				}
+
+				if(myuid != undefined && mytoken != undefined) {
+
+					var res_id = document.getElementById("put_res_id").value;
+					var bubble_type = document.getElementById("bubble_type").value;
+					var start_at = document.getElementById("start_at").value;
+					var end_at = document.getElementById("end_at").value;
+					var vertical_percent = document.getElementById("vertical_percent").value;
+					var horizontal_percent = document.getElementById("horizontal_percent").value;
+					var content = document.getElementById("content").value;
+					var operation = document.getElementById("operation").value;
+					var signal = document.getElementById("signal").value;
+					var customer = document.getElementById("customer").value;
+					//- debug_log(res_id);
+					//- debug_log(bubble_type);
+					if(res_id != undefined && bubble_type != undefined) {
+						var method = "GET";
+						var url = "1/bubble/put";
+						var query = helper_make_query("uid", myuid)
+									+helper_make_query("&token", mytoken)
+									+helper_make_query("&res_id", res_id)
+									+helper_make_query("&bubble_type", bubble_type)
+									+helper_make_query("&start_at", start_at)
+									+helper_make_query("&end_at", end_at)
+									+helper_make_query("&vertical_percent", vertical_percent)
+									+helper_make_query("&horizontal_percent", horizontal_percent)
+									+helper_make_query("&content", content)
+									+helper_make_query("&operation", operation)
+									+helper_make_query("&signal", signal)
+									+helper_make_query("&customer", customer)
+									;
+
+						//- debug_log(query);
+						doRequest(method, url, query, put_bubble_result);
+					}
+				} else {
+					put_bubble_result("putting uid or token invalid!")
+				}
+			}
+			function put_bubble_result(result) {
+				if(result != undefined) {
+					document.getElementById("put_bubble_result").innerHTML = result;
+				} else {
+					document.getElementById("put_bubble_result").innerHTML = "Put Failed!"
+				}
+			}
+			function take_bubble() {
+				if(myuid == undefined) {
+					myuid =document.getElementById("res_id").value;
+				}
+				if(mytoken == undefined) {
+					mytoken = document.getElementById("res_id").value;
+				}
+				if(myuid != undefined && mytoken != undefined) {
+					var res_id = document.getElementById("take_res_id").value;
+					var start = document.getElementById("start").value;
+					var count = document.getElementById("count").value;
+					var signal = document.getElementById("signal").value;
+
+					if(res_id != undefined) {
+						var method = "GET";
+						var url = "1/bubble/take";
+						var query = helper_make_query("uid", myuid)
+									+helper_make_query("&token", mytoken)
+									+helper_make_query("&res_id", res_id)
+									+helper_make_query("&start", start)
+									+helper_make_query("&count", count)
+									+helper_make_query("&signal", signal)
+									;
+						doRequest(method, url, query, take_bubble_result);
+					}
+				} else {
+					take_bubble_result("Taking uid or token invalid!")
+				}
+			}
+			function take_bubble_result(result) {
+				if(result != undefined) {
+					document.getElementById("take_bubble_result").innerHTML = result;
+				} else {
+					document.getElementById("take_bubble_result").innerHTML = "Take Failed!"
+				}
+			}
+
+			function doRequest(method, url, query, callback) {
+				var xmlhttp;
+				if (window.XMLHttpRequest) {
+					xmlhttp = new XMLHttpRequest();
+				} else {
+					xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+				}
+
+				xmlhttp.onreadystatechange = function() {
+					if (xmlhttp.readyState == 4) {
+						if(xmlhttp.status == 200 || xmlhttp.status == 0) {
+							callback(xmlhttp.responseText);
+						} else {
+							callback();
+						}
+					}
+				}
+
+				if(method == "GET") {
+					debug_log(url+"?"+query);
+					xmlhttp.open("GET", url+"?"+query, true);
+					xmlhttp.send();
+				} else {
+					xmlhttp.open("POST", url, true);
+					xmlhttp.send(query);
+				}				
+			}
+			function debug_log(log, number) {
+				var output = null;
+				if(number != undefined) {
+					output = ""+number+": "+log+"<br/>"; 
+				} else {
+					output = ""+debug_no+":"+log+"<br/>";
+				}
+				debug_no++;
+				
+				document.getElementById("debug").innerHTML += output;
+			}
+			function helper_make_query(key, val) {
+				if(key != undefined && key != "" && val != undefined && val != "") {
+					return ""+key+"="+val;
+				} else {
+					return "";
+				}
+			}
+	body
+		
+		div#quick_login
+			h3 Quick_login
+			|sina_access_token: <input type="text" id="access_token" class="text" value="" size="50" maxlength="50" />
+			br
+			|<input type="button" value="login" onclick="login()"/>
+			br
+		div#login_result
+			h4 result:
+		br
+		div#uid_token
+			|uid: <input type="text" id="uid" class="text" value="" size="50" maxlength="50" />
+			br
+			|token: <input type="text" id="token" class="text" value="" size="50" maxlength="50" />
+		br
+		div#put_bubble
+			h3 Put_bubble
+			|res_id: <input type="text" id="put_res_id" class="text" value="" size="50" maxlength="50" />
+			br
+			|bubble_type: <input type="text" id="bubble_type" class="text" value="" size="50" maxlength="50" />
+			br
+			|start_at: <input type="text" id="start_at" class="text" value="" size="50" maxlength="50" />
+			br
+			|end_at: <input type="text" id="end_at" class="text" value="" size="50" maxlength="50" />
+			br
+			|vertical_percent: <input type="text" id="vertical_percent" class="text" value="" size="50" maxlength="50" />
+			br
+			|horizontal_percent: <input type="text" id="horizontal_percent" class="text" value="" size="50" maxlength="50" />
+			br
+			|content: <input type="text" id="content" class="text" value="" size="50" maxlength="50" />
+			br
+			|operation: <input type="text" id="operation" class="text" value="" size="50" maxlength="50" />
+			br
+			|signal: <input type="text" id="signal" class="text" value="" size="50" maxlength="50" />
+			br
+			|customer: <input type="text" id="customer" class="text" value="" size="50" maxlength="50" />
+			br
+			|<input type="button" value="put" onclick="put_bubble()"/>
+			br
+		div#put_bubble_result
+			h4 result:
+		br
+		div#take_bubble
+			h3 take_bubble
+			|res_id: <input type="text" id="take_res_id" class="text" value="" size="50" maxlength="50" />
+			br
+			|start: <input type="text" id="start" class="text" value="" size="50" maxlength="50" />
+			br
+			|count: <input type="text" id="count" class="text" value="" size="50" maxlength="50" />
+			br
+			|signal: <input type="text" id="signal" class="text" value="" size="50" maxlength="50" />
+			br
+			|<input type="button" value="take" onclick="take_bubble()"/>
+			br
+		div#take_bubble_result
+			h4 result:
+
+		br
+		div#debug
+
+

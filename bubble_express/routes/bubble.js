@@ -10,3 +10,4 @@ exports.take = function(req, res) {
 exports.login = function(req, res) {
 	user.quick_login(req, res);
 };
+

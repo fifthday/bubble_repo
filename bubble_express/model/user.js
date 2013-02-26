@@ -7,27 +7,27 @@ exports.quick_login = function(req, res) {
 
 	var sina_access_token = req.param('sina_access_token');
 
-	//console.log(sina_access_token);
+	// console.log(sina_access_token);
 
 	if(sina_access_token) {
 
 		weibo_api.get_sina_uid(sina_access_token, function(err, sina_uid) {
-			if(err || !sina_uid) {
+			if(err) {
 				// console.log(err);
 
-				res.send(make_error.make_error(-1, "Invalid access_token!"));
+				res.send(make_error.make_error(-1, "Invalid access_token!", err));
 
 			} else {
 
 				dbsql.get_user_pool().getConnection(function(err, connection) {
 					if(err) {
-						res.send(make_error.make_error(-2, "Database Error!"));
+						res.send(make_error.make_error(-2, "Database Error!", err));
 
 					} else {
 
 						connection.query("select * from sina_user_table where sina_uid=" + sina_uid, function(err, rows, fields) {
 							if(err) {
-								res.send(make_error.make_error(-2, "Database Error!"));
+								res.send(make_error.make_error(-2, "Database Error!", err));
 							} else {
 								// console.log(rows);
 								// console.log(fields);
@@ -42,7 +42,7 @@ exports.quick_login = function(req, res) {
 
 										connection.query("update user_table set token=?,create_at=?,expire_in=? where uid=?", [token, create_at, expire_in, uid], function(err) {
 											if(err) {
-												res.send(make_error.make_error(-2, "Database Error!"));
+												res.send(make_error.make_error(-2, "Database Error!", err));
 											} else {
 												var response = {
 													"uid": uid,
@@ -62,12 +62,12 @@ exports.quick_login = function(req, res) {
 
 									connection.query("begin", function(err) {
 										if(err) {
-											res.send(make_error.make_error(-2, "Database Error!"));
+											res.send(make_error.make_error(-2, "Database Error!", err));
 										} else {
 											connection.query("insert into user_table values(null,?,?,?,now())", [token, create_at, expire_in], function(err, results) {
 												if(err) {
 													connection.query("rollback");
-													res.send(make_error.make_error(-2, "Database Error!"));
+													res.send(make_error.make_error(-2, "Database Error!", err));
 												} else {
 													var uid = results.insertId;
 
@@ -75,13 +75,13 @@ exports.quick_login = function(req, res) {
 
 														if(err) {
 															connection.query("rollback");
-															res.send(make_error.make_error(-2, "Database Error!"));
+															res.send(make_error.make_error(-2, "Database Error!", err));
 														} else {
 															connection.query("commit", function(err) {
 
 																if(err) {
 																	connection.query("rollback");
-																	res.send(make_error.make_error(-2, "Database Error!"));
+																	res.send(make_error.make_error(-2, "Database Error!", err));
 																} else {
 																	var response = {
 																		"uid": uid,

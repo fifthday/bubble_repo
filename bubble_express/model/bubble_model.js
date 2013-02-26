@@ -23,7 +23,7 @@ exports.put_bubble = function(req, res) {
 	if(uid && token && res_id && type) {
 		user.check_token(uid, token, function(err, result) {
 			if(err) {
-				res.send(make_error.make_error(-2, "Database Error!"));
+				res.send(make_error.make_error(-2, "Database Error!", err));
 			} else {
 				if(result) {
 
@@ -45,12 +45,12 @@ exports.put_bubble = function(req, res) {
 					// console.log(bubb);
 					db_client.open(function(err, client) {
 						if(err) {
-							res.send(make_error.make_error(-2, "Database Error!"));
+							res.send(make_error.make_error(-2, "Database Error!", err));
 							client.close();
 						} else {
 							client.collection("bubbles", function(err, collection) {
 								if(err) {
-									res.send(make_error.make_error(-2, "Database Error!"));
+									res.send(make_error.make_error(-2, "Database Error!", err));
 									client.close();
 								} else {
 									collection.update({
@@ -65,7 +65,7 @@ exports.put_bubble = function(req, res) {
 									}, function(err) {
 										client.close();
 										if(err) {
-											res.send(make_error.make_error(-2, "Database Error!"));
+											res.send(make_error.make_error(-2, "Database Error!", err));
 										} else {
 											res.send(bubb);
 										}
@@ -97,7 +97,7 @@ exports.take_bubbles = function(req, res) {
 	if(uid && token && res_id) {
 		user.check_token(uid, token, function(err, result) {
 			if(err) {
-				res.send(make_error.make_error(-2, "Database Error!"));
+				res.send(make_error.make_error(-2, "Database Error!", err));
 			} else {
 				if(result) {
 
@@ -112,12 +112,12 @@ exports.take_bubbles = function(req, res) {
 
 					db_client.open(function(err, client) {
 						if(err) {
-							res.send(make_error.make_error(-2, "Database Error!"));
+							res.send(make_error.make_error(-2, "Database Error!", err));
 							client.close();
 						} else {
 							client.collection("bubbles", function(err, collection) {
 								if(err) {
-									res.send(make_error.make_error(-2, "Database Error!"));
+									res.send(make_error.make_error(-2, "Database Error!", err));
 									client.close();
 								} else {
 
@@ -137,7 +137,7 @@ exports.take_bubbles = function(req, res) {
 										client.close();
 										if(err) {
 											console.log(err);
-											res.send(make_error.make_error(-2, "Database Error!"));
+											res.send(make_error.make_error(-2, "Database Error!", err));
 										} else {
 											res.send(results);
 										}

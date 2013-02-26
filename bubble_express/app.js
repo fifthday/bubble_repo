@@ -28,7 +28,6 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-
 app.get('/', routes.index);
 //app.get('/users', user.list);
 app.all('/1/bubble/put', bubble.put);

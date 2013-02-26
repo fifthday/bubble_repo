@@ -1,4 +1,4 @@
-
-http://localhost:8011/1/user/login?sina_access_token=2.00YrLvmBxUxQKE839998d7be0rKbbi
-http://localhost:8011/1/bubble/put?uid=1001&token=593881acfe4a5a03471c30c2fc0ecf94&res_id=101&bubble_type=0&start_at=1&end_at=2&content=test&operation=1&signal=2
-http://localhost:8011/1/bubble/take?uid=1001&token=593881acfe4a5a03471c30c2fc0ecf94&res_id=101&signal=0&start=0&count=20
+http://localhost:8011/
+http://localhost:8011/1/user/login?sina_access_token=2.00YrLvmBxUxQKE38068b23d9AiodxB
+http://localhost:8011/1/bubble/put?uid=1002&token=6c39c3d762db418d2630fab8a56c3090&res_id=101&bubble_type=0&start_at=1&end_at=2&content=test&operation=1&signal=2
+http://localhost:8011/1/bubble/take?uid=1002&token=6c39c3d762db418d2630fab8a56c3090&res_id=101&signal=0&start=0&count=20
