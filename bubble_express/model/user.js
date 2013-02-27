@@ -9,10 +9,10 @@ exports.quick_login = function(req, res) {
 
 	// console.log(sina_access_token);
 
-	if(sina_access_token) {
+	if(sina_access_token != undefined) {
 
 		weibo_api.get_sina_uid(sina_access_token, function(err, sina_uid) {
-			if(err) {
+			if(err != undefined) {
 				// console.log(err);
 
 				res.send(make_error.make_error(-1, "Invalid access_token!", err));
@@ -20,13 +20,13 @@ exports.quick_login = function(req, res) {
 			} else {
 
 				dbsql.get_user_pool().getConnection(function(err, connection) {
-					if(err) {
+					if(err != undefined) {
 						res.send(make_error.make_error(-2, "Database Error!", err));
 
 					} else {
 
 						connection.query("select * from sina_user_table where sina_uid=" + sina_uid, function(err, rows, fields) {
-							if(err) {
+							if(err != undefined) {
 								res.send(make_error.make_error(-2, "Database Error!", err));
 							} else {
 								// console.log(rows);
@@ -37,11 +37,11 @@ exports.quick_login = function(req, res) {
 								var token = generate_token(create_at);
 
 								if(rows.length > 0) {
-									var uid = rows[0]["myuid"];
-									if(uid) {
+									var uid = rows[0].myuid;
+									if(uid != undefined) {
 
 										connection.query("update user_table set token=?,create_at=?,expire_in=? where uid=?", [token, create_at, expire_in, uid], function(err) {
-											if(err) {
+											if(err != undefined) {
 												res.send(make_error.make_error(-2, "Database Error!", err));
 											} else {
 												var response = {
@@ -61,11 +61,11 @@ exports.quick_login = function(req, res) {
 								} else {
 
 									connection.query("begin", function(err) {
-										if(err) {
+										if(err != undefined) {
 											res.send(make_error.make_error(-2, "Database Error!", err));
 										} else {
 											connection.query("insert into user_table values(null,?,?,?,now())", [token, create_at, expire_in], function(err, results) {
-												if(err) {
+												if(err != undefined) {
 													connection.query("rollback");
 													res.send(make_error.make_error(-2, "Database Error!", err));
 												} else {
@@ -73,13 +73,13 @@ exports.quick_login = function(req, res) {
 
 													connection.query("insert into sina_user_table values(?,?,?,now())", [sina_uid, sina_access_token, uid], function(err) {
 
-														if(err) {
+														if(err != undefined) {
 															connection.query("rollback");
 															res.send(make_error.make_error(-2, "Database Error!", err));
 														} else {
 															connection.query("commit", function(err) {
 
-																if(err) {
+																if(err != undefined) {
 																	connection.query("rollback");
 																	res.send(make_error.make_error(-2, "Database Error!", err));
 																} else {
@@ -103,7 +103,7 @@ exports.quick_login = function(req, res) {
 							}
 						});
 					}
-					if(connection) {
+					if(connection != undefined) {
 						connection.end();
 					}
 				});
@@ -125,7 +125,7 @@ exports.check_token = function(uid, token, callback) {
 				if(err) {
 					callback(err, null);
 				} else {
-					callback(null, (rows.length==0)?false:true);
+					callback(null, (rows.length===0)?false:true);
 				}
 			});
 		}

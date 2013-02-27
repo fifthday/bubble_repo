@@ -36,11 +36,11 @@ html
 				//- debug_log(myuid);
 				//- debug_log(mytoken);
 				
-				if(myuid == undefined) {
-					myuid =document.getElementById("res_id").value;
+				if(myuid == undefined || myuid == "") {
+					myuid =document.getElementById("uid").value;
 				}
-				if(mytoken == undefined) {
-					mytoken = document.getElementById("res_id").value;
+				if(mytoken == undefined || mytoken == "") {
+					mytoken = document.getElementById("token").value;
 				}
 
 				if(myuid != undefined && mytoken != undefined) {
@@ -89,11 +89,11 @@ html
 				}
 			}
 			function take_bubble() {
-				if(myuid == undefined) {
-					myuid =document.getElementById("res_id").value;
+				if(myuid == undefined || myuid == "") {
+					myuid =document.getElementById("uid").value;
 				}
-				if(mytoken == undefined) {
-					mytoken = document.getElementById("res_id").value;
+				if(mytoken == undefined || mytoken == "") {
+					mytoken = document.getElementById("token").value;
 				}
 				if(myuid != undefined && mytoken != undefined) {
 					var res_id = document.getElementById("take_res_id").value;
@@ -127,7 +127,7 @@ html
 
 			function doRequest(method, url, query, callback) {
 				var xmlhttp;
-				if (window.XMLHttpRequest) {
+				if (window.XMLHttpRequest != undefined) {
 					xmlhttp = new XMLHttpRequest();
 				} else {
 					xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");

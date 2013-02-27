@@ -6,7 +6,7 @@ var user_pool = mysql.createPool({
   user: 'root',
   password: '12345678',
   database: 'bubble_account',
-  supportBigNumbers: true,
+  supportBigNumbers: true
   // debug: true
 });
 user_pool.connectionLimit = 20;

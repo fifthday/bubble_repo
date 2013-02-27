@@ -8,7 +8,7 @@ exports.get_sina_uid = function(access_token, callback) {
 	}
 	weibo.get_uid(user_req, function(err, info) {
 
-		if(err) {
+		if(err != undefined) {
 			callback(err);
 		} else {
 			callback(null, info.uid);
