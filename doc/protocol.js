@@ -47,9 +47,9 @@ var protocol = {
 				"expire": "int64"
 			}
 		},
-		"bubble/count": {
+		"bubble/bubble_count": {
 			"comment": "通过微博tid，获取一组微博的吐槽条数",
-			"url": "/bubble/count",
+			"url": "/bubble/bubble_count",
 			"method": "get|post",
 			"request": {
 				"uid": "int64", 	// 用户uid
@@ -138,7 +138,7 @@ var protocol = {
 			}
 		},
 		"bubble/like": {
-			"comment": "喜欢本条吐槽",
+			"comment": "喜欢/不喜欢本条吐槽",
 			"url": "bubble/like",
 			"method": "post",
 			"request": {
@@ -149,8 +149,25 @@ var protocol = {
 				"type": "string" // like or unlike
 			},
 			"response": {
+				"tid": "int",
+				"bid": "int",
 				"like": "int",
 				"unlike": "int"
+			}
+		},
+		"bubble/like_count": {
+			"comment": "喜欢/不喜欢本条吐槽的用户查询",
+			"url": "bubble/like_count",
+			"method": "post",
+			"request": {
+				"tid": "int64",
+				"bid": "int64"
+			},
+			"response": {
+				"tid": "int64",
+				"bid": "int64",
+				"like": [],
+				"unlike": []
 			}
 		},
 		"status/hot_tweets": {
