@@ -118,11 +118,11 @@ exports.quick_login = function(req, res) {
 exports.check_token = function(uid, token, callback) {
 
 	dbsql.get_user_pool().getConnection(function(err, connection) {
-		if(err) {
+		if(err != undefined) {
 			callback(err, null);
 		} else {
 			connection.query("select uid from user_table where uid=? and token=?", [uid, token], function(err, rows, fields) {
-				if(err) {
+				if(err != undefined) {
 					callback(err, null);
 				} else {
 					callback(null, (rows.length===0)?false:true);
