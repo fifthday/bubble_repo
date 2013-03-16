@@ -1,0 +1,2314 @@
+<html>
+<head>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+<link rel="stylesheet" href="css/screen.css" type="text/css" media="screen, projection">
+<link rel="stylesheet" href="css/print.css" type="text/css" media="print">
+<!--[if lt IE 8]><link rel="stylesheet" href="css/ie.css" type="text/css" media="screen, projection"><![endif]-->
+<link rel="stylesheet" href="css/fancy-type/screen.css" type="text/css" media="screen, projection">
+<style type="text/css">
+div#comment_content {background-color:#AEEEEE;width:45%;padding-right:20%;float:left;border:solid;}
+div#comment_list {width:15%;padding-right:10%;float:left;border:solid;}
+div#rating_item {margin-left:35%;}
+     
+div.content_down
+{
+    	  width:80px;
+    	  background-color:hsla(120,65%,75%,1);
+        
+       
+}    
+div.content_up
+{
+    	  width:80px;
+    	  background-color:hsla(120,65%,75%,1);
+        
+       
+}
+div.content_left
+{
+    	  width:80px;
+    	  background-color:hsla(120,65%,75%,1);
+         
+        
+}
+.clear{
+        clear:both;
+}
+div.content_right
+{
+    	   
+    	  width:80px;
+    	  background-color:hsla(120,65%,75%,1);
+         
+       
+}
+div.dot_down
+{
+        height:0px;
+        width:0px;
+        border-width:10px 7px;
+        border-style:solid dashed dashed dashed;
+        border-color:hsla(120,65%,75%,1) transparent transparent transparent;
+        overflow:hidden;
+}
+div.dot_left_down1
+{
+        height:0px;
+        width:0px;
+    	  border-style:solid dashed dashed solid;
+    	  border-width:6px 20px;
+        border-color:hsla(120,65%,75%,1) transparent transparent hsla(120,65%,75%,1);
+        overflow:hidden;
+}
+div.dot_left_down2
+{
+        height:0px;
+        width:0px;
+        border-width:6px 12px;
+    	  border-style:solid dashed dashed solid;
+        border-color:#AEEEEE transparent transparent #AEEEEE;
+        position:absolute;
+        top:0px;
+        overflow:hidden;
+}
+div.dot_left
+{
+        height:0px;
+        width:0px;
+    	  border-style:dashed solid dashed dashed;
+    	  border-width:5px 25px 5px 25px;
+        border-color:transparent hsla(120,65%,75%,1) transparent transparent;
+        overflow:hidden;
+        
+}
+
+div.dot_right
+{
+        height:0px;
+        width:0px;
+    	  border-style:dashed dashed dashed solid;
+    	  border-width:5px 25px 5px 25px;
+        border-color:transparent transparent transparent hsla(120,65%,75%,1);
+        overflow:hidden;
+        
+}
+
+div.dot_left_up1
+{
+        height:0px;
+        width:0px;
+        border-width:6px 20px;
+    	  border-style:dashed dashed solid solid;
+        border-color:transparent transparent hsla(120,65%,75%,1) hsla(120,65%,75%,1);
+        overflow:hidden;
+}
+div.dot_left_up2
+{
+        height:0px;
+        width:0px;
+        border-width:6px 12px;
+        border-style:dashed dashed solid solid;
+        border-color:transparent transparent #AEEEEE #AEEEEE;
+        overflow:hidden;
+        top:0px;
+        position:absolute;
+}
+div.dot_up
+{
+        height:0px;
+        width:0px;
+        border-width:10px 7px;
+        border-style:dashed dashed solid dashed;
+        border-color:transparent transparent hsla(120,65%,75%,1) transparent;
+        overflow:hidden;
+}
+div.dot_right_up1
+{
+        height:0px;
+        width:0px;
+        border-width:6px 20px;
+    	  border-style:dashed solid solid dashed;
+        border-color:transparent hsla(120,65%,75%,1) hsla(120,65%,75%,1) transparent;
+        overflow:hidden;
+}
+div.dot_right_up2
+{
+        height:0px;
+        width:0px;
+        border-width:6px 12px;
+        border-style:dashed solid solid dashed;
+        border-color:transparent #AEEEEE #AEEEEE transparent;
+        overflow:hidden;
+        top:0px;
+        left:16px;
+        position:absolute; 
+} 
+
+div.dot_right_down1
+{
+        height:0px;
+        width:0px;
+        border-width:6px 20px;
+    	  border-style:solid solid dashed dashed;
+        border-color:hsla(120,65%,75%,1) hsla(120,65%,75%,1) transparent transparent;
+        overflow:hidden;
+}
+div.dot_right_down2
+{
+        height:0px;
+        width:0px;
+        border-width:6px 12px;
+        border-style:solid solid dashed dashed;
+        border-color:#AEEEEE #AEEEEE transparent transparent;
+        overflow:hidden;
+        top:0px;
+        left:16px;
+        position:absolute; 
+} 
+
+td {height:5%;}
+</style>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/rating.min.js"></script>
+
+<script defer type="text/javascript">
+var is_focus = 1;
+var is_glance = 0;
+var is_comment = 0;
+var offset_start_list = [1,6,11,16,23,30,145];
+var offset_end_list = [2,7,12,17,24,31,146];
+var spanLocation = new Array();
+var is_locked = 0;
+var totalSpanNum = 0;
+var input_comment_num = 0;
+//input 1：
+//var comments = ['comment 1	1','comment 2	1','comment 3	1','comment 4	5','comment 5	1','comment 6	1','comment 7	1','comment 8	1','comment 9	1','comment 10	7','comment 11	6','comment 12	1','comment 13	4','comment 14	5','comment 15lalalalalal	1','comment 16	5','comment 17	1','comment 18	1','comment 19	2','comment 20	7','comment 21	2','comment 22	2','comment 23	4','comment 24	7','comment 25	1','comment 26	1','comment 27	7','comment 28	7','comment 29	7','comment 30	1','comment 31	1','comment 32	5','comment 33	3','comment 34	2','comment 35	7','comment 36	1','comment 37	5','comment 38	1','comment 39	1','comment 40	1','comment 41	1','comment 42	1','comment 43	1','comment 44	2','comment 45	4','comment 46	7','comment 47	1','comment 48	1','comment 49	7','comment 50	1','comment 51	3'];
+var is_choice = 0;
+var slide_mode = 0;
+var comment_mode = 0;
+var modify_mode = 0;
+var words_comment = new Array();
+function loadEvent() {
+if (!document.all) {
+  window.constructor.prototype
+    .__defineGetter__(
+      "event",
+      function() {
+       var func = arguments.callee.caller;
+       while (func != null) {
+        var arg0 = func.arguments[0];
+        if (arg0
+          && (arg0.constructor == Event || arg0.constructor == MouseEvent)) {
+         return arg0;
+        }
+        func = func.caller;
+       }
+       return null;
+      });
+}
+} 
+function helper_make_query(key, val) {
+
+  if(key != undefined && key != "" && val != undefined && val != "") {
+    return ""+key+"="+val;
+  } else {
+    return "";
+  }
+
+}
+
+
+function doRequest(method, url, query, callback) {
+ var xmlhttp;
+ if (window.XMLHttpRequest) {
+  xmlhttp = new XMLHttpRequest();
+ } else {
+  xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+ }
+ 
+ xmlhttp.onreadystatechange = function() {
+  if (xmlhttp.readyState == 4) {
+   if(xmlhttp.status == 200 || xmlhttp.status == 0) {
+    callback(xmlhttp.responseText);
+   } else {
+    callback();
+   }
+  }
+ }
+ 
+ if(method == "GET") {
+  //debug_log(url+"?"+query);
+  xmlhttp.open("GET", url+"?"+query, true);
+  xmlhttp.send();
+ } else {
+  xmlhttp.open("POST", url, true);
+  xmlhttp.send(query);
+ }
+}
+
+function show_list(comment_text,caodian_id,caodian_type){
+	//  alert(list_index);
+		var content = "";
+		var content_detail = "";
+		var comment = "";
+		var caodian = "";
+		var curSpanPos = "";
+		var left_pos = 0;
+		var top_pos = 0;
+		if($("#new_page_glance").length>0)
+		  $("#new_page_glance").remove();  
+		if($("#list_show").length>0)
+		  $("#list_show").remove();
+		if($("#tempshow_part").length>0)
+		  $("#tempshow_part").remove();
+ 
+		curSpanPos = $("#"+caodian_id).offset();
+		left_pos = curSpanPos.left;
+		top_pos = curSpanPos.top-15;//down arrow
+		$("p").append("<div id=\"list_show\"></div>");
+    $("#list_show").append("<div class=\"arrow\" id=\"list_show_arrow\"><div class=\"dot_down\"></div></div>");	
+    $("#list_show_arrow").css({"position":"absolute","left":left_pos,"top":top_pos});  
+		txt=$("<div id=\"list_show_content\" class=\"content_down\"></div>").text(comment_text);
+		$("#list_show").append(txt);
+    $("#list_show_content").css({"position":"absolute","left":left_pos-document.getElementById("list_show_content").offsetWidth/2,"top":top_pos-document.getElementById("list_show_content").offsetHeight});      
+
+}
+
+function showtable(){
+ 
+  var tablename=document.getElementById("comment_table");
+  var i = 0;
+  //var li=tablename.getElementsByTagName("tr");
+  var comment_index = 0;
+  
+  var content_detail = "";
+  var comment = "";
+  var caodian = "";
+  var ctype = "";
+  var line_num = 0;
+  var comment_num = 0;
+  var start_offset = 0;
+  var end_offset = 0;
+  if(words_comment.length<20)
+    line_num = words_comment.length;
+  else
+  	line_num = 20;
+  for (i=0;i<=line_num-1;i++){
+  	comment_index = i + 1;
+  	comment_num = i;
+		content_detail = words_comment[i].split('\t');
+		comment = content_detail[0];
+		 
+		caodian = content_detail[1];
+		ctype = content_detail[2]
+		$("#comment_table").append("<tr id=comment_content"+comment_index+" onmouseup=\"show_list(\'"+comment+"\',"+caodian+","+ctype+")\"></tr>");
+		$("#comment_table").css({"width":"167\%"});
+		$("#comment_content"+comment_index).append("<td>"+comment+"</td><td>"+caodian+"</td><td>"+ctype+"</td>");
+	}
+	for(i=line_num;i<=19;i++){
+		comment_index = i + 1;
+		$("#comment_table").append("<tr id=comment_content"+comment_index+"></tr>");
+		$("#comment_table").css({"width":"167\%"});
+		$("#comment_content"+comment_index).append("<td>--</td><td>--</td><td>--</td>");	  
+	}
+	
+	var li=tablename.getElementsByTagName("tr");	
+		//var li=tablename.getElementsByTagName("tr");
+	for(i=0;i<=li.length-1;i++){	
+    li[i].style.backgroundColor="yellow";
+    li[i].onmouseover=function(){
+
+    this.style.backgroundColor="#FFFFFF";
+  
+    }
+
+    li[i].onmouseout=function(){
+
+    this.style.backgroundColor="yellow"
+
+    }
+
+  }
+  if(words_comment.length>20)
+   $("#comment_list").append("<button type=\"button\" disabled=true id=\"page_button\"}>上一页</button><button type=\"button\" onclick=\"pagedown(2)\" id=\"page_button\">下一页</button>")
+  else
+   $("#comment_list").append("<button type=\"button\" disabled=true id=\"page_button\"}>上一页</button><button type=\"button\" disabled=true id=\"page_button\">下一页</button>")
+  	 
+}
+
+
+function pagedown(page_num){
+	
+	 
+  var tablename=document.getElementById("comment_table");
+  var i = 0;
+  //var li=tablename.getElementsByTagName("tr");
+  var comment_index = 0;
+   
+  var content_detail = "";
+  var comment = "";
+  var caodian = ""; 
+  var ctype = "";
+  var line_num = 0;
+  var comment_num = 0; 
+  if(words_comment.length-(page_num-1)*20<20)
+     line_num = words_comment.length-(page_num-1)*20;
+  else
+  	 line_num = 20;
+  for (i=0;i<=19;i++){
+  	comment_index = i + 1;
+    if($("#comment_content"+comment_index).length>0)
+      $("#comment_content"+comment_index).remove()
+  }
+  $("button").remove();
+  
+  for (i=0;i<=line_num-1;i++){
+  	comment_index = i + 1;
+  	comment_num = (page_num-1)*20+i;
+		content_detail = words_comment[comment_num].split('\t');
+		 
+		comment = content_detail[0];
+		 
+		caodian = content_detail[1];
+		ctype = content_detail[2];
+		$("#comment_table").append("<tr id=comment_content"+comment_index+" onmouseup=\"show_list(\'"+comment+"\',"+caodian+","+ctype+")\"></tr>");
+		$("#comment_table").css({"width":"167\%"});
+
+		$("#comment_content"+comment_index).append("<td>"+comment+"</td><td>"+caodian+"</td><td>"+ctype+"</td>");
+	}
+	for(i=line_num;i<=19;i++){
+		comment_index = i + 1;
+		$("#comment_table").append("<tr id=comment_content"+comment_index+"></tr>");
+		$("#comment_table").css({"width":"167\%"});
+		$("#comment_content"+comment_index).append("<td>--</td><td>--</td><td>--</td>");	  
+	}
+	var li=tablename.getElementsByTagName("tr");	
+		//var li=tablename.getElementsByTagName("tr");
+	for(i=0;i<=li.length-1;i++){	
+    li[i].style.backgroundColor="yellow";
+    li[i].onmouseover=function(){
+
+    this.style.backgroundColor="#FFFFFF";
+  
+    }
+
+    li[i].onmouseout=function(){
+
+    this.style.backgroundColor="yellow"
+
+    }
+  
+  }
+  if(page_num == 1){
+    var next_page = page_num+1;
+    $("#comment_list").append("<button type=\"button\" disabled=true>上一页</button><button type=\"button\" onclick=\"pagedown("+next_page+")\">下一页</button>")
+    
+  }
+  else if(page_num>=2&&page_num<Math.ceil(words_comment.length/20)){
+    var pre_page = page_num-1;
+    var next_page = page_num+1;
+    $("#comment_list").append("<button type=\"button\" onclick=\"pagedown("+pre_page+")\"}>上一页</button><button type=\"button\" onclick=\"pagedown("+next_page+")\">下一页</button>")
+  }
+  else if(page_num==Math.ceil(words_comment.length/20)){
+    var pre_page = page_num-1;
+ //   var next_page = page_num+1;
+    $("#comment_list").append("<button type=\"button\" onclick=\"pagedown("+pre_page+")\"}>上一页</button><button type=\"button\" disabled=true>下一页</button>")
+    
+  }
+}
+
+function myfunction(commentListIndex,comment_idx,parent_index,caodian_type){
+      var s="";
+      var txt = "";
+      var prefix = "apDiv";
+      var loop_index = 0;
+      var i = 0;
+      var top_pos = "";
+      var left_pos = "";
+      var comment = "";
+      var fco;
+      var div_idx = 0;
+      var prefix2 = "caodian";
+  
+    if(caodian_type == 1){
+      if(is_choice == 1){//清零
+        return;
+      }
+      comment_idx = comment_idx + 1; 
+
+      $("p").append("<div id=\"new_comment"+parent_index+"\"></div>");
+      loop_index = 0;
+      var x=$("#"+parent_index).offset();
+      while(loop_index<=4){
+      	s = "";
+      	txt = "";
+      	top_pos = 0;
+      	left_pos = 0;
+      	comment = "";
+      	i = 0;
+      	
+  
+        s = words_comment[commentListIndex];
+        commentListIndex = commentListIndex + 1;
+
+        var content_clean = s.split('\n')
+        var content_list = s.split('\t')
+        for (i = 0;i<content_list.length;i++){
+          if(i == 0){
+            comment = content_list[i];
+          }
+          else if(i == 1){
+          	caodian_index = content_list[i]; 
+          }
+          
+        }
+        if(caodian_index!=parent_index){
+        	if(commentListIndex >= words_comment.length){
+                 	   
+           if(loop_index==5){
+ 	          top_pos = x.top+17;
+	          left_pos = x.left;
+	          $("#new_comment"+parent_index).append("<div id=\""+prefix2+parent_index+"apDiv8\"></div>");	
+	          $("#"+prefix2+parent_index+"apDiv8").append("<div class=\"arrow\" id=\"arrow_"+prefix2+parent_index+"apDiv8\"><div class=\"dot_up\"></div></div>");
+	          $("#arrow_"+prefix2+parent_index+"apDiv8").css({"position":"absolute","left":left_pos,"top":top_pos});  
+	          txt=$("<div id=\"content_"+prefix2+parent_index+"apDiv8\" class=\"content_up\"></div>").text("单击查看更多吐槽");
+	          $("#"+prefix2+parent_index+"apDiv8").append(txt);	
+	          $("#content_"+prefix2+parent_index+"apDiv8").css({"position":"absolute","left":left_pos-document.getElementById("content_"+prefix2+parent_index+"apDiv8").offsetWidth/2,"top":top_pos+document.getElementById("arrow_"+prefix2+parent_index+"apDiv8").offsetHeight});      
+           }
+            return;        	  
+        	}
+          continue;
+        }      
+        div_idx = div_idx+1;
+	   
+	      switch(loop_index)
+	      {
+	        case 0://arrow_right_down
+	          top_pos = x.top-10;
+	          left_pos = x.left-50;
+
+	          $("#new_comment"+parent_index).append("<div id=\""+prefix2+parent_index+prefix+div_idx+"\"></div>");	
+	          $("#"+prefix2+parent_index+prefix+div_idx).append("<div class=\"arrow\" id=\"arrow_"+prefix2+parent_index+prefix+div_idx+"\"><div class=\"dot_right_down1\"></div><div class=\"dot_right_down2\"></div></div>");
+	          $("#arrow_"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","left":left_pos,"top":top_pos});  
+	          txt=$("<div id=\"content_"+prefix2+parent_index+prefix+div_idx+"\" class=\"content_down\"></div>").text(comment);
+	          $("#"+prefix2+parent_index+prefix+div_idx).append(txt);	
+	          $("#content_"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","left":left_pos-document.getElementById("content_"+prefix2+parent_index+prefix+div_idx).offsetWidth/4*3,"top":top_pos-document.getElementById("content_"+prefix2+parent_index+prefix+div_idx).offsetHeight});      
+
+	          
+	          break;
+	        case 1://arrow_down
+	          top_pos = x.top-30;
+	          left_pos = x.left;	     
+	         
+	          $("#new_comment"+parent_index).append("<div id=\""+prefix2+parent_index+prefix+div_idx+"\"></div>");	
+	          $("#"+prefix2+parent_index+prefix+div_idx).append("<div class=\"arrow\" id=\"arrow_"+prefix2+parent_index+prefix+div_idx+"\"><div class=\"dot_down\"></div></div>");
+	          $("#arrow_"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","left":left_pos,"top":top_pos});  
+	          txt=$("<div id=\"content_"+prefix2+parent_index+prefix+div_idx+"\" class=\"content_down\"></div>").text(comment);
+	          $("#"+prefix2+parent_index+prefix+div_idx).append(txt);	
+	          $("#content_"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","left":left_pos-document.getElementById("content_"+prefix2+parent_index+prefix+div_idx).offsetWidth/2,"top":top_pos-document.getElementById("content_"+prefix2+parent_index+prefix+div_idx).offsetHeight});      
+	                     
+		            
+	          break;
+	        case 2://arrow_left_down
+	          top_pos = x.top-10;
+	          left_pos = x.left+20;	
+	              
+	          $("#new_comment"+parent_index).append("<div id=\""+prefix2+parent_index+prefix+div_idx+"\"></div>");	
+	          $("#"+prefix2+parent_index+prefix+div_idx).append("<div class=\"arrow\" id=\"arrow_"+prefix2+parent_index+prefix+div_idx+"\"><div class=\"dot_left_down1\"></div><div class=\"dot_left_down2\"></div></div>");
+	          $("#arrow_"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","left":left_pos,"top":top_pos});  
+	          txt=$("<div id=\"content_"+prefix2+parent_index+prefix+div_idx+"\" class=\"content_down\"></div>").text(comment);
+	          $("#"+prefix2+parent_index+prefix+div_idx).append(txt);	
+	          $("#content_"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","left":left_pos+document.getElementById("content_"+prefix2+parent_index+prefix+div_idx).offsetWidth/4,"top":top_pos-document.getElementById("content_"+prefix2+parent_index+prefix+div_idx).offsetHeight});      
+		              
+	          break;
+	       /* case 3://arrow_left -- ignore
+	          top_pos = x.top;
+	          left_pos = x.left+10;	 
+
+	          $("#new_comment"+parent_index).append("<div id=\""+prefix2+parent_index+prefix+div_idx+"\"></div>");	
+	          $("#"+prefix2+parent_index+prefix+div_idx).append("<div class=\"arrow\" id=\"arrow_"+prefix2+parent_index+prefix+div_idx+"\"><div class=\"dot_left\"></div></div>");
+	          $("#arrow_"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","left":left_pos,"top":top_pos});  
+	          txt=$("<div id=\"content_"+prefix2+parent_index+prefix+div_idx+"\" class=\"content_left\"></div>").text(comment);
+	          $("#"+prefix2+parent_index+prefix+div_idx).append(txt);	
+	          $("#content_"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","width":"80px","left":left_pos+document.getElementById("arrow_"+prefix2+parent_index+prefix+div_idx).offsetWidth,"top":top_pos-document.getElementById("arrow_"+prefix2+parent_index+prefix+div_idx).offsetHeight/4});      
+					//	$("#"+prefix2+parent_index+prefix+div_idx).("<div class=\"clear\"></div>"); 
+	                 
+	          break;*/
+	        case 3://arrow_left_up
+	          top_pos = x.top+12;
+	          left_pos = x.left+20;	      
+	          
+	          $("#new_comment"+parent_index).append("<div id=\""+prefix2+parent_index+prefix+div_idx+"\"></div>");	
+	          $("#"+prefix2+parent_index+prefix+div_idx).append("<div class=\"arrow\" id=\"arrow_"+prefix2+parent_index+prefix+div_idx+"\"><div class=\"dot_left_up1\"></div><div class=\"dot_left_up2\"></div></div>");
+	          $("#arrow_"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","left":left_pos,"top":top_pos});  
+	          txt=$("<div id=\"content_"+prefix2+parent_index+prefix+div_idx+"\" class=\"content_down\"></div>").text(comment);
+	          $("#"+prefix2+parent_index+prefix+div_idx).append(txt);	
+	          $("#content_"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","left":left_pos+document.getElementById("content_"+prefix2+parent_index+prefix+div_idx).offsetWidth/4,"top":top_pos+document.getElementById("arrow_"+prefix2+parent_index+prefix+div_idx).offsetHeight});      
+	          
+	            
+	          break;
+	       /* case 5://arrow_right -- ignore
+	          top_pos = x.top;
+	          left_pos = x.left-30;	   
+	          
+	          $("#new_comment"+parent_index).append("<div id=\""+prefix2+parent_index+prefix+div_idx+"\"></div>");	
+	          $("#"+prefix2+parent_index+prefix+div_idx).append("<div class=\"arrow\" id=\"arrow_"+prefix2+parent_index+prefix+div_idx+"\"><div class=\"dot_right\"></div></div>");
+	          $("#arrow_"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","left":left_pos,"top":top_pos});  
+	          txt=$("<div id=\"content_"+prefix2+parent_index+prefix+div_idx+"\" class=\"content_right\"></div>").text(comment);
+	          $("#"+prefix2+parent_index+prefix+div_idx).append(txt);	
+	          $("#content_"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","left":left_pos-document.getElementById("arrow_"+prefix2+parent_index+prefix+div_idx).offsetWidth-50,"top":top_pos-document.getElementById("arrow_"+prefix2+parent_index+prefix+div_idx).offsetHeight/4});      
+
+	               
+	          break;*/
+	        case 4://arrow_right_up
+	          top_pos = x.top+12;
+	          left_pos = x.left-50;	     
+
+	          $("#new_comment"+parent_index).append("<div id=\""+prefix2+parent_index+prefix+div_idx+"\"></div>");	
+	          $("#"+prefix2+parent_index+prefix+div_idx).append("<div class=\"arrow\" id=\"arrow_"+prefix2+parent_index+prefix+div_idx+"\"><div class=\"dot_right_up1\"></div><div class=\"dot_right_up2\"></div></div>");
+	          $("#arrow_"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","left":left_pos,"top":top_pos});  
+	          txt=$("<div id=\"content_"+prefix2+parent_index+prefix+div_idx+"\" class=\"content_up\"></div>").text(comment);
+	          $("#"+prefix2+parent_index+prefix+div_idx).append(txt);	
+	          $("#content_"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","left":left_pos-document.getElementById("content_"+prefix2+parent_index+prefix+div_idx).offsetWidth/4*3,"top":top_pos+document.getElementById("arrow_"+prefix2+parent_index+prefix+div_idx).offsetHeight});      
+
+	             
+	          break;
+	   
+	        
+	      }
+	      loop_index = loop_index + 1;
+	   //   $("#arrow_"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","left":left_pos,"top":top_pos});  
+	   
+	    //  $("#"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","left":left_pos,"top":top_pos,"border":"thin solid rgb(238,232,170)","background-color":"hsla(120,65%,75%,1)"});        
+        if(commentListIndex>=words_comment.length){ 
+      //	  txt=$("<div id=\""+prefix2+parent_index+"apDiv8\"></div>").text("单击查看更多吐槽");
+	    //    $("#new_comment"+parent_index).append(txt);    
+	        if(loop_index==5){
+	        top_pos = x.top+17;
+	        left_pos = x.left;
+	       
+	        $("#new_comment"+parent_index).append("<div id=\""+prefix2+parent_index+"apDiv8\"></div>");	
+	        $("#"+prefix2+parent_index+"apDiv8").append("<div class=\"arrow\" id=\"arrow_"+prefix2+parent_index+"apDiv8\"><div class=\"dot_up\"></div></div>");
+	        $("#arrow_"+prefix2+parent_index+"apDiv8").css({"position":"absolute","left":left_pos,"top":top_pos});  
+	        txt=$("<div id=\"content_"+prefix2+parent_index+"apDiv8\" class=\"content_up\"></div>").text("单击查看更多吐槽");
+	        $("#"+prefix2+parent_index+"apDiv8").append(txt);	
+	        $("#content_"+prefix2+parent_index+"apDiv8").css({"position":"absolute","left":left_pos-document.getElementById("content_"+prefix2+parent_index+"apDiv8").offsetWidth/2,"top":top_pos+document.getElementById("arrow_"+prefix2+parent_index+"apDiv8").offsetHeight});      
+        }
+  
+      
+           return;
+        }
+      }
+      if(loop_index==5){
+ 	    top_pos = x.top+17;
+	    left_pos = x.left;
+	    $("#new_comment"+parent_index).append("<div id=\""+prefix2+parent_index+"apDiv8\"></div>");	
+	    $("#"+prefix2+parent_index+"apDiv8").append("<div class=\"arrow\" id=\"arrow_"+prefix2+parent_index+"apDiv8\"><div class=\"dot_up\"></div></div>");
+	    $("#arrow_"+prefix2+parent_index+"apDiv8").css({"position":"absolute","left":left_pos,"top":top_pos});  
+	    txt=$("<div id=\"content_"+prefix2+parent_index+"apDiv8\" class=\"content_up\"></div>").text("单击查看更多吐槽");
+	    $("#"+prefix2+parent_index+"apDiv8").append(txt);	
+	    $("#content_"+prefix2+parent_index+"apDiv8").css({"position":"absolute","left":left_pos-document.getElementById("content_"+prefix2+parent_index+"apDiv8").offsetWidth/2,"top":top_pos+document.getElementById("arrow_"+prefix2+parent_index+"apDiv8").offsetHeight});      
+     }
+    }
+    if(caodian_type == 2){
+      if(is_choice == 1){//清零
+        return;
+      }
+      comment_idx = comment_idx + 1; 
+
+      $("p").append("<div id=\"new_comment"+parent_index+"\"></div>");
+      loop_index = 0;
+      var x=$("#"+parent_index).offset();
+      while(loop_index<=4){
+      	s = "";
+      	txt = "";
+      	top_pos = 0;
+      	left_pos = 0;
+      	comment = "";
+      	i = 0;
+      	
+  
+        s = words_comment[commentListIndex];
+        commentListIndex = commentListIndex + 1;
+
+        var content_clean = s.split('\n')
+        var content_list = s.split('\t')
+        for (i = 0;i<content_list.length;i++){
+          if(i == 0){
+            comment = content_list[i];
+          }
+          else if(i == 1){
+          	caodian_index = content_list[i]; 
+          }
+          
+        }
+        if(caodian_index!=parent_index){
+        	if(commentListIndex >= words_comment.length){
+            if(loop_index==5){     	   
+           	top_pos = x.top+22;
+	          left_pos = x.left;
+	          $("#new_comment"+parent_index).append("<div id=\""+prefix2+parent_index+"apDiv8\"></div>");	
+	          $("#"+prefix2+parent_index+"apDiv8").append("<div class=\"arrow\" id=\"arrow_"+prefix2+parent_index+"apDiv8\"><div class=\"dot_up\"></div></div>");
+	          $("#arrow_"+prefix2+parent_index+"apDiv8").css({"position":"absolute","left":left_pos,"top":top_pos});  
+	          txt=$("<div id=\"content_"+prefix2+parent_index+"apDiv8\" class=\"content_up\"></div>").text("单击查看更多吐槽");
+	          $("#"+prefix2+parent_index+"apDiv8").append(txt);	
+	          $("#content_"+prefix2+parent_index+"apDiv8").css({"position":"absolute","left":left_pos-document.getElementById("content_"+prefix2+parent_index+"apDiv8").offsetWidth/2,"top":top_pos+document.getElementById("arrow_"+prefix2+parent_index+"apDiv8").offsetHeight});      
+            }
+            return;        	  
+        	}
+          continue;
+        }      
+        div_idx = div_idx+1;
+ 
+ 	      switch(loop_index)
+	      {
+	        case 0:
+	          top_pos = x.top-10;
+	          left_pos = x.left-30;
+
+	          $("#new_comment"+parent_index).append("<div id=\""+prefix2+parent_index+prefix+div_idx+"\"></div>");	
+	          $("#"+prefix2+parent_index+prefix+div_idx).append("<div class=\"arrow\" id=\"arrow_"+prefix2+parent_index+prefix+div_idx+"\"><div class=\"dot_right\"></div></div>");
+	          $("#arrow_"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","left":left_pos,"top":top_pos});  
+	          txt=$("<div id=\"content_"+prefix2+parent_index+prefix+div_idx+"\" class=\"content_right\"></div>").text(comment);
+	          $("#"+prefix2+parent_index+prefix+div_idx).append(txt);	
+	          $("#content_"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","left":left_pos-document.getElementById("content_"+prefix2+parent_index+prefix+div_idx).offsetWidth,"top":top_pos-document.getElementById("content_"+prefix2+parent_index+prefix+div_idx).offsetHeight/2});      
+	          
+	          
+	          break;
+	        case 1:
+	          top_pos = x.top-30;
+	          left_pos = x.left;	 
+
+	          $("#new_comment"+parent_index).append("<div id=\""+prefix2+parent_index+prefix+div_idx+"\"></div>");	
+	          $("#"+prefix2+parent_index+prefix+div_idx).append("<div class=\"arrow\" id=\"arrow_"+prefix2+parent_index+prefix+div_idx+"\"><div class=\"dot_down\"></div></div>");
+	          $("#arrow_"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","left":left_pos,"top":top_pos});  
+	          txt=$("<div id=\"content_"+prefix2+parent_index+prefix+div_idx+"\" class=\"content_down\"></div>").text(comment);
+	          $("#"+prefix2+parent_index+prefix+div_idx).append(txt);	
+	          $("#content_"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","left":left_pos-document.getElementById("content_"+prefix2+parent_index+prefix+div_idx).offsetWidth/2,"top":top_pos-document.getElementById("content_"+prefix2+parent_index+prefix+div_idx).offsetHeight});      
+	          
+	                 
+	          break;
+	        case 2:
+	          top_pos = x.top-10;
+	          left_pos = x.left+5;	 
+	          
+	          $("#new_comment"+parent_index).append("<div id=\""+prefix2+parent_index+prefix+div_idx+"\"></div>");	
+	          $("#"+prefix2+parent_index+prefix+div_idx).append("<div class=\"arrow\" id=\"arrow_"+prefix2+parent_index+prefix+div_idx+"\"><div class=\"dot_left\"></div></div>");
+	          $("#arrow_"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","left":left_pos,"top":top_pos});  
+	          txt=$("<div id=\"content_"+prefix2+parent_index+prefix+div_idx+"\" class=\"content_left\"></div>").text(comment);
+	          $("#"+prefix2+parent_index+prefix+div_idx).append(txt);	
+	          $("#content_"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","left":left_pos+document.getElementById("arrow_"+prefix2+parent_index+prefix+div_idx).offsetWidth,"top":top_pos-document.getElementById("content_"+prefix2+parent_index+prefix+div_idx).offsetHeight/2});      
+	          
+	                 
+	          break;
+/*	        case 3:
+	          top_pos = x.top;
+	          left_pos = x.left+80;	        
+	          break; */
+	        case 3:
+	          top_pos = x.top+22;
+	          left_pos = x.left+5;	   
+	          
+	          $("#new_comment"+parent_index).append("<div id=\""+prefix2+parent_index+prefix+div_idx+"\"></div>");	
+	          $("#"+prefix2+parent_index+prefix+div_idx).append("<div class=\"arrow\" id=\"arrow_"+prefix2+parent_index+prefix+div_idx+"\"><div class=\"dot_left\"></div></div>");
+	          $("#arrow_"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","left":left_pos,"top":top_pos});  
+	          txt=$("<div id=\"content_"+prefix2+parent_index+prefix+div_idx+"\" class=\"content_left\"></div>").text(comment);
+	          $("#"+prefix2+parent_index+prefix+div_idx).append(txt);	
+	          $("#content_"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","left":left_pos+document.getElementById("arrow_"+prefix2+parent_index+prefix+div_idx).offsetWidth,"top":top_pos-document.getElementById("arrow_"+prefix2+parent_index+prefix+div_idx).offsetHeight/4});      	          
+	               
+	          break;
+	       /* case 5:
+	          top_pos = x.top;
+	          left_pos = x.left-80;	        
+	          break; */
+	        case 4://arrow_right_up
+	          top_pos = x.top+22;
+	          left_pos = x.left-30;	     
+
+	          $("#new_comment"+parent_index).append("<div id=\""+prefix2+parent_index+prefix+div_idx+"\"></div>");	
+	          $("#"+prefix2+parent_index+prefix+div_idx).append("<div class=\"arrow\" id=\"arrow_"+prefix2+parent_index+prefix+div_idx+"\"><div class=\"dot_right\"></div></div>");
+	          $("#arrow_"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","left":left_pos,"top":top_pos});  
+	          txt=$("<div id=\"content_"+prefix2+parent_index+prefix+div_idx+"\" class=\"content_left\"></div>").text(comment);
+	          $("#"+prefix2+parent_index+prefix+div_idx).append(txt);	
+	          $("#content_"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","left":left_pos-document.getElementById("content_"+prefix2+parent_index+prefix+div_idx).offsetWidth,"top":top_pos-document.getElementById("arrow_"+prefix2+parent_index+prefix+div_idx).offsetHeight/4});      
+
+	             
+	          break;
+	   
+	        
+	      }
+	      loop_index = loop_index + 1;
+	   
+	     // $("#"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","left":left_pos,"top":top_pos,"border":"thin solid rgb(238,232,170)","background-color":"hsla(120,65%,75%,1)"});        
+        if(commentListIndex>=words_comment.length){ 
+      //	  txt=$("<div id=\""+prefix2+parent_index+"apDiv8\"></div>").text("单击查看更多吐槽");
+	    //    $("#new_comment"+parent_index).append(txt);    
+	        if(loop_index==5){
+	        top_pos = x.top+22;
+	        left_pos = x.left;
+	        
+	        $("#new_comment"+parent_index).append("<div id=\""+prefix2+parent_index+"apDiv8\"></div>");	
+	        $("#"+prefix2+parent_index+"apDiv8").append("<div class=\"arrow\" id=\"arrow_"+prefix2+parent_index+"apDiv8\"><div class=\"dot_up\"></div></div>");
+	        $("#arrow_"+prefix2+parent_index+"apDiv8").css({"position":"absolute","left":left_pos,"top":top_pos});  
+	        txt=$("<div id=\"content_"+prefix2+parent_index+"apDiv8\" class=\"content_up\"></div>").text("单击查看更多吐槽");
+	        $("#"+prefix2+parent_index+"apDiv8").append(txt);	
+	        $("#content_"+prefix2+parent_index+"apDiv8").css({"position":"absolute","left":left_pos-document.getElementById("content_"+prefix2+parent_index+"apDiv8").offsetWidth/2,"top":top_pos+document.getElementById("arrow_"+prefix2+parent_index+"apDiv8").offsetHeight});      
+          }
+           return;
+        }
+      }
+	    //txt=$("<div id=\""+prefix2+parent_index+"apDiv8\"></div>").text("单击查看更多吐槽");
+	    //$("#new_comment"+parent_index).append(txt);
+	    if(loop_index==5){
+	    top_pos = x.top+22;
+	    left_pos = x.left;
+	    $("#new_comment"+parent_index).append("<div id=\""+prefix2+parent_index+"apDiv8\"></div>");	
+	    $("#"+prefix2+parent_index+"apDiv8").append("<div class=\"arrow\" id=\"arrow_"+prefix2+parent_index+"apDiv8\"><div class=\"dot_up\"></div></div>");
+	    $("#arrow_"+prefix2+parent_index+"apDiv8").css({"position":"absolute","left":left_pos,"top":top_pos});  
+	    txt=$("<div id=\"content_"+prefix2+parent_index+"apDiv8\" class=\"content_up\"></div>").text("单击查看更多吐槽");
+	    $("#"+prefix2+parent_index+"apDiv8").append(txt);	
+	    $("#content_"+prefix2+parent_index+"apDiv8").css({"position":"absolute","left":left_pos-document.getElementById("content_"+prefix2+parent_index+"apDiv8").offsetWidth/2,"top":top_pos+document.getElementById("arrow_"+prefix2+parent_index+"apDiv8").offsetHeight});      
+      }
+    }
+} 	
+	
+function mainfunction(caodian_type,caodian_index){ //聚焦模式入口
+	  
+		  var ForReading = 1;
+		 
+		  var prefix = "apDiv";
+		  var pre_time = 0;
+		  var txt = "";
+		  var comment_idx = 0;
+		  var commentListIndex = 0;
+		  
+		  if(is_focus == 0)
+		     return;
+		  if($("#tempshow_part").length>0)
+		     $("#tempshow_part").remove();   
+		  if(is_locked==1)
+		     return;
+		  
+	    myfunction(commentListIndex,comment_idx,caodian_index,caodian_type);
+}
+
+
+function mainoutfunction(caodian_type,caodian_index){
+  if(is_focus == 0)
+    return;
+  if($("#tempshow_part").length>0)
+		$("#tempshow_part").remove();    
+  if(is_locked==1){
+    return;
+  }
+	if($("#new_comment"+caodian_index).length>0)
+	{
+		 
+		$("#new_comment"+caodian_index).remove();
+	}
+	
+}
+
+function proceedComment(commentListIndex,comment_idx,parent_index,caodian_type){
+      var s="";
+      var txt = "";
+      var prefix = "apDiv";
+      var prefix2 = "caodian";
+      var loop_index = 0;
+      var i = 0;
+      var top_pos = "";
+      var left_pos = "";
+      var comment = "";
+      var fco;
+      var div_idx = 0;
+      var caodian_index = 0;
+    if(caodian_type == 1){  
+      comment_idx = comment_idx + 1; 
+    
+      $("p").append("<div id=\"new_comment"+comment_idx+"\"></div>");
+      loop_index = 0;
+      while(loop_index<=5){
+      	s = "";
+      	txt = "";
+      	top_pos = 0;
+      	left_pos = 0;
+      	comment = "";
+      	i = 0;
+      	
+        div_idx = div_idx+1;
+       
+        s = words_comment[commentListIndex];
+        commentListIndex = commentListIndex + 1;
+        if(loop_index==7){
+         
+        }
+
+        var content_clean = s.split('\n')
+        var content_list = s.split('\t')
+        for (i = 0;i<content_list.length;i++){
+          if(i == 0){
+            comment = content_list[i]
+          }
+          else if(i == 1){
+          	caodian_index = content_list[i] 
+          }
+          
+        }
+        if(caodian_index!=parent_index){
+        	if(commentListIndex >= words_comment.length){
+            is_fadeout = 1;
+            $("#new_comment"+comment_idx).fadeOut(6000,function(){is_locked = 0;if($("#new_comment"+comment_idx).length>0){$("#new_comment"+comment_idx).remove();}});
+         	 
+         
+            return;        	  
+        	}
+          continue;
+        }      
+        var x=$("#"+caodian_index).offset();
+  
+
+        
+	   
+	      switch(loop_index)
+	      {
+	        case 0://arrow_right_down
+	          top_pos = x.top-10;
+	          left_pos = x.left-50;
+
+	          $("#new_comment"+comment_idx).append("<div id=\""+prefix2+parent_index+prefix+div_idx+"\"></div>");	
+	          $("#"+prefix2+parent_index+prefix+div_idx).append("<div class=\"arrow\" id=\"arrow_"+prefix2+parent_index+prefix+div_idx+"\"><div class=\"dot_right_down1\"></div><div class=\"dot_right_down2\"></div></div>");
+	          $("#arrow_"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","left":left_pos,"top":top_pos});  
+	          txt=$("<div id=\"content_"+prefix2+parent_index+prefix+div_idx+"\" class=\"content_down\"></div>").text(comment);
+	          $("#"+prefix2+parent_index+prefix+div_idx).append(txt);	
+	          $("#content_"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","left":left_pos-document.getElementById("content_"+prefix2+parent_index+prefix+div_idx).offsetWidth/4*3,"top":top_pos-document.getElementById("content_"+prefix2+parent_index+prefix+div_idx).offsetHeight});      
+
+	          
+	          break;
+	        case 1://arrow_down
+	          top_pos = x.top-30;
+	          left_pos = x.left;	     
+	         
+	          $("#new_comment"+comment_idx).append("<div id=\""+prefix2+parent_index+prefix+div_idx+"\"></div>");	
+	          $("#"+prefix2+parent_index+prefix+div_idx).append("<div class=\"arrow\" id=\"arrow_"+prefix2+parent_index+prefix+div_idx+"\"><div class=\"dot_down\"></div></div>");
+	          $("#arrow_"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","left":left_pos,"top":top_pos});  
+	          txt=$("<div id=\"content_"+prefix2+parent_index+prefix+div_idx+"\" class=\"content_down\"></div>").text(comment);
+	          $("#"+prefix2+parent_index+prefix+div_idx).append(txt);	
+	          $("#content_"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","left":left_pos-document.getElementById("content_"+prefix2+parent_index+prefix+div_idx).offsetWidth/2,"top":top_pos-document.getElementById("content_"+prefix2+parent_index+prefix+div_idx).offsetHeight});      
+	                     
+		            
+	          break;
+	        case 2://arrow_left_down
+	          top_pos = x.top-10;
+	          left_pos = x.left+20;	
+	              
+	          $("#new_comment"+comment_idx).append("<div id=\""+prefix2+parent_index+prefix+div_idx+"\"></div>");	
+	          $("#"+prefix2+parent_index+prefix+div_idx).append("<div class=\"arrow\" id=\"arrow_"+prefix2+parent_index+prefix+div_idx+"\"><div class=\"dot_left_down1\"></div><div class=\"dot_left_down2\"></div></div>");
+	          $("#arrow_"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","left":left_pos,"top":top_pos});  
+	          txt=$("<div id=\"content_"+prefix2+parent_index+prefix+div_idx+"\" class=\"content_down\"></div>").text(comment);
+	          $("#"+prefix2+parent_index+prefix+div_idx).append(txt);	
+	          $("#content_"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","left":left_pos+document.getElementById("content_"+prefix2+parent_index+prefix+div_idx).offsetWidth/4,"top":top_pos-document.getElementById("content_"+prefix2+parent_index+prefix+div_idx).offsetHeight});      
+		              
+	          break;
+	       /* case 3://arrow_left -- ignore
+	          top_pos = x.top;
+	          left_pos = x.left+10;	 
+
+	          $("#new_comment"+parent_index).append("<div id=\""+prefix2+parent_index+prefix+div_idx+"\"></div>");	
+	          $("#"+prefix2+parent_index+prefix+div_idx).append("<div class=\"arrow\" id=\"arrow_"+prefix2+parent_index+prefix+div_idx+"\"><div class=\"dot_left\"></div></div>");
+	          $("#arrow_"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","left":left_pos,"top":top_pos});  
+	          txt=$("<div id=\"content_"+prefix2+parent_index+prefix+div_idx+"\" class=\"content_left\"></div>").text(comment);
+	          $("#"+prefix2+parent_index+prefix+div_idx).append(txt);	
+	          $("#content_"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","width":"80px","left":left_pos+document.getElementById("arrow_"+prefix2+parent_index+prefix+div_idx).offsetWidth,"top":top_pos-document.getElementById("arrow_"+prefix2+parent_index+prefix+div_idx).offsetHeight/4});      
+					//	$("#"+prefix2+parent_index+prefix+div_idx).("<div class=\"clear\"></div>"); 
+	                 
+	          break;*/
+	        case 3://arrow_left_up
+	          top_pos = x.top+12;
+	          left_pos = x.left+20;	      
+	          
+	          $("#new_comment"+comment_idx).append("<div id=\""+prefix2+parent_index+prefix+div_idx+"\"></div>");	
+	          $("#"+prefix2+parent_index+prefix+div_idx).append("<div class=\"arrow\" id=\"arrow_"+prefix2+parent_index+prefix+div_idx+"\"><div class=\"dot_left_up1\"></div><div class=\"dot_left_up2\"></div></div>");
+	          $("#arrow_"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","left":left_pos,"top":top_pos});  
+	          txt=$("<div id=\"content_"+prefix2+parent_index+prefix+div_idx+"\" class=\"content_down\"></div>").text(comment);
+	          $("#"+prefix2+parent_index+prefix+div_idx).append(txt);	
+	          $("#content_"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","left":left_pos+document.getElementById("content_"+prefix2+parent_index+prefix+div_idx).offsetWidth/4,"top":top_pos+document.getElementById("arrow_"+prefix2+parent_index+prefix+div_idx).offsetHeight});      
+	          
+	            
+	          break;
+	       /* case 5://arrow_right -- ignore
+	          top_pos = x.top;
+	          left_pos = x.left-30;	   
+	          
+	          $("#new_comment"+parent_index).append("<div id=\""+prefix2+parent_index+prefix+div_idx+"\"></div>");	
+	          $("#"+prefix2+parent_index+prefix+div_idx).append("<div class=\"arrow\" id=\"arrow_"+prefix2+parent_index+prefix+div_idx+"\"><div class=\"dot_right\"></div></div>");
+	          $("#arrow_"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","left":left_pos,"top":top_pos});  
+	          txt=$("<div id=\"content_"+prefix2+parent_index+prefix+div_idx+"\" class=\"content_right\"></div>").text(comment);
+	          $("#"+prefix2+parent_index+prefix+div_idx).append(txt);	
+	          $("#content_"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","left":left_pos-document.getElementById("arrow_"+prefix2+parent_index+prefix+div_idx).offsetWidth-50,"top":top_pos-document.getElementById("arrow_"+prefix2+parent_index+prefix+div_idx).offsetHeight/4});      
+
+	               
+	          break;*/
+	        case 4://arrow_right_up
+	          top_pos = x.top+15;
+	          left_pos = x.left;	     
+
+	          $("#new_comment"+comment_idx).append("<div id=\""+prefix2+parent_index+prefix+div_idx+"\"></div>");	
+	          $("#"+prefix2+parent_index+prefix+div_idx).append("<div class=\"arrow\" id=\"arrow_"+prefix2+parent_index+prefix+div_idx+"\"><div class=\"dot_up\"></div></div>");
+	          $("#arrow_"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","left":left_pos,"top":top_pos});  
+	          txt=$("<div id=\"content_"+prefix2+parent_index+prefix+div_idx+"\" class=\"content_up\"></div>").text(comment);
+	          $("#"+prefix2+parent_index+prefix+div_idx).append(txt);	
+	          $("#content_"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","left":left_pos-document.getElementById("content_"+prefix2+parent_index+prefix+div_idx).offsetWidth/2,"top":top_pos+document.getElementById("arrow_"+prefix2+parent_index+prefix+div_idx).offsetHeight});      
+
+	             
+	          break;
+	        case 5://arrow_right_up
+	          top_pos = x.top+12;
+	          left_pos = x.left-50;	     
+
+	          $("#new_comment"+comment_idx).append("<div id=\""+prefix2+parent_index+prefix+div_idx+"\"></div>");	
+	          $("#"+prefix2+parent_index+prefix+div_idx).append("<div class=\"arrow\" id=\"arrow_"+prefix2+parent_index+prefix+div_idx+"\"><div class=\"dot_right_up1\"></div><div class=\"dot_right_up2\"></div></div>");
+	          $("#arrow_"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","left":left_pos,"top":top_pos});  
+	          txt=$("<div id=\"content_"+prefix2+parent_index+prefix+div_idx+"\" class=\"content_up\"></div>").text(comment);
+	          $("#"+prefix2+parent_index+prefix+div_idx).append(txt);	
+	          $("#content_"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","left":left_pos-document.getElementById("content_"+prefix2+parent_index+prefix+div_idx).offsetWidth/4*3,"top":top_pos+document.getElementById("arrow_"+prefix2+parent_index+prefix+div_idx).offsetHeight});      
+
+	             
+	          break;	        
+	        
+	      }
+	      loop_index = loop_index + 1;
+	     
+        if(commentListIndex>=words_comment.length){ 
+       
+         
+         $("#new_comment"+comment_idx).fadeOut(6000,function(){is_locked = 0;if($("#new_comment"+comment_idx).length>0){$("#new_comment"+comment_idx).remove();}});
+     
+      
+      
+         return;
+        }
+      }
+    
+    
+      $("#new_comment"+comment_idx).fadeOut(6000,function(){is_locked = 1; if($("#new_comment"+comment_idx).length>0){$("#new_comment"+comment_idx).remove();} proceedComment(commentListIndex,comment_idx,parent_index,caodian_type)});
+     }
+     if(caodian_type == 2){
+      comment_idx = comment_idx + 1; 
+    
+      $("p").append("<div id=\"new_comment"+comment_idx+"\"></div>");
+      loop_index = 0;
+      var x=$("#"+parent_index).offset();                   
+      while(loop_index<=5){
+      	s = "";
+      	txt = "";
+      	top_pos = 0;
+      	left_pos = 0;
+      	comment = "";
+      	i = 0;
+      	
+        div_idx = div_idx+1;
+       
+        s = words_comment[commentListIndex];
+        commentListIndex = commentListIndex + 1;
+        if(loop_index==5){
+         
+        }
+
+        var content_clean = s.split('\n')
+        var content_list = s.split('\t')
+        for (i = 0;i<content_list.length;i++){
+          if(i == 0){
+            comment = content_list[i]
+          }
+          else if(i == 1){
+          	caodian_index = content_list[i] 
+          }
+          
+        }
+        if(caodian_index!=parent_index){
+        	if(commentListIndex >= words_comment.length){
+            is_fadeout = 1;
+            $("#new_comment"+comment_idx).fadeOut(6000,function(){is_locked = 0;if($("#new_comment"+comment_idx).length>0){$("#new_comment"+comment_idx).remove();}});
+         	 
+         
+            return;        	  
+        	}
+          continue;
+        }      
+     
+	      div_idx = div_idx + 1;
+	      switch(loop_index)
+	      {
+	        case 0:
+	          top_pos = x.top-10;
+	          left_pos = x.left-30;
+
+	          $("#new_comment"+comment_idx).append("<div id=\""+prefix2+parent_index+prefix+div_idx+"\"></div>");	
+	          $("#"+prefix2+parent_index+prefix+div_idx).append("<div class=\"arrow\" id=\"arrow_"+prefix2+parent_index+prefix+div_idx+"\"><div class=\"dot_right\"></div></div>");
+	          $("#arrow_"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","left":left_pos,"top":top_pos});  
+	          txt=$("<div id=\"content_"+prefix2+parent_index+prefix+div_idx+"\" class=\"content_right\"></div>").text(comment);
+	          $("#"+prefix2+parent_index+prefix+div_idx).append(txt);	
+	          $("#content_"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","left":left_pos-document.getElementById("content_"+prefix2+parent_index+prefix+div_idx).offsetWidth,"top":top_pos-document.getElementById("content_"+prefix2+parent_index+prefix+div_idx).offsetHeight/2});      
+
+	          break;
+	        case 1:
+	          top_pos = x.top-30;
+	          left_pos = x.left;	 
+
+	          $("#new_comment"+comment_idx).append("<div id=\""+prefix2+parent_index+prefix+div_idx+"\"></div>");	
+	          $("#"+prefix2+parent_index+prefix+div_idx).append("<div class=\"arrow\" id=\"arrow_"+prefix2+parent_index+prefix+div_idx+"\"><div class=\"dot_down\"></div></div>");
+	          $("#arrow_"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","left":left_pos,"top":top_pos});  
+	          txt=$("<div id=\"content_"+prefix2+parent_index+prefix+div_idx+"\" class=\"content_down\"></div>").text(comment);
+	          $("#"+prefix2+parent_index+prefix+div_idx).append(txt);	
+	          $("#content_"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","left":left_pos-document.getElementById("content_"+prefix2+parent_index+prefix+div_idx).offsetWidth/2,"top":top_pos-document.getElementById("content_"+prefix2+parent_index+prefix+div_idx).offsetHeight});      
+	          
+	                 
+	          break;
+	        case 2:
+	          top_pos = x.top-10;
+	          left_pos = x.left+5;	 
+	          
+	          $("#new_comment"+comment_idx).append("<div id=\""+prefix2+parent_index+prefix+div_idx+"\"></div>");	
+	          $("#"+prefix2+parent_index+prefix+div_idx).append("<div class=\"arrow\" id=\"arrow_"+prefix2+parent_index+prefix+div_idx+"\"><div class=\"dot_left\"></div></div>");
+	          $("#arrow_"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","left":left_pos,"top":top_pos});  
+	          txt=$("<div id=\"content_"+prefix2+parent_index+prefix+div_idx+"\" class=\"content_left\"></div>").text(comment);
+	          $("#"+prefix2+parent_index+prefix+div_idx).append(txt);	
+	          $("#content_"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","left":left_pos+document.getElementById("arrow_"+prefix2+parent_index+prefix+div_idx).offsetWidth,"top":top_pos-document.getElementById("content_"+prefix2+parent_index+prefix+div_idx).offsetHeight/2});      
+	          
+	                 
+	          break;
+/*	        case 3:
+	          top_pos = x.top;
+	          left_pos = x.left+80;	        
+	          break; */
+	        case 3:
+	          top_pos = x.top+22;
+	          left_pos = x.left+5;	   
+	          
+	          $("#new_comment"+comment_idx).append("<div id=\""+prefix2+parent_index+prefix+div_idx+"\"></div>");	
+	          $("#"+prefix2+parent_index+prefix+div_idx).append("<div class=\"arrow\" id=\"arrow_"+prefix2+parent_index+prefix+div_idx+"\"><div class=\"dot_left\"></div></div>");
+	          $("#arrow_"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","left":left_pos,"top":top_pos});  
+	          txt=$("<div id=\"content_"+prefix2+parent_index+prefix+div_idx+"\" class=\"content_left\"></div>").text(comment);
+	          $("#"+prefix2+parent_index+prefix+div_idx).append(txt);	
+	          $("#content_"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","left":left_pos+document.getElementById("arrow_"+prefix2+parent_index+prefix+div_idx).offsetWidth,"top":top_pos-document.getElementById("arrow_"+prefix2+parent_index+prefix+div_idx).offsetHeight/4});      	          
+	               
+	          break;
+	       /* case 5:
+	          top_pos = x.top;
+	          left_pos = x.left-80;	        
+	          break; */
+	        case 4://arrow_right_up
+	          top_pos = x.top+22;
+	          left_pos = x.left-30;	     
+
+	          $("#new_comment"+comment_idx).append("<div id=\""+prefix2+parent_index+prefix+div_idx+"\"></div>");	
+	          $("#"+prefix2+parent_index+prefix+div_idx).append("<div class=\"arrow\" id=\"arrow_"+prefix2+parent_index+prefix+div_idx+"\"><div class=\"dot_right\"></div></div>");
+	          $("#arrow_"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","left":left_pos,"top":top_pos});  
+	          txt=$("<div id=\"content_"+prefix2+parent_index+prefix+div_idx+"\" class=\"content_left\"></div>").text(comment);
+	          $("#"+prefix2+parent_index+prefix+div_idx).append(txt);	
+	          $("#content_"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","left":left_pos-document.getElementById("content_"+prefix2+parent_index+prefix+div_idx).offsetWidth,"top":top_pos-document.getElementById("arrow_"+prefix2+parent_index+prefix+div_idx).offsetHeight/4});      
+
+	             
+	          break;
+
+	        case 5://arrow_right_up	         
+	      
+	          top_pos = x.top+22;
+	          left_pos = x.left;
+	          $("#new_comment"+comment_idx).append("<div id=\""+prefix2+parent_index+prefix+div_idx+"\"></div>");	
+	          $("#"+prefix2+parent_index+prefix+div_idx).append("<div class=\"arrow\" id=\"arrow_"+prefix2+parent_index+prefix+div_idx+"\"><div class=\"dot_up\"></div></div>");
+	          $("#arrow_"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","left":left_pos,"top":top_pos});  
+	          txt=$("<div id=\"content_"+prefix2+parent_index+prefix+div_idx+"\" class=\"content_up\"></div>").text(comment);
+	          $("#"+prefix2+parent_index+prefix+div_idx).append(txt);	
+	          $("#content_"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","left":left_pos-document.getElementById("content_"+prefix2+parent_index+prefix+div_idx).offsetWidth/2,"top":top_pos+document.getElementById("arrow_"+prefix2+parent_index+prefix+div_idx).offsetHeight});      
+         
+	          break;
+	        
+	      }
+	      loop_index = loop_index + 1;
+	     
+	    //  $("#"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","left":left_pos,"top":top_pos,"border":"thin solid rgb(238,232,170)","background-color":"hsla(120,65%,75%,1)"});        
+        if(commentListIndex>=words_comment.length){ 
+       
+         
+         $("#new_comment"+comment_idx).fadeOut(6000,function(){is_locked = 0;if($("#new_comment"+comment_idx).length>0){$("#new_comment"+comment_idx).remove();}});
+     
+      
+      
+         return;
+        }
+      }
+    
+    
+      $("#new_comment"+comment_idx).fadeOut(6000,function(){is_locked = 1; if($("#new_comment"+comment_idx).length>0){$("#new_comment"+comment_idx).remove();} proceedComment(commentListIndex,comment_idx,parent_index,caodian_type)});
+     
+     }
+} 
+
+function showDetailComment(caodian_type,caodian_index){ //依次显示该槽点的吐槽，注意锁住
+	var commentListIndex  = 0;
+	var comment_index = 0;
+	if(is_focus==0)
+	   return;
+	is_locked = 1;
+	if($("#new_comment"+caodian_index).length>0)
+	{
+		 
+		$("#new_comment"+caodian_index).remove();
+	}
+	proceedComment(commentListIndex,comment_index,caodian_index,caodian_type);	
+}
+
+function insertCommentSpan(){ //页面入口
+ //var a=request.getParameter("a");
+ //alert(location.href);
+ var url_content = location.href.split('?');
+ var url_content_second = url_content[1].split('&');
+ var tid_content = url_content_second[0].split('=');
+ var tid = tid_content[1];
+ var token_content = url_content_second[1].split('=');
+ var token = token_content[1];
+ var uid_content = url_content_second[2].split('=');
+ var uid = uid_content[1];
+ //alert(tid+" "+token+" "+uid);
+ //c->sina: access_token+tid
+ //sina->c:tid+text
+ //c->s:"bubble/take",uid,token,start=0;count=50;condition:{uids:[uid],tids:[tid],time:{from:null;to:null},type:{words:[1],image:[1]},signal:0}
+  var method = "GET";
+  var url = "1/bubble/take";
+  var condition_str = "{uids:["+uid+"],"+"tids:["+tid+"],"+"time:{},"+"type:"+"{words:[1],image:[1]},signal:0}";
+  
+  var query = helper_make_query("uid", uid)
+      +helper_make_query("&token", token)
+      +helper_make_query("&start", 0)
+      +helper_make_query("&count",50)
+      +helper_make_query("&condition",condition_str)
+      ;
+   doRequest(method, url, query, getTweetsComment);
+}   
+ //s->c:bubbles[50]
+function getTweetsComment(results){ 
+// var results = "{\"Bubble\":[{\"tid\":\"3550724442923154\",\"bid\":\"1\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"4\",\"end_at\":\"5\",\"text\":\"好笑啊~\",\"user_data\":\"\"}],\"image\":[{\"type\":\"1\",\"vertical\":\"0.4\",\"horizontal\":\"0.5\",\"text\":\"好笑啊~\",\"user_data\":\"\"}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"2\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"8\",\"end_at\":\"9\",\"text\":\"好笑啊~\",\"user_data\":\"\"}],\"image\":[{\"type\":\"1\",\"vertical\":\"0.6\",\"horizontal\":\"0.7\",\"text\":\"好笑啊~\",\"user_data\":\"\"}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"3\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"1\",\"end_at\":\"2\",\"text\":\"好笑啊~\",\"user_data\":\"\"}],\"image\":[{\"type\":\"1\",\"vertical\":\"0.21\",\"horizontal\":\"0.35\",\"text\":\"好笑啊~\",\"user_data\":\"\"}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"4\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"4\",\"end_at\":\"5\",\"text\":\"好笑啊~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"5\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"13\",\"end_at\":\"14\",\"text\":\"好笑啊~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"6\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"7\",\"end_at\":\"8\",\"text\":\"好笑啊~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"7\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"4\",\"end_at\":\"5\",\"text\":\"好笑啊~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"8\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"8\",\"end_at\":\"9\",\"text\":\"好笑啊~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"9\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"1\",\"end_at\":\"2\",\"text\":\"好笑啊~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"10\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"4\",\"end_at\":\"5\",\"text\":\"好笑啊~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"11\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"13\",\"end_at\":\"14\",\"text\":\"好笑啊~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"12\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"7\",\"end_at\":\"8\",\"text\":\"好笑啊~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"13\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"4\",\"end_at\":\"5\",\"text\":\"好笑啊~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"14\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"8\",\"end_at\":\"9\",\"text\":\"好笑啊~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"4\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"15\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"1\",\"end_at\":\"2\",\"text\":\"好笑啊~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"16\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"4\",\"end_at\":\"5\",\"text\":\"好笑啊~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"17\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"13\",\"end_at\":\"14\",\"text\":\"好笑啊~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"18\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"7\",\"end_at\":\"8\",\"text\":\"好笑啊~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"19\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"4\",\"end_at\":\"5\",\"text\":\"好笑啊~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"20\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"8\",\"end_at\":\"9\",\"text\":\"好笑啊~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"21\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"1\",\"end_at\":\"2\",\"text\":\"好笑啊~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"22\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"4\",\"end_at\":\"5\",\"text\":\"好笑啊~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"23\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"13\",\"end_at\":\"14\",\"text\":\"好笑啊~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"24\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"7\",\"end_at\":\"8\",\"text\":\"好笑啊~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"25\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"4\",\"end_at\":\"5\",\"text\":\"好笑啊~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"26\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"8\",\"end_at\":\"9\",\"text\":\"好笑啊~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"27\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"1\",\"end_at\":\"2\",\"text\":\"好笑啊~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"28\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"4\",\"end_at\":\"5\",\"text\":\"好笑啊~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"29\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"13\",\"end_at\":\"14\",\"text\":\"好笑啊~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"30\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"7\",\"end_at\":\"8\",\"text\":\"好笑啊~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"31\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"4\",\"end_at\":\"5\",\"text\":\"好笑啊~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"32\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"8\",\"end_at\":\"9\",\"text\":\"好笑啊~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"33\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"1\",\"end_at\":\"2\",\"text\":\"好笑啊~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"34\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"4\",\"end_at\":\"5\",\"text\":\"好笑啊~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"35\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"13\",\"end_at\":\"14\",\"text\":\"好笑啊~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"36\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"7\",\"end_at\":\"8\",\"text\":\"好笑啊~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"}]}";
+ var tweets = "怒了！为什么这么多人这么不理解时态，其实英语时态就是这么回事！点大图！";
+ var img = "http://ww1.sinaimg.cn/bmiddle/635c14a5jw1e2986cgf4uj.jpg";
+ var new_tweets = "";
+ var i = 0;
+ var j = 0;
+ var k = 0;
+ var offset_index = 0;
+ var spanId = 1;
+ var word_span_list = new Array();
+ var img_span_list = new Array();
+ 
+ if(comment_mode == 1)
+   return;
+ comment_mode = 1;
+ $('#modify_mode').css("display","none");
+// if($('#comment_mode').length>0)
+//   $('#comment_mode').remove();
+ 
+// $('body').append("<div id=\"comment_mode\"><div id=\"comment_content\"><input type=\"radio\" name=\"choice\" value = \"focus\" checked=true onclick =\"this.checked==true?choice_mode(1):choice_mode(5);\">聚焦模式</input><input type=\"radio\" name=\"choice\" value = \"glance\" onclick =\"this.checked==true?choice_mode(2):choice_mode(6);\">浏览模式</input><input type=\"radio\" name=\"choice\" value = \"comment\" onclick =\"this.checked==true?choice_mode(3):choice_mode(7);\">评论模式</input><input type=\"radio\" name=\"choice\" value = \"slide\" onclick =\"this.checked==true?choice_mode(4):choice_mode(8);\">进度条模式</input></br><h>Tweet is:</h><div id=\"new_input_comment\" onmouseup = \"enterComment()\"><p style=\"padding-left: 10%\"></p></div></div><div id=\"comment_list\"><h>吐槽列表</h><table id=\"comment_table\"></table></div></div>");
+// $('#comment_content').append("<div id=\"rating_item\" class=\"example\"><div id=\"rating-21\"></div><div id=\"result-21\"></div><div class=\"clearfix\"></div></div>");
+ var obj = eval ("(" + results + ")");
+ 
+ words_comment = new Array();
+ img_comment = new Array();
+ var comment_total_num = 0;
+ for(i=0;i<=obj.Bubble.length-1;i++){
+ 		
+    var word_operation = obj.Bubble[i].content.words;
+   // alert(word_operation.length);
+    for(j=0;j<=word_operation.length-1;j++){
+      var word_start_offset = parseInt(word_operation[j].start_at);
+      var word_end_offset = parseInt(word_operation[j].end_at);
+     // alert(span_list[word_start_offset]);
+      if(word_span_list[word_start_offset]==undefined){
+        word_span_list[word_start_offset]=spanId;
+        //alert(span_list[word_start_offset]);
+        spanId = spanId + 1;
+      }
+      words_comment[comment_total_num]=word_operation[j].text+"\t"+word_span_list[word_start_offset]+"\t1";
+      comment_total_num = comment_total_num+1;
+    }      
+ }  
+
+ var comment_total_num = 0;
+ for(i=0;i<=obj.Bubble.length-1;i++){
+ 		
+    var word_operation = obj.Bubble[i].content.words;
+   // alert(word_operation.length);
+    for(j=0;j<=word_operation.length-1;j++){
+      var word_start_offset = parseInt(word_operation[j].start_at);
+      var word_end_offset = parseInt(word_operation[j].end_at);
+     // alert(span_list[word_start_offset]);
+      if(word_span_list[word_start_offset]==undefined){
+        word_span_list[word_start_offset]=spanId;
+        //alert(span_list[word_start_offset]);
+        spanId = spanId + 1;
+      }
+      words_comment[comment_total_num]=word_operation[j].text+"\t"+word_span_list[word_start_offset]+"\t1";
+      comment_total_num = comment_total_num+1;
+    }      
+ }  
+ 
+ var is_found = 0;
+ for(i=0;i<=tweets.length-1;i++){
+ 	  var span_index = i+1;
+ /*   is_found = 0;
+    for(j in word_span_list){    
+    	 if(j-1==i){   
+          new_tweets = new_tweets+"<span id="+word_span_list[j]+" onmouseover=\"mainfunction(1,"+word_span_list[j]+")\" onmouseout=\"mainoutfunction(1,"+word_span_list[j]+")\" onmouseup=\"showDetailComment(1,"+word_span_list[j]+")\">"+tweets[i]+"</span>";            
+          is_found = 1;
+          break;
+       }
+       
+    }
+    if(is_found == 1){
+      continue;
+    }*/
+    new_tweets = new_tweets+"<span id="+span_index+" onmouseover=\"mainfunction(1,"+span_index+")\" onmouseout=\"mainoutfunction(1,"+span_index+")\" onmouseup=\"showDetailComment(1,"+span_index+")\">"+tweets[i]+"</span>";            
+   // new_tweets = new_tweets+tweets[i]; 
+ }
+ $("p").append(new_tweets);  
+ $("p").append("<div id=\"text_end_position\"></div>");
+ loadEvent();
+ //img add
+ if(img!=''){
+ 	$("p").append("</br></br>");
+  var new_img = "<img id=\"img_start_position\" src=\""+img+"\"  z-index=\"0\">";
+  var frame_height = $('img').offsetHeight+$('')
+  $('#comment_content').css("height","")
+  $("p").append(new_img+" ");
+  $("p").append("<div id=\"img_end_position\"></div>");
+  
+  i = 0;
+//  spanId = 1;
+ 
+  for(i=0;i<=obj.Bubble.length-1;i++){
+ 		
+    var img_operation = obj.Bubble[i].content.image;
+  
+    if(img_operation[0].type==undefined)
+       continue;
+    for(j=0;j<=img_operation.length-1;j++){
+      var img_vertical_offset = parseFloat(img_operation[j].vertical);
+      var img_horizontal_offset = parseFloat(img_operation[j].horizontal);
+      
+      var img_span_index = img_vertical_offset+","+img_horizontal_offset;
+     // alert(img_span_index);
+     // alert(span_list[word_start_offset]);
+      is_found = 0;
+      for(k in img_span_list){
+         var pre_span_index = k;
+         var pre_span_index_content = pre_span_index.split(',');
+         var pre_span_vertical_offset = parseFloat(pre_span_index_content[0]);
+         var pre_span_horizontal_offset = parseFloat(pre_span_index_content[1]);
+         if(Math.abs(pre_span_vertical_offset-img_vertical_offset)<=0.02&&Math.abs(pre_span_horizontal_offset-img_horizontal_offset)<=0.02){
+           is_found = 1;
+           break;
+         }
+      }
+      if(is_found == 0){
+         img_span_list[img_span_index]=spanId;
+         spanId = spanId + 1;
+         words_comment[comment_total_num] = img_operation[j].text+'\t'+img_span_list[img_span_index]+"\t2";
+         comment_total_num = comment_total_num + 1;        
+         continue;
+      }     
+      words_comment[comment_total_num] = img_operation[j].text+'\t'+img_span_list[img_span_index]+"\t2";
+      comment_total_num = comment_total_num + 1;         
+      
+    }      
+  }  
+   
+   
+  $("p").append("<div id=\"new_img_span_position\"></div>");
+  for (i in img_span_list){
+  	var cur_img_index = i;
+  	var cur_img_index_content = i.split(',');
+  	var cur_img_vertical_offset = parseFloat(cur_img_index_content[0])*document.body.scrollWidth;
+  	var cur_img_horizontal_offset = parseFloat(cur_img_index_content[1])*document.body.scrollHeight;
+    var txt="<span id=img_"+img_span_list[i]+" onmouseover=\"mainfunction(2,"+img_span_list[i]+")\" onmouseout=\"mainoutfunction(2,"+img_span_list[i]+")\" onmouseup=\"showDetailComment(2,"+img_span_list[i]+")\">槽点</span>";    
+    $("#new_img_span_position").append(txt);
+    $("#img_"+img_span_list[i]).css({"position":"absolute","left":cur_img_vertical_offset,"top":cur_img_horizontal_offset,"border":"0","background-color":"hsla(120,65%,75%,0)"});        
+
+  }  
+  $('#comment_list').css("height",$("#comment_content").height);
+ }
+ showtable(words_comment); 
+}
+
+function insertModifySpan(){
+ return;	
+	
+ var url_content = location.href.split('?');
+ var url_content_second = url_content[1].split('&');
+ var tid_content = url_content_second[0].split('=');
+ var tid = tid_content[1];
+ var token_content = url_content_second[1].split('=');
+ var token = token_content[1];
+ var uid_content = url_content_second[2].split('=');
+ var uid = uid_content[1];
+ //alert(tid+" "+token+" "+uid);
+ //c->sina: access_token+tid
+ //sina->c:tid+text
+ //c->s:"bubble/take",uid,token,start=0;count=50;condition:{uids:[uid],tids:[tid],time:{from:null;to:null},type:{words:[2,3,4],image:[]},signal:0}
+ //s->c:bubbles[50]
+ var results = "{\"Bubble\":[{\"tid\":\"3550724442923154\",\"bid\":\"1\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"4\",\"end_at\":\"5\",\"text\":\"好笑啊~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"2\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"8\",\"end_at\":\"9\",\"text\":\"好笑啊~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"3\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"1\",\"end_at\":\"2\",\"text\":\"好笑啊~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"4\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"4\",\"end_at\":\"5\",\"text\":\"好笑啊~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"5\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"13\",\"end_at\":\"14\",\"text\":\"好笑啊~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"6\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"7\",\"end_at\":\"8\",\"text\":\"好笑啊~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"}]}";
+ var tweets = "怒了！为什么这么多人这么不理解时态，其实英语时态就是这么回事！点大图！";
+ var img = "http://ww1.sinaimg.cn/bmiddle/635c14a5jw1e2986cgf4uj.jpg";
+ var new_tweets = "";
+ var i = 0;
+ var j = 0;
+ var offset_index = 0;
+ var spanId = 1;
+ var img_spanId = 1;
+ var word_span_list = new Array();
+ var img_span_list = new Array();
+ 
+ if(modify_mode == 1)
+   return;
+ modify_mode = 1;
+ $('#comment_mode').css("display","none");
+// if($('#comment_mode').length>0)
+//   $('#comment_mode').remove();
+ 
+// $('body').append("<div id=\"comment_mode\"><div id=\"comment_content\"><input type=\"radio\" name=\"choice\" value = \"focus\" checked=true onclick =\"this.checked==true?choice_mode(1):choice_mode(5);\">聚焦模式</input><input type=\"radio\" name=\"choice\" value = \"glance\" onclick =\"this.checked==true?choice_mode(2):choice_mode(6);\">浏览模式</input><input type=\"radio\" name=\"choice\" value = \"comment\" onclick =\"this.checked==true?choice_mode(3):choice_mode(7);\">评论模式</input><input type=\"radio\" name=\"choice\" value = \"slide\" onclick =\"this.checked==true?choice_mode(4):choice_mode(8);\">进度条模式</input></br><h>Tweet is:</h><div id=\"new_input_comment\" onmouseup = \"enterComment()\"><p style=\"padding-left: 10%\"></p></div></div><div id=\"comment_list\"><h>吐槽列表</h><table id=\"comment_table\"></table></div></div>");
+// $('#comment_content').append("<div id=\"rating_item\" class=\"example\"><div id=\"rating-21\"></div><div id=\"result-21\"></div><div class=\"clearfix\"></div></div>");
+ var obj = eval ("(" + results + ")");
+ 
+ words_comment = new Array();
+ var comment_total_num = 0;
+ 
+ for(i=0;i<=obj.Bubble.length-1;i++){
+ 		
+    var word_operation = obj.Bubble[i].content.words;
+    var img_operation = obj.Bubble[i].content.image;
+   // alert(word_operation.length);
+    for(j=0;j<=word_operation.length-1;j++){
+      var word_start_offset = parseInt(word_operation[j].start_at);
+      var word_end_offset = parseInt(word_operation[j].end_at);
+     // alert(span_list[word_start_offset]);
+      if(word_span_list[word_start_offset]==undefined){
+        word_span_list[word_start_offset]=spanId;
+        //alert(span_list[word_start_offset]);
+        spanId = spanId + 1;
+      }
+      words_comment[comment_total_num]=word_operation[j].text+"\t"+word_span_list[word_start_offset]+"\t1";
+      comment_total_num = comment_total_num+1;
+    }  
+    for(j=0;j<=img_operation.length-1;j++){
+      var img_start_offset = parseFloat(img_operation[j].vertical);
+      var img_end_offset = parseFloat(img_operation[j].horizontal);
+     // alert(span_list[word_start_offset]);
+      var img_index = img_start_offset+'_'+img_end_offset;
+      if(img_span_list[img_index]==undefined){
+        img_span_list[img_index]=img_spanId;
+        //alert(span_list[word_start_offset]);
+        img_spanId = img_spanId + 1;
+      }
+      words_comment[comment_total_num]=img_operation[j].text+"\t"+img_span_list[img_index]+"\t2";
+      comment_total_num = comment_total_num+1;
+    }        
+ }  
+ showtable(words_comment); 
+ var is_found = 0;
+ for(i=0;i<=tweets.length-1;i++){
+    is_found = 0;
+    for(j in word_span_list){    
+    	 if(j-1==i){   
+          new_tweets = new_tweets+"<span id="+word_span_list[j]+" onmouseover=\"mainfunction("+word_span_list[j]+")\" onmouseout=\"mainoutfunction("+word_span_list[j]+")\" onmouseup=\"showDetailComment("+word_span_list[j]+")\">"+tweets[i]+"</span>";            
+          is_found = 1;
+          break;
+       }
+       
+    }
+    if(is_found == 1){
+      continue;
+    }
+    new_tweets = new_tweets+tweets[i]; 
+ }
+ $("p").append(new_tweets);  
+
+ //img add
+ if(img!=''){
+ 	$("p").append("</br></br>");
+  var new_img = "<img src=\""+img+"\"  z-index=\"0\">";
+  var frame_height = $('img').offsetHeight+$('')
+  $('#comment_content').css("height","")
+  loadEvent();
+  $("p").append(new_img+" ");
+  
+  i = 0;
+  spanId = 1;
+ 
+  for(i=0;i<=obj.Bubble.length-1;i++){
+ 		
+    var img_operation = obj.Bubble[i].content.image;
+  
+    if(img_operation.type==undefined)
+       continue;
+    for(j=0;j<=img_operation.length-1;j++){
+      var img_vertical_offset = parseFloat(img_operation[j].vertical);
+      var img_horizontal_offset = parseFloat(img_operation[j].horizontal);
+      
+      var img_span_index = img_vertical_offset+","+img_horizontal_offset;
+     // alert(img_span_index);
+     // alert(span_list[word_start_offset]);
+      is_found = 0;
+      for(j in img_span_list){
+         var pre_span_index = j;
+         var pre_span_index_content = pre_span_index.split(',');
+         var pre_span_vertical_offset = parseFloat(pre_span_index_content[0]);
+         var pre_span_horizontal_offset = parseFloat(pre_span_index_content[1]);
+         if(Math.abs(pre_span_vertical_offset-img_vertical_offset)<=0.02&&Math.abs(pre_span_horizontal_offset-img_horizontal_offset)<=0.02){
+           is_found = 1;
+           break;
+         }
+      }
+      if(is_found == 0){
+         img_span_list[img_span_index]=spanId;
+         spanId = spanId + 1;
+         continue;
+      }     
+       
+      
+    }      
+  }  
+   
+   
+  $("p").append("<div id=\"new_img_span_position\"></div>");
+  for (i in img_span_list){
+  	var cur_img_index = i;
+  	var cur_img_index_content = i.split(',');
+  	var cur_img_vertical_offset = parseFloat(cur_img_index_content[0])*100+"%";
+  	var cur_img_horizontal_offset = parseFloat(cur_img_index_content[1])*100+"%";
+  	alert(cur_img_vertical_offset+" "+cur_img_horizontal_offset);
+    var txt="<span id="+img_span_list[i]+" onmouseover=\"mainfunction("+img_span_list[i]+")\" onmouseout=\"mainoutfunction("+img_span_list[i]+")\" onmouseup=\"showDetailComment("+img_span_list[i]+")\">槽点</span>";    
+    $("#new_img_span_position").append(txt);
+    $("#"+img_span_list[i]).css({"position":"absolute","left":cur_img_vertical_offset,"top":cur_img_horizontal_offset,"border":"0","background-color":"hsla(120,65%,75%,0)"});        
+
+  }  
+  $('#comment_list').css("height",$("#comment_content").height);
+ }
+}
+
+function show_glance(comment_global_index){ //浏览模式入口
+      var s="";
+      var txt = "";
+      var prefix = "apDiv";
+      var loop_index = 0;
+      var i = 0;
+      var top_pos = "";
+      var left_pos = "";
+      var comment = "";
+      var fco;
+      var div_idx = 0;
+      var j = 0;
+      var caodian_index = 0;
+      var position = "";
+      var left_pos = 0;
+      var top_pos = 0; 
+      var pos_queue = new Array();
+      
+      if(is_choice == 1){//清零
+        return;
+      }
+      if($("#tempshow_part").length>0)
+		     $("#tempshow_part").remove();  
+      
+      $("p").append("<div id=\"new_comment_glance\"></div>");
+      //loop_index = 0;
+      //var x=$("#"+parent_index).offset();
+      var spanIndex = document.getElementsByTagName("span");
+      for(k=0;k<=spanIndex.length;k++){
+          pos_queue[k] = 0;
+      } 
+      for(i=0;i<=9;i++){
+      	
+        var content_list = words_comment[comment_global_index].split('\t')
+        comment_global_index = comment_global_index + 1;
+        if(comment_global_index>=words_comment.length){
+            $("#new_comment_glance").fadeOut(3000,function(){if($("#new_comment_glance").length>0){$("#new_comment_glance").remove();}});
+            comment_global_index = 0;
+            return;
+        }
+        for (j = 0;j<content_list.length;j++){
+          if(j == 0){
+            comment = content_list[j]
+          }
+          else if(j == 1){
+          	caodian_index = content_list[j] 
+          	pos_queue[caodian_index]++;
+          }
+          
+        }  
+        position = $("#"+caodian_index).offset();
+        div_idx = i;
+        
+        switch(pos_queue[parseInt(caodian_index)]){
+	        case 3://left_up
+	          top_pos = position.top-10;
+	          left_pos = position.left-40;
+            
+	          $("#new_comment_glance").append("<div id=\"comment_glance_"+prefix+div_idx+"\"></div>");	
+	          $("#comment_glance_"+prefix+div_idx).append("<div class=\"arrow\" id=\"arrow_"+prefix+div_idx+"\"><div class=\"dot_right_down1\"></div><div class=\"dot_right_down2\"></div></div>");
+	          $("#arrow_"+prefix+div_idx).css({"position":"absolute","left":left_pos,"top":top_pos});  
+	          txt=$("<div id=\"content_"+prefix+div_idx+"\" class=\"content_down\"></div>").text(comment);
+	          $("#comment_glance_"+prefix+div_idx).append(txt);	
+	          $("#content_"+prefix+div_idx).css({"position":"absolute","left":left_pos-document.getElementById("content_"+prefix+div_idx).offsetWidth/4*3,"top":top_pos-document.getElementById("content_"+prefix+div_idx).offsetHeight});      
+	          
+	          break;
+	        case 1://up
+	          top_pos = position.top-20;
+	          left_pos = position.left;	    
+
+	          $("#new_comment_glance").append("<div id=\"comment_glance_"+prefix+div_idx+"\"></div>");	
+	          $("#comment_glance_"+prefix+div_idx).append("<div class=\"arrow\" id=\"arrow_"+prefix+div_idx+"\"><div class=\"dot_down\"></div></div>");
+	          $("#arrow_"+prefix+div_idx).css({"position":"absolute","left":left_pos,"top":top_pos});  
+	          txt=$("<div id=\"content_"+prefix+div_idx+"\" class=\"content_down\"></div>").text(comment);
+	          $("#comment_glance_"+prefix+div_idx).append(txt);	
+	          $("#content_"+prefix+div_idx).css({"position":"absolute","left":left_pos-document.getElementById("content_"+prefix+div_idx).offsetWidth/2,"top":top_pos-document.getElementById("content_"+prefix+div_idx).offsetHeight});      	          
+	              
+	          break;
+	        case 4://right_up
+	          top_pos = position.top-10;
+	          left_pos = position.left+25;	        
+	          
+	          $("#new_comment_glance").append("<div id=\"comment_glance_"+prefix+div_idx+"\"></div>");	
+	          $("#comment_glance_"+prefix+div_idx).append("<div class=\"arrow\" id=\"arrow_"+prefix+div_idx+"\"><div class=\"dot_left_down1\"></div><div class=\"dot_left_down2\"></div></div>");
+	          $("#arrow_"+prefix+div_idx).css({"position":"absolute","left":left_pos,"top":top_pos});  
+	          txt=$("<div id=\"content_"+prefix+div_idx+"\" class=\"content_down\"></div>").text(comment);
+	          $("#comment_glance_"+prefix+div_idx).append(txt);	
+	          $("#content_"+prefix+div_idx).css({"position":"absolute","left":left_pos+document.getElementById("content_"+prefix+div_idx).offsetWidth/4,"top":top_pos-document.getElementById("content_"+prefix+div_idx).offsetHeight});      	          
+	          
+	          break;
+	        case 7://right
+	          top_pos = position.top;
+	          left_pos = position.left-5;	  
+	          
+	          $("#new_comment_glance").append("<div id=\"comment_glance_"+prefix+div_idx+"\"></div>");	
+	          $("#comment_glance_"+prefix+div_idx).append("<div class=\"arrow\" id=\"arrow_"+prefix+div_idx+"\"><div class=\"dot_left\"></div></div>");
+	          $("#arrow_"+prefix+div_idx).css({"position":"absolute","left":left_pos,"top":top_pos});  
+	          txt=$("<div id=\"content_"+prefix+div_idx+"\" class=\"content_left\"></div>").text(comment);
+	          $("#comment_glance_"+prefix+div_idx).append(txt);	
+	          $("#content_"+prefix+div_idx).css({"position":"absolute","width":"80px","left":left_pos+document.getElementById("arrow_"+prefix+div_idx).offsetWidth,"top":top_pos-document.getElementById("arrow_"+prefix+div_idx).offsetHeight/4});      	          
+	                
+	          break;
+	        case 5://right_down
+	          top_pos = position.top+10;
+	          left_pos = position.left+25;	        
+
+	          $("#new_comment_glance").append("<div id=\"comment_glance_"+prefix+div_idx+"\"></div>");	
+	          $("#comment_glance_"+prefix+div_idx).append("<div class=\"arrow\" id=\"arrow_"+prefix+div_idx+"\"><div class=\"dot_left_up1\"></div><div class=\"dot_left_up2\"></div></div>");
+	          $("#arrow_"+prefix+div_idx).css({"position":"absolute","left":left_pos,"top":top_pos});  
+	          txt=$("<div id=\"content_"+prefix+div_idx+"\" class=\"content_down\"></div>").text(comment);
+	          $("#comment_glance_"+prefix+div_idx).append(txt);	
+	          $("#content_"+prefix+div_idx).css({"position":"absolute","left":left_pos+document.getElementById("content_"+prefix+div_idx).offsetWidth/4,"top":top_pos+document.getElementById("arrow_"+prefix+div_idx).offsetHeight});      	          
+	          
+	          break;
+	        case 2://down
+	          top_pos = position.top+5;
+	          left_pos = position.left;	  
+	           
+	          $("#new_comment_glance").append("<div id=\"comment_glance_"+prefix+div_idx+"\"></div>");	
+	          $("#comment_glance_"+prefix+div_idx).append("<div class=\"arrow\" id=\"arrow_"+prefix+div_idx+"\"><div class=\"dot_up\"></div></div>");
+	          $("#arrow_"+prefix+div_idx).css({"position":"absolute","left":left_pos,"top":top_pos});  
+	          txt=$("<div id=\"content_"+prefix+div_idx+"\" class=\"content_up\"></div>").text(comment);
+	          $("#comment_glance_"+prefix+div_idx).append(txt);	
+	          $("#content_"+prefix+div_idx).css({"position":"absolute","left":left_pos-document.getElementById("content_"+prefix+div_idx).offsetWidth/2,"top":top_pos+document.getElementById("arrow_"+prefix+div_idx).offsetHeight});      	          
+	                
+	          break;
+	        case 6://left_down
+	          top_pos = position.top+10;
+	          left_pos = position.left-40;	 
+	          
+	          $("#new_comment_glance").append("<div id=\"comment_glance_"+prefix+div_idx+"\"></div>");	
+	          $("#comment_glance_"+prefix+div_idx).append("<div class=\"arrow\" id=\"arrow_"+prefix+div_idx+"\"><div class=\"dot_right_up1\"></div><div class=\"dot_right_up2\"></div></div>");
+	          $("#arrow_"+prefix+div_idx).css({"position":"absolute","left":left_pos,"top":top_pos});  
+	          txt=$("<div id=\"content_"+prefix+div_idx+"\" class=\"content_up\"></div>").text(comment);
+	          $("#comment_glance_"+prefix+div_idx).append(txt);	
+	          $("#content_"+prefix+div_idx).css({"position":"absolute","left":left_pos-document.getElementById("content_"+prefix+div_idx).offsetWidth/4*3,"top":top_pos+document.getElementById("arrow_"+prefix+div_idx).offsetHeight});      
+	          
+	                 
+	          break;
+	        case 8://left
+	          top_pos = position.top;
+	          left_pos = position.left-25;	 
+	          
+	          $("#new_comment_glance").append("<div id=\"comment_glance_"+prefix+div_idx+"\"></div>");	
+	          $("#comment_glance_"+prefix+div_idx).append("<div class=\"arrow\" id=\"arrow_"+prefix+div_idx+"\"><div class=\"dot_right\"></div></div>");
+	          $("#arrow_"+prefix+div_idx).css({"position":"absolute","left":left_pos,"top":top_pos});  
+	          txt=$("<div id=\"content_"+prefix+div_idx+"\" class=\"content_right\"></div>").text(comment);
+	          $("#comment_glance_"+prefix+div_idx).append(txt);	
+	          $("#content_"+prefix+div_idx).css({"position":"absolute","width":"80px","left":left_pos-document.getElementById("content_"+prefix+div_idx).offsetWidth,"top":top_pos-document.getElementById("arrow_"+prefix+div_idx).offsetHeight/4});      	          
+	                 
+	          break;
+        }
+        
+	    //  txt=$("<div id=\"glance_"+prefix+div_idx+"\"></div>").text(comment);
+	    //  $("#new_comment_glance").append(txt);
+ 	    //  $("#glance_"+prefix+div_idx).css({"position":"absolute","left":left_pos,"top":top_pos,"border":"thin solid rgb(238,232,170)","background-color":"hsla(120,65%,75%,1)"});        
+             
+      }
+      $("#new_comment_glance").fadeOut(3000,function(){if($("#new_comment_glance").length>0){$("#new_comment_glance").remove();} show_glance(comment_global_index)});
+	  
+}
+
+function show_page(page_num){
+      var s="";
+      var txt = "";
+      var prefix = "apDiv";
+      var loop_index = 0;
+      var i = 0;
+      var top_pos = "";
+      var left_pos = "";
+      var comment = "";
+      var fco;
+      var div_idx = 0;
+      var j = 0;
+      var caodian_index = 0;
+      var position = "";
+      var left_pos = 0;
+      var top_pos = 0; 
+      var comment_page_index = 0;
+      var pos_queue = new Array();
+      var k = 0;
+      
+      if(is_choice == 1){//清零
+        return;
+      }
+      if($("#tempshow_part").length>0)
+		     $("#tempshow_part").remove();  
+      if($("#new_page_glance").length>0)
+		     $("#new_page_glance").remove();       
+      $("p").append("<div id=\"new_page_glance\"></div>");
+      //loop_index = 0;
+      //var x=$("#"+parent_index).offset();
+      var spanIndex = document.getElementsByTagName("span");
+      for(k=0;k<=spanIndex.length;k++){
+          pos_queue[k] = 0;
+      }     
+      for(i=0;i<=19;i++){
+
+      	comment_page_index = (page_num-1)*20+i;
+      	if(comment_page_index>=words_comment.length)
+      	  break;
+        var content_list = words_comment[comment_page_index].split('\t')
+        
+         
+        for (j = 0;j<content_list.length;j++){
+          if(j == 0){
+            comment = content_list[j];
+          }
+          else if(j == 1){
+          	caodian_index = content_list[j];
+          	pos_queue[parseInt(caodian_index)]++;
+          	
+          }
+          
+        }  
+        position = $("#"+caodian_index).offset();
+        div_idx = i;
+        switch(pos_queue[parseInt(caodian_index)]){
+	        case 3://left_up
+	          top_pos = position.top-10;
+	          left_pos = position.left-40;
+            
+	          $("#new_page_glance").append("<div id=\"page_glance_"+prefix+div_idx+"\"></div>");	
+	          $("#page_glance_"+prefix+div_idx).append("<div class=\"arrow\" id=\"arrow_"+prefix+div_idx+"\"><div class=\"dot_right_down1\"></div><div class=\"dot_right_down2\"></div></div>");
+	          $("#arrow_"+prefix+div_idx).css({"position":"absolute","left":left_pos,"top":top_pos});  
+	          txt=$("<div id=\"content_"+prefix+div_idx+"\" class=\"content_down\"></div>").text(comment);
+	          $("#page_glance_"+prefix+div_idx).append(txt);	
+	          $("#content_"+prefix+div_idx).css({"position":"absolute","left":left_pos-document.getElementById("content_"+prefix+div_idx).offsetWidth/4*3,"top":top_pos-document.getElementById("content_"+prefix+div_idx).offsetHeight});      
+	          
+	          break;
+	        case 1://up
+	          top_pos = position.top-20;
+	          left_pos = position.left;	    
+
+	          $("#new_page_glance").append("<div id=\"page_glance_"+prefix+div_idx+"\"></div>");	
+	          $("#page_glance_"+prefix+div_idx).append("<div class=\"arrow\" id=\"arrow_"+prefix+div_idx+"\"><div class=\"dot_down\"></div></div>");
+	          $("#arrow_"+prefix+div_idx).css({"position":"absolute","left":left_pos,"top":top_pos});  
+	          txt=$("<div id=\"content_"+prefix+div_idx+"\" class=\"content_down\"></div>").text(comment);
+	          $("#page_glance_"+prefix+div_idx).append(txt);	
+	          $("#content_"+prefix+div_idx).css({"position":"absolute","left":left_pos-document.getElementById("content_"+prefix+div_idx).offsetWidth/2,"top":top_pos-document.getElementById("content_"+prefix+div_idx).offsetHeight});      	          
+	              
+	          break;
+	        case 4://right_up
+	          top_pos = position.top-10;
+	          left_pos = position.left+25;	        
+	          
+	          $("#new_page_glance").append("<div id=\"page_glance_"+prefix+div_idx+"\"></div>");	
+	          $("#page_glance_"+prefix+div_idx).append("<div class=\"arrow\" id=\"arrow_"+prefix+div_idx+"\"><div class=\"dot_left_down1\"></div><div class=\"dot_left_down2\"></div></div>");
+	          $("#arrow_"+prefix+div_idx).css({"position":"absolute","left":left_pos,"top":top_pos});  
+	          txt=$("<div id=\"content_"+prefix+div_idx+"\" class=\"content_down\"></div>").text(comment);
+	          $("#page_glance_"+prefix+div_idx).append(txt);	
+	          $("#content_"+prefix+div_idx).css({"position":"absolute","left":left_pos+document.getElementById("content_"+prefix+div_idx).offsetWidth/4,"top":top_pos-document.getElementById("content_"+prefix+div_idx).offsetHeight});      	          
+	          
+	          break;
+	        case 7://right
+	          top_pos = position.top;
+	          left_pos = position.left-5;	  
+	          
+	          $("#new_page_glance").append("<div id=\"page_glance_"+prefix+div_idx+"\"></div>");	
+	          $("#page_glance_"+prefix+div_idx).append("<div class=\"arrow\" id=\"arrow_"+prefix+div_idx+"\"><div class=\"dot_left\"></div></div>");
+	          $("#arrow_"+prefix+div_idx).css({"position":"absolute","left":left_pos,"top":top_pos});  
+	          txt=$("<div id=\"content_"+prefix+div_idx+"\" class=\"content_left\"></div>").text(comment);
+	          $("#page_glance_"+prefix+div_idx).append(txt);	
+	          $("#content_"+prefix+div_idx).css({"position":"absolute","width":"80px","left":left_pos+document.getElementById("arrow_"+prefix+div_idx).offsetWidth,"top":top_pos-document.getElementById("arrow_"+prefix+div_idx).offsetHeight/4});      	          
+	                
+	          break;
+	        case 5://right_down
+	          top_pos = position.top+10;
+	          left_pos = position.left+25;	        
+
+	          $("#new_page_glance").append("<div id=\"page_glance_"+prefix+div_idx+"\"></div>");	
+	          $("#page_glance_"+prefix+div_idx).append("<div class=\"arrow\" id=\"arrow_"+prefix+div_idx+"\"><div class=\"dot_left_up1\"></div><div class=\"dot_left_up2\"></div></div>");
+	          $("#arrow_"+prefix+div_idx).css({"position":"absolute","left":left_pos,"top":top_pos});  
+	          txt=$("<div id=\"content_"+prefix+div_idx+"\" class=\"content_down\"></div>").text(comment);
+	          $("#page_glance_"+prefix+div_idx).append(txt);	
+	          $("#content_"+prefix+div_idx).css({"position":"absolute","left":left_pos+document.getElementById("content_"+prefix+div_idx).offsetWidth/4,"top":top_pos+document.getElementById("arrow_"+prefix+div_idx).offsetHeight});      	          
+	          
+	          break;
+	        case 2://down
+	          top_pos = position.top+5;
+	          left_pos = position.left;	  
+	           
+	          $("#new_page_glance").append("<div id=\"page_glance_"+prefix+div_idx+"\"></div>");	
+	          $("#page_glance_"+prefix+div_idx).append("<div class=\"arrow\" id=\"arrow_"+prefix+div_idx+"\"><div class=\"dot_up\"></div></div>");
+	          $("#arrow_"+prefix+div_idx).css({"position":"absolute","left":left_pos,"top":top_pos});  
+	          txt=$("<div id=\"content_"+prefix+div_idx+"\" class=\"content_up\"></div>").text(comment);
+	          $("#page_glance_"+prefix+div_idx).append(txt);	
+	          $("#content_"+prefix+div_idx).css({"position":"absolute","left":left_pos-document.getElementById("content_"+prefix+div_idx).offsetWidth/2,"top":top_pos+document.getElementById("arrow_"+prefix+div_idx).offsetHeight});      	          
+	                
+	          break;
+	        case 6://left_down
+	          top_pos = position.top+10;
+	          left_pos = position.left-40;	 
+	          
+	          $("#new_page_glance").append("<div id=\"page_glance_"+prefix+div_idx+"\"></div>");	
+	          $("#page_glance_"+prefix+div_idx).append("<div class=\"arrow\" id=\"arrow_"+prefix+div_idx+"\"><div class=\"dot_right_up1\"></div><div class=\"dot_right_up2\"></div></div>");
+	          $("#arrow_"+prefix+div_idx).css({"position":"absolute","left":left_pos,"top":top_pos});  
+	          txt=$("<div id=\"content_"+prefix+div_idx+"\" class=\"content_up\"></div>").text(comment);
+	          $("#page_glance_"+prefix+div_idx).append(txt);	
+	          $("#content_"+prefix+div_idx).css({"position":"absolute","left":left_pos-document.getElementById("content_"+prefix+div_idx).offsetWidth/4*3,"top":top_pos+document.getElementById("arrow_"+prefix+div_idx).offsetHeight});      
+	          
+	                 
+	          break;
+	        case 8://left
+	          top_pos = position.top;
+	          left_pos = position.left-25;	 
+	          
+	          $("#new_page_glance").append("<div id=\"page_glance_"+prefix+div_idx+"\"></div>");	
+	          $("#page_glance_"+prefix+div_idx).append("<div class=\"arrow\" id=\"arrow_"+prefix+div_idx+"\"><div class=\"dot_right\"></div></div>");
+	          $("#arrow_"+prefix+div_idx).css({"position":"absolute","left":left_pos,"top":top_pos});  
+	          txt=$("<div id=\"content_"+prefix+div_idx+"\" class=\"content_right\"></div>").text(comment);
+	          $("#page_glance_"+prefix+div_idx).append(txt);	
+	          $("#content_"+prefix+div_idx).css({"position":"absolute","width":"80px","left":left_pos-document.getElementById("content_"+prefix+div_idx).offsetWidth,"top":top_pos-document.getElementById("arrow_"+prefix+div_idx).offsetHeight/4});      	          
+	                 
+	          break;
+        }
+         
+	    //  txt=$("<div id=\"page_glance_"+prefix+div_idx+"\"></div>").text(comment);
+	    //  $("#new_page_glance").append(txt);
+ 	    //  $("#page_glance_"+prefix+div_idx).css({"position":"absolute","left":left_pos,"top":top_pos,"border":"thin solid rgb(238,232,170)","background-color":"hsla(120,65%,75%,1)"});        
+             
+      }
+      
+}
+
+
+function getSelectedText(ev) {
+	var i = 0;
+	var is_span = 0;
+	var content = "";
+	var j = 0;
+	var curStart = 0;
+	var curEnd = 0;
+	var preIndex = 0;
+	var curId = 0;
+	var test_position = "";
+	var check_position = "";
+	var new_span_id = totalSpanNum + 1; 
+	var is_choose_tag = 0;
+	var curSpanPos = "";
+	if (window.getSelection) {
+	/*		var selection_range = window.getSelection();
+			var range = selection_range.getRangeAt(0);
+		  
+ 		 //有两种可能，一种是选在文字上了，一种是选在标签上了，注意区分
+		  if(range.startContainer.length > range.startOffset){
+		 		 range.setEnd(range.startContainer,range.startOffset+1);
+		 	   is_choose_tag = 0;
+		 	}
+		 	else{//选中标签了，可以不处理，但要知道是选中哪个标签了
+		 		 is_choose_tag = 1;
+		 		 var dt = document.createElement("span");
+		 		 dt.id = new_span_id;
+		     alert(range.startOffset);
+		     range.insertNode(dt);
+		     $("#"+new_span_id).text(" ");
+		 		 
+		 		 test_position = $("#"+new_span_id).offset();
+		 		 $("#"+new_span_id).remove();
+		 	 
+		 		 var oriSpanIndex = document.getElementsByTagName("span"); 
+		 		 for(j = 0;j<=oriSpanIndex.length-1;j++){
+			 
+			    check_position = $("#"+oriSpanIndex[j].id).offset(); 
+			  	if(test_position.left == check_position.left && test_position.top == check_position.top && oriSpanIndex[j].id != dt.id){
+		  	  
+		  	  	curId = oriSpanIndex[j].id;
+		  	  	curStart = offset_start_list[oriSpanIndex[j].id-1];
+		  	  	curEnd = offset_end_list[oriSpanIndex[j].id-1];
+		  	//  	alert("wdwd"+curStart);
+		  	  	curSpanPos = $("#"+oriSpanIndex[j].id).offset();
+		  	 
+		    	}		 		   
+		 		 }
+		 		 //单独处理
+		 		 
+		  }
+		  if(is_choose_tag == 0){
+		  	var dt = document.createElement("span");
+		    var frag = range.extractContents();
+		 
+		    dt.appendChild(frag);
+			  range.insertNode(dt);
+	 
+		  	dt.id=new_span_id;
+			  dt.setAttribute("onmouseup", "showDetailComment("+new_span_id+")"); 
+		    dt.setAttribute("onmouseout", "mainoutfunction("+new_span_id+")");
+		    dt.setAttribute("onmouseover", "mainfunction("+new_span_id+")");
+			  curSpanPos = $("#"+new_span_id).offset();
+		  
+			  var spanIndex = document.getElementsByTagName("span");
+			  for(j = 0;j<=spanIndex.length-1;j++){
+				  if(spanIndex[j].id == dt.id){
+		 
+					  break;
+				  }
+			  }
+			  if(j>0){
+			    preIndex = spanIndex[j-1].id;
+			    curStart = offset_end_list[preIndex-1]+range.startOffset;
+			    curEnd = offset_end_list[preIndex-1]+range.startOffset;
+		      
+			  }
+			  else{
+			    curStart = range.startOffset;
+			    curEnd = range.startOffset;//curStart,curEnd是字偏移
+			 
+			  }
+		//    alert("wd"+curStart);
+		   if(j==0){ //比较后一个span的坐标
+			  test_position = $("#"+dt.id).offset();
+			  check_position = $("#"+spanIndex[j+1].id).offset();
+			  if(test_position.left == check_position.left && test_position.top == check_position.top){
+		  	
+		  	  curId = spanIndex[j+1].id;
+		  	  curStart = offset_start_list[spanIndex[j+1].id-1];
+		  	  var remove_txt = $("#"+spanIndex[j+1].id).text();
+		  	  //alert(remove_txt);
+		  	  $("#"+new_span_id).remove();
+		  	  $("#"+curId).text(remove_txt);
+		  	
+		    }
+		    else{
+			    offset_start_list[totalSpanNum] = curStart;
+			    offset_end_list[totalSpanNum] = curStart+1;
+			    curId = new_span_id;    
+			    totalSpanNum = totalSpanNum + 1;		    
+		    }
+		   }
+		   else if(j>0 && j<spanIndex.length-1){//比较前后两个span的坐标
+			  test_position = $("#"+dt.id).offset();
+			  check_position = $("#"+spanIndex[j-1].id).offset();
+			  if(test_position.left == check_position.left && test_position.top == check_position.top){
+		  	
+		  	  curId = spanIndex[j-1].id;
+		  	  curStart = offset_start_list[spanIndex[j-1].id-1];
+		  	  var remove_txt = $("#"+spanIndex[j-1].id).text();
+		  	 // alert(remove_txt);
+		  	  $("#"+new_span_id).remove();
+		  	  $("#"+curId).text(remove_txt);
+		    }
+		    else{
+		  	  check_position = $("#"+spanIndex[j+1].id).offset();
+			    if(test_position.left == check_position.left && test_position.top == check_position.top){
+		  	  
+		  	    curId = spanIndex[j+1].id;
+		  	    curStart = offset_start_list[spanIndex[j+1].id-1];
+		  	    var remove_txt = $("#"+spanIndex[j+1].id).text();
+		  	   // alert(remove_txt);
+		  	    $("#"+new_span_id).remove();
+		  	    $("#"+curId).text(remove_txt);
+		      }
+		      else{
+			      offset_start_list[totalSpanNum] = curStart;
+			      offset_end_list[totalSpanNum] = curStart+1;
+			      curId = new_span_id;    
+			      totalSpanNum = totalSpanNum + 1;		    
+		      }
+		    }	
+		
+		
+		   }
+		   else if(j==spanIndex.length-1){//比较前一个span坐标
+			  test_position = $("#"+dt.id).offset();
+		  	check_position = $("#"+spanIndex[j-1].id).offset();
+			  if(test_position.left == check_position.left && test_position.top == check_position.top){
+		  	  
+		  	  curId = spanIndex[j-1].id;
+		  	  curStart = offset_start_list[spanIndex[j-1].id-1];
+		  	  var remove_txt = $("#"+spanIndex[j-1].id).text();
+		  	   
+		  	  $("#"+new_span_id).remove();
+		  	  $("#"+curId).text(remove_txt);
+		    }
+		    else{
+			    offset_start_list[totalSpanNum] = curStart;
+			    offset_end_list[totalSpanNum] = curStart+1;
+			    curId = new_span_id;    
+			    totalSpanNum = totalSpanNum + 1;		    
+		    }		
+		
+		   }
+		  }
+	  $("body").append("<div id=\"inputComment\">enter your comment:<input type=\"text\" id=\"user_comment\" style=\"border:0\"/><input type=\"button\" value = \"OK\" onclick=\"getComment("+curStart+","+curId+","+curSpanPos.left+","+curSpanPos.top+",1)\" /></div>");				
+	  $("#inputComment").css({"position":"absolute","width": "180px","height":"45px","left":curSpanPos.left,"top":curSpanPos.top-80,"border":0,"background":"url('image/hover.png')"});        
+		*/
+			var curPosLeft = ev.pageX/document.body.scrollWidth;
+	    var curPosTop = ev.pageY/document.body.scrollHeight;
+			var spanIndex = document.getElementsByTagName("span");
+		  //var is_found = 0;
+			for(j = 0;j<=spanIndex.length-2;j++){
+				 var pre_span_pos = spanIndex[j].offset();
+				 var pro_span_pos = spanIndex[j+1].offset();
+				 if(curPosLeft>=pre_span_pos.left/document.body.scrollWidth&&curPosLeft<=pro_span_pos.left/document.body.scrollWidth&&curPosTop==pre_span_pos.top/document.body.scrollHeight){
+				   curId = spanIndex[j].id;
+				  // is_found = 1;
+				   curStart = j+1;
+	  			 $("body").append("<div id=\"inputComment\">enter your comment:<input type=\"text\" id=\"user_comment\" style=\"border:0\"/><input type=\"button\" value = \"OK\" onclick=\"getComment("+curStart+","+curId+","+pre_span_pos.left+","+pre_span_pos.top+",1)\" /></div>");				
+	  			 $("#inputComment").css({"position":"absolute","width": "180px","height":"45px","left":pre_span_pos.left,"top":pre_span_pos.top-80,"border":0,"background":"url('image/hover.png')"});        
+				   
+				   break;
+				 }  
+				 else if(curPosLeft>=pre_span_pos.left/document.body.scrollWidth&&curPosTop<=pro_span_pos.top/document.body.scrollHeight&&curPosTop==pre_span_pos.top/document.body.scrollHeight){
+				   curId = spanIndex[j].id;
+				  // is_found = 1;
+				   curStart = j+1;
+	  			 $("body").append("<div id=\"inputComment\">enter your comment:<input type=\"text\" id=\"user_comment\" style=\"border:0\"/><input type=\"button\" value = \"OK\" onclick=\"getComment("+curStart+","+curId+","+pre_span_pos.left+","+pre_span_pos.top+",1)\" /></div>");				
+	  			 $("#inputComment").css({"position":"absolute","width": "180px","height":"45px","left":pre_span_pos.left,"top":pre_span_pos.top-80,"border":0,"background":"url('image/hover.png')"});        
+				   
+				   break;				
+				 }
+			}
+			if(curPosLeft>=spanIndex[spanIndex.length-1].offset().left/document.body.scrollWidth&&curPosLeft<=$("#text_end_position").offset().left/document.body.scrollWidth&&curPosTop==spanIndex[spanIndex.length-1].offset().top/document.body.scrollHeight){
+				   curId = spanIndex[spanIndex.length-1].id;
+				  // is_found = 1;
+				   curStart = spanIndex.length;
+	  			 $("body").append("<div id=\"inputComment\">enter your comment:<input type=\"text\" id=\"user_comment\" style=\"border:0\"/><input type=\"button\" value = \"OK\" onclick=\"getComment("+curStart+","+curId+","+spanIndex[spanIndex.length-1].offset().left+","+spanIndex[spanIndex.length-1].offset().top+",1)\" /></div>");				
+	  			 $("#inputComment").css({"position":"absolute","width": "180px","height":"45px","left":spanIndex[spanIndex.length-1].offset().left,"top":spanIndex[spanIndex.length-1].offset().top-80,"border":0,"background":"url('image/hover.png')"});        
+			  
+			}	    
+	    
+	}
+	else if (document.getSelection) {
+			alert("document.getSelection");
+	  
+	}
+	else if (document.selection) {
+		  alert("document.selection");
+
+	}
+}
+
+function getSpanPosition(){
+  var SpanIndex = 0;
+  var i = 0;
+  totalSpanNum = 0;
+  while(1){
+  	SpanIndex = SpanIndex + 1;
+  	if($("#"+SpanIndex).length == 0)
+      break;
+    else{
+    	
+    	var val = $("#"+SpanIndex).offset();
+     
+      totalSpanNum = totalSpanNum + 1;
+    }  
+  }
+   
+}
+
+
+function getSelectedImg(ev) {
+	var i = 0;
+	var is_span = 0;
+	var content = "";
+	var j = 0;
+	var curStart = 0;
+	var curEnd = 0;
+	var preIndex = 0;
+	var curId = 0;
+	var test_position = "";
+	var check_position = "";
+	var new_span_id = totalSpanNum + 1; 
+	var is_close_span = 0;
+	var curPosLeft = 0.0;
+	var curPosRight = 0.0;
+	var new_span_id = 0;
+	var new_span_left = 0.0;
+	var new_span_top = 0.0;
+	curPosLeft = ev.pageX/document.body.scrollWidth;
+	curPosTop = ev.pageY/document.body.scrollHeight;
+	var oriSpanIndex = document.getElementsByTagName("span");
+	for(i=0;i<=oriSpanIndex.length-1;i++){
+	  check_position = $("#"+oriSpanIndex[i].id).offset();
+	  if(Math.abs(check_position.left/document.body.scrollWidth-curPosLeft)<=0.02 && Math.abs(check_position.top/document.body.scrollHeight-curPosTop)<=0.02){
+	  	is_close_span = 1;
+	  	break;
+	  }
+	}
+	if(is_close_span == 1){
+	  new_span_id = oriSpanIndex[i].id;
+	  new_span_left = check_position.left/document.body.scrollWidth;
+	  new_span_top = check_position.top/document.body.scrollHeight;
+	}
+	else{
+		new_span_id = oriSpanIndex.length+1;
+		new_span_left = curPosLeft;
+		new_span_top = curPosTop;
+    var txt="<span id="+new_span_id+" onmouseover=\"mainfunction("+new_span_id+")\" onmouseout=\"mainoutfunction("+new_span_id+")\" onmouseup=\"showDetailComment("+new_span_id+")\">槽点</span>";    
+    $("#new_img_span_position").append(txt);
+    
+    $("#"+new_span_id).css({"position":"absolute","left":new_span_left*document.body.scrollWidth,"top":new_span_top*document.body.scrollHeight,"border":"0","background-color":"hsla(120,65%,75%,0)"});        
+	  offset_start_list[oriSpanIndex.length]=new_span_left;
+	  offset_end_list[oriSpanIndex.length]=new_span_top;    
+	}
+	
+	//alert("wd");
+	//alert(ev.pageX/document.body.scrollWidth+" "+ev.pageY/document.body.scrollHeight);
+	 $("body").append("<div id=\"inputComment\">enter your comment:<input type=\"text\" id=\"user_comment\" style=\"border:0\"/><input type=\"button\" value = \"OK\" onclick=\"getComment(0,"+new_span_id+","+new_span_left+","+new_span_top+",2)\" /></div>");				
+	 $("#inputComment").css({"position":"absolute","width": "180px","height":"45px","left":new_span_left*document.body.scrollWidth,"top":new_span_top*document.body.scrollHeight,"border":0,"background":"url('image/hover.png')"});        
+	
+	//getComment(0,new_span_id,new_span_left,new_span_top);
+}
+
+function enterComment(ev) { //评论模式入口
+	if(is_comment == 0)
+	  return;
+	var curPosLeft = ev.pageX;
+	var curPosTop = ev.pageY;	  
+	//判断鼠标位置是处于文字部分还是图片部分
+	alert(curPosLeft+" "+curPosTop);
+  var text_start_pos = $("#text_start_position").offset();
+  var text_end_pos = $("#text_end_position").offset();
+  
+  if ($("#img_start_position").length==0)
+		getSelectedText();
+	else{
+  	var img_start_pos = $("#img_start_position").offset();
+  	var img_end_pos = $("#img_end_position").offset();		
+    if(curPosTop>=text_start_pos.top&&curPosTop<=text_end_pos.top&&curPosLeft>=text_end_pos.left){
+    	getSelectedText();
+    }
+    else if(curPosTop>=img_start_pos.top&&curPosTop<=img_end_pos.top&&curPosLeft>=img_end_pos.left){
+  	//alert(text_start_pos.left+" "+text_start_pos.top+" "+text_end_pos.left+" "+text_end_pos.top+" "+img_start_pos.left+" "+img_start_pos.top+" "+img_end_pos.left+" "+img_end_pos.top);
+	    getSelectedImg(ev);
+	  }
+	}
+	 
+}
+
+function getComment(curStart,curId,left_pos,top_pos,caodian_type){
+	var temp_pos = curStart + 1;
+	input_comment_num = input_comment_num + 1;
+  var content=document.getElementById("user_comment").value;
+  if(content==""||content==" "){
+    alert("评论内容不能为空！");
+    return;
+  }  
+//  alert(curStart); 
+	$("#inputComment").remove();
+	if($("#tempshow_part").length==0)
+	  $("p").append("<div id=\"tempshow_part\"></div>");
+//	var txt=$("<div id=\"tempshow_"+input_comment_num+"\"></div>").text(content);
+//	$("#tempshow_part").append(txt);
+// 	$("#tempshow_"+input_comment_num).css({"position":"absolute","left":left_pos,"top":top_pos-40,"border":"thin solid rgb(238,232,170)","background-color":"hsla(120,65%,75%,1)"});        
+  if(caodian_type == 1){
+	  $("#tempshow_part").append("<div id=\"tempshow_item_"+input_comment_num+"\"></div>");	
+	  $("#tempshow_item_"+input_comment_num).append("<div class=\"arrow\" id=\"tempshow_arrow_"+input_comment_num+"\"><div class=\"dot_down\"></div></div>");
+	  $("#tempshow_arrow_"+input_comment_num).css({"position":"absolute","left":left_pos,"top":top_pos-25});  
+	  var txt=$("<div id=\"tempshow_content_"+input_comment_num+"\" class=\"content_down\"></div>").text(content);
+	  $("#tempshow_item_"+input_comment_num).append(txt);	
+	  $("#tempshow_content_"+input_comment_num).css({"position":"absolute","left":left_pos-document.getElementById("tempshow_content_"+input_comment_num).offsetWidth/2,"top":top_pos-25-document.getElementById("tempshow_content_"+input_comment_num).offsetHeight});      	          
+  //input2：uid,tid,date,type:word,words:content,start:curStart,end:curStart+1,
+//comments[comments.length] = content+"\t"+curId;
+ 		 var method = "GET";
+ 		 var url = "1/bubble/publish";
+  	 var Bubble_str = "{\"tid\":"+tid+","+"\"_id\":0,"+"\"uid\":"+uid+","+"\"content\":{\"words\":[{\"type\":1,\"start_at\":"+curStart+","+"\"end_at\":"+temp_pos+","+"\"text\":"+content+","+"\"user_data\":}],"+"\"image\":[]"+"},"+"\"like\":0,\"unlike\":0,\"signal\":0,\"user_data\":,\"created_at\":0}";
+		 
+     var query = helper_make_query("uid", uid)
+      +helper_make_query("&token", token)
+      +helper_make_query("&bubble", bubble_str)
+      ;
+    doRequest(method, url, query, getTweetsPut);  	  
+	  words_comment.unshift(content+"\t"+curId+"\t"+caodian_type);
+	  pagedown(1);
+  }
+  if(caodian_type == 2){
+	  $("#tempshow_part").append("<div id=\"tempshow_item_"+input_comment_num+"\"></div>");	
+	  $("#tempshow_item_"+input_comment_num).append("<div class=\"arrow\" id=\"tempshow_arrow_"+input_comment_num+"\"><div class=\"dot_down\"></div></div>");
+	  $("#tempshow_arrow_"+input_comment_num).css({"position":"absolute","left":left_pos*document.body.scrollWidth,"top":top_pos*document.body.scrollHeight-20});  
+	  var txt=$("<div id=\"tempshow_content_"+input_comment_num+"\" class=\"content_down\"></div>").text(content);
+	  $("#tempshow_item_"+input_comment_num).append(txt);	
+	  $("#tempshow_content_"+input_comment_num).css({"position":"absolute","left":left_pos*document.body.scrollWidth-document.getElementById("tempshow_content_"+input_comment_num).offsetWidth/2,"top":top_pos*document.body.scrollHeight-document.getElementById("tempshow_content_"+input_comment_num).offsetHeight-20});      	          
+
+//comments[comments.length] = content+"\t"+curId;
+	  words_comment.unshift(content+"\t"+curId+"\t"+caodian_type);
+	  pagedown(1);  
+  }
+}
+
+function getTweetsPut(results){
+  alert(results);
+}
+
+
+function choice_mode(choice_value){
+	if($("#list_show").length>0)
+		 $("#list_show").remove();
+  if($("#new_page_glance").length>0)
+		 $("#new_page_glance").remove();  
+//	is_choice = 1;
+  switch(choice_value){
+    case 1://聚焦模式
+      is_focus = 1;
+      is_glance = 0;
+      is_comment = 0;
+      slide_mode = 0;
+      if($("#tempshow_part").length>0)
+		     $("#tempshow_part").remove();  
+      break;
+    case 2://浏览模式
+      is_focus = 0;
+      is_glance = 1;
+      is_comment = 0;
+      slide_mode = 0;
+      show_glance(0);
+      break;
+    case 3://评论模式
+      is_focus = 0;
+      is_glance = 0;
+      slide_mode = 0;
+      is_comment = 1;
+      getSpanPosition();
+      break;
+    case 4://进度条模式
+      is_focus = 0;
+      is_glance = 0;
+      is_comment = 0;
+      slide_mode = 1;
+      show_page(1);
+      //alert(slide_mode);
+      $('#rating-21').slidy({
+            maxval: Math.ceil(words_comment.length/20)  ,
+            interval: 1,
+            defaultValue: 1,
+            finishedCallback: function (value) {
+            	 
+            	if(slide_mode == 1){
+            		 
+            	  pagedown(value);
+                show_page(value);
+              }
+            }
+       });
+      break;
+    case 5:
+      is_focus = 0;
+      break;
+    case 6:
+      is_glance = 0;
+      break;
+    case 7:
+      is_comment = 0;
+      break;
+    case 8:
+      slide_mode = 0;
+      break;
+  }
+}
+
+function changebackground(list_index){
+	 
+  $("#comment_item"+list_index).css({"background-color":"yellow"});
+}
+
+function show_comment_item(list_index){
+}
+
+</script>
+
+<script type="text/javascript">
+      $(document).ready(function () {
+         $('#rating-21').slidy({
+            maxval: Math.ceil(words_comment.length/10)  ,
+            interval: 1,
+            defaultValue: 1,
+            finishedCallback: function (value) {
+            	if(slide_mode == 1){
+            	  pagedown(value);
+                show_page(value);
+              }
+         }
+      });
+ 
+    })
+</script>
+
+
+</head>
+
+<body onload ="insertCommentSpan()">
+<a href="javascript:void(0)" onclick = "insertCommentSpan()">吐槽</a>
+&nbsp;&nbsp;
+<a href="javascript:void(0)" onclick = "insertModifySpan()">修改</a>	
+
+<div id="comment_mode">
+<div id="comment_content">	
+<input type="radio" name="choice" value = "focus" checked=true onclick ="this.checked==true?choice_mode(1):choice_mode(5);">聚焦模式</input>
+<input type="radio" name="choice" value = "glance" onclick ="this.checked==true?choice_mode(2):choice_mode(6);">浏览模式</input>
+<input type="radio" name="choice" value = "comment" onclick ="this.checked==true?choice_mode(3):choice_mode(7);">评论模式</input>
+<input type="radio" name="choice" value = "slide" onclick ="this.checked==true?choice_mode(4):choice_mode(8);">进度条模式</input>
+</br>
+</br>
+</br>
+<h>Tweet is:</h>
+</br>
+<div id="new_input_comment" onmouseup = "enterComment(event)">
+<p style="padding-left: 25%" id="text_start_position"></p>
+
+</div>
+<div id="rating_item" class="example">
+   <div id="rating-21"></div>
+   <div id="result-21"></div>
+   <div class="clearfix"></div>
+</div>
+</div>
+<div id="comment_list">
+<h>吐槽列表</h>
+<table id="comment_table"></table>
+</div>
+</div>
+
+<div id="modify_mode">
+	wdwdw
+</div>
+
+</body>
+
+</html>

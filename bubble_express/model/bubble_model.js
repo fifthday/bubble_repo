@@ -64,12 +64,14 @@ exports.take_bids = function(req, res) {
 										} else {
 
 											var ret = {};
+											for(var i = 0; i< tids.length; i++) {
+												ret[tids[i]] = [];
+											}
+											
 											for (var i = 0; i < results.length; i++) {
-												if (ret[results[i].tid] == undefined) {
-													ret[results[i].tid] = [];
+												if(ret[results[i].tid] != undefined) {
+													ret[results[i].tid].push(results[i]._id);
 												}
-
-												ret[results[i].tid].push(results[i]._id);
 
 												// console.log(results[i]);
 											}
@@ -122,7 +124,7 @@ exports.take = function(req, res) {
 
 	if (function(bids) {
 		if (helper.isnotNull(bids)) {
-			for(var i = 0; i < bids.length; i++) {
+			for (var i = 0; i < bids.length; i++) {
 				console.log(bids[i]);
 				bids[i] = new mongodb.ObjectID(bids[i]);
 			}
@@ -204,11 +206,14 @@ exports.put = function(req, res) {
 	// 下面函数的检测最好改成新建一个对象，然后按格式赋值。
 	// 下面几个接口同样。
 	if (function(bubble) {
-		 // && helper.isnotNull(bubble.tid) && helper.isnotNull(bubble.content) && typeof bubble.content.words == 'array' && typeof bubble.content.image == 'array') {
+		// && helper.isnotNull(bubble.tid) && helper.isnotNull(bubble.content) && typeof bubble.content.words == 'array' && typeof bubble.content.image == 'array') {
 		if (helper.isnotNull(bubble)) {
 
 			if (helper.isnotNull(bubble._id)) {
 				delete bubble._id;
+			}
+			if (helper.isnotNull(bubble.created_at)) {
+				delete bubble.created_at;
 			}
 
 			if (helper.isnotNull(bubble.like)) {
@@ -394,7 +399,7 @@ exports.search = function(req, res) {
 									}
 
 
-									var cursor = collection.find(query_find, option);
+									var cursor = collection.find(query_find, {}, option);
 
 									cursor.toArray(function(err, results) {
 										client.close();
@@ -445,7 +450,7 @@ exports.take_rank = function(req, res) {
 	if (function(condition) {
 		if (helper.isnotNull(condition)) {
 
-			if(helper.isnotNull(condition.rank) && helper.isnotNull(condition.rank.top)) {
+			if (helper.isnotNull(condition.rank) && helper.isnotNull(condition.rank.top)) {
 				condition.rank.top = Number(condition.rank.top);
 			}
 
@@ -479,7 +484,9 @@ exports.take_rank = function(req, res) {
 										};
 									}
 									var option = {
-										sort: [['like', 'desc']],
+										sort: [
+											['like', 'desc']
+										],
 										limit: 10,
 										skip: 0
 									};
@@ -538,7 +545,7 @@ exports.like = function(req, res) {
 	var type = req.param('type');
 
 	if (function(id) {
-		if(helper.isnotNull(id)){
+		if (helper.isnotNull(id)) {
 			bid = new mongodb.ObjectID(id);
 			return true;
 		} else {
@@ -573,10 +580,10 @@ exports.like = function(req, res) {
 									}
 									if (type == 'unlike') {
 										query_set = {
-										$inc: {
-											unlike: 1
+											$inc: {
+												unlike: 1
+											}
 										}
-									}
 									}
 
 									console.log(query_find);

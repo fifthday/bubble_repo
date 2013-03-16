@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style type="text/css">
+div{width:200px;word-break:break-all;border:1px solid red;overflow:hidden; cursor:pointer}
+</style>
+<script type="text/javascript">
+var t = true;
+var obj,a;
+function openclose(openclose){
+ 
+  var h = obj.offsetHeight;
+  h += openclose*5;
+  if(h>=150){
+   clearInterval(a);
+   obj.style.height = "150px";
+   t = true;
+  }
+  else if(h<=50){
+   clearInterval(a);
+   obj.style.height = "50px";
+   t = true;
+  }
+  else obj.style.height = h + "px";
+ }
+function getlink(){
+ obj.onclick = function(){
+   clearInterval(a);
+
+   if(obj.offsetHeight>=150)
+      a=setInterval("openclose(-1)",5);
+   else
+      a = setInterval("openclose(1)" , 5); 
+  }
+}
+window.onload = function()
+{
+ obj = document.getElementById("box")
+ obj.style.height = "50px";
+ getlink();
+}
+</script>
+</head>
+<body>
+ 
+ <div id="box">
+<a href="#">点击我展开</a>
+</div>
+ 
+</body>
+</html>

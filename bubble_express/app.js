@@ -33,7 +33,7 @@ app.configure('development', function(){
 
 app.get('/', routes.index);
 app.get('/tiy', other.tiy);
-app.get('/trysina', other.trysina)
+app.get('/trysina', other.trysina);
 
 app.all('/1/user/sina_login', user.sina_login);
 app.all('/1/bubble/take_bids', bubble.take_bids);

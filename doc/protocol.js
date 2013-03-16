@@ -52,9 +52,9 @@ var protocol = {
 			"url": "/bubble/take_bids",
 			"method": "get|post",
 			"request": {
-				"uid": "string", 	// 用户uid
-				"token": "string", 	// 用户操作令牌
-				"tids": []			//"array" // 新浪微博tid数组，格式[tid0,tid1,tid2]
+				"uid": "string", // 用户uid
+				"token": "string", // 用户操作令牌
+				"tids": [] //"array" // 新浪微博tid数组，格式[tid0,tid1,tid2]
 			},
 			"response": {
 				"sample": {
@@ -149,8 +149,8 @@ var protocol = {
 				"tids": []
 			}
 		},
-			// 为了保证每个用户只能一次like，须重新考虑协议
-		"bubble/like": { 
+		// 为了保证每个用户只能一次like，须重新考虑协议
+		"bubble/like": {
 			"comment": "喜欢/不喜欢本条吐槽",
 			"url": "bubble/like",
 			"method": "post",
@@ -198,12 +198,10 @@ var protocol = {
 				}
 			},
 			"response": {
-				"tweets": [
-                {
+				"tweets": [{
 					"time": "string",
 					"tids": []
-				}
-                ]
+				}]
 			}
 		}
 	}
