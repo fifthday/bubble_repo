@@ -1,0 +1,190 @@
+html
+	head
+		title #{title}
+
+		script
+
+			var debug_line_no = 0;
+
+			function login() {
+				var access_token = document.getElementById("access_token").value;
+				if(access_token != undefined) {
+					var method = "GET";
+					var url = "1/user/sina_login";
+					var query = helper_make_query("sina_access_token", access_token);
+
+					doRequest(method, url, query, login_result);
+				}
+			}
+			function login_result(result) {
+				if(result != undefined) {
+					var json = JSON.parse(result);
+					if(json != undefined) {
+						myuid = json.uid;
+						mytoken = json.token;
+						document.getElementById("uid").value = myuid;
+						document.getElementById("token").value = mytoken;
+						debug_log(myuid);
+						debug_log(mytoken);
+					}
+				} else {
+					document.getElementById("uid").value = "";
+					document.getElementById("token").value = "";
+					debug_log("login_failed!");
+				}
+			}
+
+			function try_protocol() {
+				var method = "GET";
+				if(document.getElementById("method").checked) {
+					method = "POST";
+				}
+				var url = document.getElementById("req_url").value;
+				var query = "";
+				if(document.getElementById("uid_token").checked) {
+					var uid = document.getElementById("uid").value;
+					var token = document.getElementById("token").value;
+
+					if(uid != undefined && token != undefined && uid != "" && token != "")
+					{
+						query += helper_make_query("uid", uid);
+						query += "&";
+						query += helper_make_query("token", token);
+						//- query += "&";
+						//- query += document.getElementById("req_query").value;
+					}
+				}
+
+				//- var key = document.getElementById("req_key").value;
+				var req_query = document.getElementById("req_query").value;
+
+				if(query != "")
+				{
+					query += "&";
+				}
+				query += req_query;//helper_make_query(key, val);
+
+				doRequest(method, url, query, try_protocol_result);
+			}
+			function try_protocol_result(result) {
+
+				if(result != undefined) {
+
+					document.getElementById("response").value = result;
+				} else {
+					
+					debug_log("request failed!");
+				}
+			}
+
+			function doRequest(method, url, query, callback) {
+				var xmlhttp;
+				if (window.XMLHttpRequest != undefined) {
+					xmlhttp = new XMLHttpRequest();
+				} else {
+					xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+				}
+
+				xmlhttp.onreadystatechange = function() {
+					if (xmlhttp.readyState == 4) {
+						if(xmlhttp.status == 200 || xmlhttp.status == 0) {
+							callback(xmlhttp.responseText);
+						} else {
+							callback();
+						}
+					}
+				}
+
+				//- query = escape(query);
+
+				if(method == "GET") {
+					if(query != undefined && query != "") {
+						url += "?";
+						url += query;
+					}
+
+					debug_log(method + ": " + url);
+					xmlhttp.open("GET", url, true);
+					xmlhttp.send();
+				} else {
+					debug_log(method + ": " + url);
+					debug_log("data: " + query);
+					xmlhttp.open("POST", url, true);
+					xmlhttp.send(query);
+				}				
+			}
+			function debug_log(log, number) {
+				var output = null;
+				if(number != undefined) {
+					output = ""+number+": "+log+"<br/>"; 
+				} else {
+					output = ""+debug_line_no+":"+log+"<br/>";
+				}
+				debug_line_no++;
+				
+				document.getElementById("debug_log").innerHTML += output;
+			}
+			function helper_make_query(key, val) {
+				if(key != undefined && key != "" && val != undefined && val != "") {
+					return ""+url_encode(key)+"="+url_encode(val);
+				} else {
+					return "";
+				}
+			}
+
+			function clean() {
+				var text0 = document.getElementById("clean_json").value;
+				var jsonobj = JSON.parse(text0);
+				document.getElementById('clean_json').value = JSON.stringify(jsonobj);
+			}
+
+			function url_encode(str) {
+				return str;
+			}
+	body
+
+		h2 TIY
+
+		h3 tools
+
+		|<textarea id="clean_json" cols='100' rows='10'></textarea>
+		br
+		|<input type="button" value="clean" onclick="clean()"/>
+
+		h3 account
+		|access_token: <input type="text" id="access_token" class="text" value="2.00YrLvmBxUxQKEe18b0ceee4cKUMsC" size="50" maxlength="50" />
+		br
+		|<input type="button" value="run" onclick="login()"/>
+		br
+		|uid: <input type="text" id="uid" class="text" value="1002" size="50" maxlength="50" />
+		br
+		|token: <input type="text" id="token" class="text" value="4ecca5b89539d5c9ca2fee4fcb345ec8" size="50" maxlength="50" />
+		br
+
+		h3 protocol
+		
+		|POST: <input type="checkbox" id="method" name="method"/>
+		br
+		|uid_token: <input type="checkbox" id="uid_token" name="uid_token" checked="true" />
+		br
+		|url: 
+		br
+		<input type="text" id="req_url" class="text" value="" size="50" maxlength="50" />
+		br
+		//- |query_key:
+		//- br
+		//- <input type="text" id="req_key" class="text" value="" size="50" maxlength="50" />
+		//- br
+		|query: 
+		br
+		|<textarea id="req_query" cols='100' rows='20'></textarea>
+		br
+		|<input type="button" value="run" onclick="try_protocol()"/>
+		br
+		|response: 
+		br
+		|<textarea id="response" cols='100' rows='20' readOnly='true'></textarea>
+
+		h2 DEBUG_LOG
+
+		div#debug_log

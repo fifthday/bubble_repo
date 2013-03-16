@@ -3,9 +3,9 @@ var protocol = {
 	"v1.0": {
 		"structure": {
 			"Bubble": {
-				"tid": "int64",
-				"bid": "int64",
-				"uid": "int64",
+				"_id": "string",
+				"tid": "string",
+				"uid": "string",
 				"content": {
 					"words": [{
 						"type": "int",
@@ -26,7 +26,7 @@ var protocol = {
 				"unlike": "int",
 				"signal": "int",
 				"user_data": "string",
-				"created_at": "int64"
+				"created_at": "string"
 			},
 			"error_response": {
 				"error_code": "int", //
@@ -43,47 +43,59 @@ var protocol = {
 			"response": {
 				"uid": "int",
 				"token": "string",
-				"created_at": "int64",
-				"expire": "int64"
+				"created_at": "string",
+				"expire": "string"
 			}
 		},
-		"bubble/bubble_count": {
+		"bubble/take_bids": {
 			"comment": "通过微博tid，获取一组微博的吐槽条数",
-			"url": "/bubble/bubble_count",
+			"url": "/bubble/take_bids",
 			"method": "get|post",
 			"request": {
-				"uid": "int64", 	// 用户uid
+				"uid": "string", 	// 用户uid
 				"token": "string", 	// 用户操作令牌
 				"tids": []			//"array" // 新浪微博tid数组，格式[tid0,tid1,tid2]
 			},
 			"response": {
 				"sample": {
-					"tid0": 19,
-					"tid1": 20,
-					"tid2": 5
+					"tid0": ["bids"],
+					"tid1": ["bids"],
+					"tid2": ["bids"]
 				}
 			}
 		},
-		"bubble/publish": {
+		"bubble/put": {
 			"comment": "发布一条吐槽",
 			"url": "bubble/publish",
 			"method": "post",
 			"request": {
-				"uid": "int64", // 
+				"uid": "string", // 
 				"token": "string", //
 				"bubble": "protocol.structure.Bubble"
 			},
 			"response": {
-				"tid": "int64",
-				"bid": "int64"
+				"bid": "string"
 			}
 		},
 		"bubble/take": {
-			"comment": "获取吐槽",
-			"url": "bubble/take",
+			"comment": "通过一组bid，获取对应的吐槽内容",
+			"url": "/bubble/take",
 			"method": "get|post",
 			"request": {
-				"uid": "int64", // 
+				"uid": "string",
+				"token": "string",
+				"bids": []
+			},
+			"response": {
+				"bubbles": ["protocol.structure.Bubble"]
+			}
+		},
+		"bubble/search": {
+			"comment": "获取吐槽",
+			"url": "bubble/search",
+			"method": "get|post",
+			"request": {
+				"uid": "string", // 
 				"token": "string", //
 				"start": "int", //
 				"count": "int", //
@@ -91,8 +103,8 @@ var protocol = {
 					"uids": [],
 					"tids": [],
 					"time": {
-						"from": "int64",
-						"to": "int64"
+						"from": "string",
+						"to": "string"
 					},
 					"type": {
 						"words": [],
@@ -110,8 +122,8 @@ var protocol = {
 			"url": "bubble/take_rank",
 			"method": "get|post",
 			"request": {
-				"uid": "int64", //
-				"token": "int64", //
+				"uid": "string", //
+				"token": "string", //
 				"condition": {
 					"uids": [],
 					"rank": {
@@ -126,10 +138,10 @@ var protocol = {
 		},
 		"bubble/take_hot_tweets": {
 			"comment": "获取热门吐槽",
-			"url": "bubble/get_hot_bubble",
+			"url": "bubble/take_hot_tweets",
 			"method": "get|post",
 			"request": {
-				"uid": "int64",
+				"uid": "string",
 				"token": "string",
 				"top": "int"
 			},
@@ -137,35 +149,37 @@ var protocol = {
 				"tids": []
 			}
 		},
-		"bubble/like": {
+			// 为了保证每个用户只能一次like，须重新考虑协议
+		"bubble/like": { 
 			"comment": "喜欢/不喜欢本条吐槽",
 			"url": "bubble/like",
 			"method": "post",
 			"request": {
-				"uid": "int64",
+				"uid": "string",
 				"token": "string",
-				"tid": "int64",
-				"bid": "int64",
+				"bid": "string",
 				"type": "string" // like or unlike
 			},
-			"response": {
-				"tid": "int",
-				"bid": "int",
-				"like": "int",
-				"unlike": "int"
-			}
+			"response": protocol.structure.Bubble
+			// 修改为直接返回bubble
+			// {
+			// 	// "tid": "int",
+			// 	// "bid": "int",
+			// 	// "like": "int",
+			// 	// "unlike": "int"
+
+			// }
 		},
 		"bubble/like_count": {
 			"comment": "喜欢/不喜欢本条吐槽的用户查询",
 			"url": "bubble/like_count",
 			"method": "post",
 			"request": {
-				"tid": "int64",
-				"bid": "int64"
+				"bid": "string"
 			},
 			"response": {
-				"tid": "int64",
-				"bid": "int64",
+				"tid": "string",
+				"bid": "string",
 				"like": [],
 				"unlike": []
 			}
@@ -175,18 +189,18 @@ var protocol = {
 			"url": "status/hot_tweets",
 			"method": "get|post",
 			"request": {
-				"uid": "int64",
+				"uid": "string",
 				"token": "string",
 				"top": "int", //
 				"time": {
-					"from": "int64",
-					"to": "int64"
+					"from": "string",
+					"to": "string"
 				}
 			},
 			"response": {
 				"tweets": [
                 {
-					"time": "int64",
+					"time": "string",
 					"tids": []
 				}
                 ]

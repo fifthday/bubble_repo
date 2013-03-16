@@ -24,3 +24,16 @@ exports.gettime = function() {
 	var d = new Date();
 	return Math.floor(d.getTime() / 1000);
 }
+
+exports.isnotNull = function(val) {
+	if(val != undefined) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+exports.mongoIdConvert = function(id) {
+
+	return id;
+}
