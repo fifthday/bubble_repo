@@ -199,7 +199,7 @@ exports.put = function(req, res) {
 	// console.log(bubble_str);
 	// res.send(bubble_str);
 	// return ;
-	var bubble = JSON.parse(bubble_str);
+	var bubble = eval('('+bubble_str+')'); //JSON.parse(bubble_str);
 
 	console.log(bubble);
 
@@ -314,7 +314,11 @@ exports.search = function(req, res) {
 	var token = req.param('token');
 	var start = Number(req.param('start'));
 	var count = Number(req.param('count'));
-	var condition = JSON.parse(req.param('condition'));
+	var condition = eval('('+req.param('condition')+')');
+
+	//JSON.parse(req.param('condition'));
+
+	// eval('('+req.param('condition')+')');//
 
 	if (function(condition) {
 		if (helper.isnotNull(condition)) {

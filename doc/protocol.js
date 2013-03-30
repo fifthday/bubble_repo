@@ -66,7 +66,7 @@ var protocol = {
 		},
 		"bubble/put": {
 			"comment": "发布一条吐槽",
-			"url": "bubble/publish",
+			"url": "bubble/put",
 			"method": "post",
 			"request": {
 				"uid": "string", // 

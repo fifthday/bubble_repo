@@ -1,5 +1,6 @@
 ﻿<html>
 <head>
+<script src=" http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=2420429083" type="text/javascript" charset="utf-8"></script> 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
 <link rel="stylesheet" href="css/screen.css" type="text/css" media="screen, projection">
 <link rel="stylesheet" href="css/print.css" type="text/css" media="print">
@@ -43,6 +44,26 @@ div.content_right
          
        
 }
+
+div.retweet_content_up
+{
+    	   
+    	  background-color:hsla(60,65%,75%,1);
+        
+       
+}
+
+
+div.retweet_dot_up
+{
+        height:0px;
+        width:0px;
+        border-width:10px 7px;
+        border-style:dashed dashed solid dashed;
+        border-color:transparent transparent hsla(60,65%,75%,1) transparent;
+        overflow:hidden;
+}
+
 div.dot_down
 {
         height:0px;
@@ -175,8 +196,9 @@ td {height:5%;}
 var is_friend = 1;
 var is_trending = 0;
 var is_hottest = 0;
-var uid = "1002"; 
-var token = "4ecca5b89539d5c9ca2fee4fcb345ec8";
+var uid = "123456"; 
+var token = "xyz";
+var is_login = 0;
 function show_list(tid,para_word_text,para_word_start_pos,span_table){
 	//  alert(list_index);
 		var content = "";
@@ -213,10 +235,7 @@ function show_list(tid,para_word_text,para_word_start_pos,span_table){
 }
 
 
-function doMyrequest(method, url, query, callback) {
-  var url_prefix = "http://localhost:8011/";
-  return doRequest(method, url_prefix+url, query, callback);
-}
+
 
  
 
@@ -1231,63 +1250,128 @@ function doRequest(method, url, query, callback) {
  }
 }
 
- 
+function change_img(op_type,tid,img_src,pre_src){
+	if($("#tweet_img_content_"+tid).length>0)
+		$("#tweet_img_content_"+tid).remove();
+		
+	if(op_type == 1){
+       $("#tweet_img_"+tid).prepend("<img src=\""+img_src+"\" id=\"tweet_img_content_"+tid+"\" onmousedown=\"change_img(1,\'"+tid+"\',\'"+pre_src+"\',\'"+img_src+"\')\" z-index=\"0\">");		
+	}
+	else if(op_type == 2){
+	     $("#tweet_img_"+tid).prepend("<img src=\""+img_src+"\" id=\"tweet_img_content_"+tid+"\" onmousedown=\"change_img(2,\'"+tid+"\',\'"+pre_src+"\',\'"+img_src+"\')\" z-index=\"0\">");
+	}
+} 
 
-function getFriendTweets(tweets_list){
+function getFriendTweets(){
    //c->sina:调用2/statuses/home_timeline
    //sina->c:获取微博tid+内容，tweets_list = ['tid1	XXXX','tid2	XXXX','tid3	XXXX'...]
-   var tweets_list = ['3550724442923154	怒了！为什么这么多人这么不理解时态，其实英语时态就是这么回事！点大图！	http://ww1.sinaimg.cn/thumbnail/635c14a5jw1e2986cgf4uj.jpg',
+  
+   /*var tweets_list = ['3550724442923154	怒了！为什么这么多人这么不理解时态，其实英语时态就是这么回事！点大图！	http://ww1.sinaimg.cn/thumbnail/635c14a5jw1e2986cgf4uj.jpg',
                       '3550758438006620	如果把（西游记）逆向思维…这绝对是一部神作！	http://ww3.sinaimg.cn/thumbnail/96234a3agw1e29c2z52btj.jpg',
                       '3550708408154489	金庸里大情大悲的桥段很多，若论最微妙、最隐晦同时也最让人感叹的，莫过于倚天屠龙记第二十七章。灭绝师太告诉张无忌，她的师父、郭祖师的徒儿叫做风陵师太。初读不以为意，再思之，如有牛毛细针刺入心中，隐隐小痛，却移不走，抚不平。	null',
                       '3550809322820919	近日，一份最新的《中国各省男女平均身高表》在微博上炒得火热。山东男子和女子身高都位居榜首，男子平均身高达到了175.44厘米，女子的身高平均数则接近170厘米。北京紧随其后，分别为175cm和167cm。快来看看你那边的平均身高，你拖后腿了吗？	http://ww3.sinaimg.cn/thumbnail/4c4fac65tw1e29hxb7h1dj.jpg'];
+   */
+   var tweets_list = new Array();
    var tweets_index = 0;
    var tweets_detail = '';
     
    var tweets_content = new Array();
-   var tweets_img = '';
+   var tweets_small_img = '';
+   var tweets_middle_img = '';	
+   var tweets_large_img = '';	
    var i = 0;
  
    var tweets_tid_new = '';
    var tweets_caodian_num = 0;
    
    var tweets_tid = new Array();
+  
+ 	 $.getJSON("http://api.weibo.com/2/statuses/home_timeline.json?callback=?", {source:2420429083}, function(o){  
+       // $('#list-body').html("");  
+         
+     for (var result in o.data.statuses) {//o.data.statuses[result].id:微博id
+     	                                    //o.data.statuses[result].created_at:微博的创建时间
+     																			//o.data.statuses[result].text:微博文字内容  
+                                          //o.data.statuses[result].thumbnail_pic:微缩版图片
+                                          //o.data.statuses[result].bmiddle_pic:中等版图片
+                                          //o.data.statuses[result].original_pic:原始版图片
+                                          //o.data.statuses[result].user.id:微博发布者id
+          //  $("body").insertHtml({  
+                //'avatar': o[result].user.profile_image_url,  
+            //    alert(o.data.statuses[result].text);  
+                //'topic_create_time': iflowg.util.parseDate(o[result].created_at),  
+                //'topic_pic': o[result].thumbnail_pic,  
+           //     alert(o.data.statuses[result].source); 
+               // 'nickname': o[result].user.name  
+           // });  
+            
+           tweets_list[i]=new Object()
+           tweets_list[i].tid=o.data.statuses[result].id;
+           tweets_list[i].created_time=o.data.statuses[result].created_at;
+           tweets_list[i].content = o.data.statuses[result].text;
+           tweets_list[i].thumbnail_pic = o.data.statuses[result].thumbnail_pic;
+           tweets_list[i].bmiddle_pic = o.data.statuses[result].bmiddle_pic;
+           tweets_list[i].original_pic = o.data.statuses[result].original_pic;
+           tweets_list[i].user_id = o.data.statuses[result].user.id;
+           tweets_list[i].retweet_status = o.data.statuses[result].retweeted_status;
+           tweets_list[i].user_name = o.data.statuses[result].user.name;
+           i = i+1;
+      }               
+  
+  
+   //alert(tweets_list.length);
    for (i = 0;i<=tweets_list.length-1;i++){
      tweets_index = i + 1;
-     tweets_detail = tweets_list[i];
-     var content = tweets_detail.split('\t');
-     tweets_tid[i] = content[0];
-     tweets_content[tweets_tid[i]] = content[1];
-     tweets_img = content[2];
+   //  tweets_detail = tweets_list[i];
+   //  var content = tweets_detail.split('\t');
+     tweets_tid[i] = tweets_list[i].tid;
+     tweets_content[tweets_tid[i]] = tweets_list[i].content;
+     tweets_small_img = tweets_list[i].thumbnail_pic;
+     tweets_middle_img = tweets_list[i].bmiddle_pic;
+     tweets_large_img = tweets_list[i].original_pic;
      $("body").append("<div id=\"tweets_content\"></div>");
      $("#tweets_content").append("<div id=\"tweet_top_"+tweets_index+"\"></div>");
      $("#tweet_top_"+tweets_index).append("<h>TOP "+tweets_index+"</br></h>");
-     $("#tweet_top_"+tweets_index).append("<span id=\"tweet_"+tweets_tid[i]+"\">"+"<p id=\"tweet_text_"+tweets_tid[i]+"\">"+tweets_content[tweets_tid[i]]+"</p>"+"</br></span>");
-     if(tweets_img!="null"){
-       $("#tweet_"+tweets_tid[i]).append("<img src=\""+tweets_img+"\" width=\"10%\" height=\"30%\" z-index=\"0\"></br>");
+     $("#tweet_top_"+tweets_index).append("<h style=\"font-weight:bold;\">"+tweets_list[i].user_name+"</br></h>");
+     $("#tweet_top_"+tweets_index).append("<span id=\"tweet_"+tweets_tid[i]+"\">"+"<p id=\"tweet_text_"+tweets_tid[i]+"\">"+tweets_content[tweets_tid[i]]+"</p>"+"</span>");
+     if(tweets_small_img!=undefined){
+       $("#tweet_"+tweets_tid[i]).append("<div id=\"tweet_img_"+tweets_tid[i]+"\"><img src=\""+tweets_small_img+"\" id=\"tweet_img_content_"+tweets_tid[i]+"\" onmousedown=\"change_img(1,\'"+tweets_tid[i]+"\',\'"+tweets_large_img+"\',\'"+tweets_small_img+"\')\"  z-index=\"0\"></br></div>");
+     }
+     if(tweets_list[i].retweet_status!=undefined){
+     	 //alert('wd');
+       $("#tweet_"+tweets_tid[i]).append("<div id=\"retweet_"+tweets_tid[i]+"\"></div>");
+ 	     $("#retweet_"+tweets_tid[i]).append("<div class=\"retweet_arrow\" id=\"retweet_arrow_"+tweets_tid[i]+"\"><div class=\"retweet_dot_up\"></div></div>");
+	   //  $("#retweet_arrow_"+tweets_tid[i]).css({"position":"absolute","left":left_pos,"top":top_pos});  
+	     txt=$("<div id=\"retweet_content_"+tweets_tid[i]+"\" class=\"retweet_content_up\"><h style=\"font-weight:bold;\">@"+tweets_list[i].retweet_status.user.name+"</h></br>"+tweets_list[i].retweet_status.text+"</br></div>")
+	     $("#retweet_"+tweets_tid[i]).append(txt);	
+	     if(tweets_list[i].retweet_status.thumbnail_pic!=undefined){
+	       $("#retweet_content_"+tweets_tid[i]).append("<div id=\"tweet_img_"+tweets_tid[i]+"\"><img src=\""+tweets_list[i].retweet_status.thumbnail_pic+"\" id=\"tweet_img_content_"+tweets_tid[i]+"\" onmousedown=\"change_img(2,\'"+tweets_tid[i]+"\',\'"+tweets_list[i].retweet_status.original_pic+"\',\'"+tweets_list[i].retweet_status.thumbnail_pic+"\')\"  z-index=\"0\"></br></br></div>");
+	     }
+	    // $("#retweet_content_"+tweets_tid[i]).css({"position":"absolute","left":left_pos-document.getElementById("content_"+prefix2+parent_index+"apDiv8").offsetWidth/2,"top":top_pos+document.getElementById("arrow_"+prefix2+parent_index+"apDiv8").offsetHeight});      
+
+ 
+     //  $("#retweet_"+tweets_tid[i]).append("<img src=\""+tweets_list[i].retweet_status.thumbnail_pic+"\" width=\"10%\" height=\"30%\" z-index=\"0\"></br>");
+      // $("#tweet_"+tweets_tid[i]).append("<img src=\""+tweets_small_img+"\" width=\"10%\" height=\"30%\" z-index=\"0\"></br>");
      }
    }
     
    //c->s:发送tweets_tid数组
    var method = "GET";
-   var url = "1/bubble/take_bids";
+   var url = "1/bubble/bubble_count";
    var tweets_tid_str = "["
    for(i=0;i<=tweets_tid.length-2;i++){
-      tweets_tid_str += "\"";
-      tweets_tid_str+=tweets_tid[i]+"\","
+      tweets_tid_str+=tweets_tid[i]+","
    }
    if(tweets_tid.length>=1){
-    tweets_tid_str += "\"";
-     tweets_tid_str+=tweets_tid[i]+"\"]";
+     tweets_tid_str+=tweets_tid[i]+"]";
    }
    else
    	 return;
-
    var query = helper_make_query("uid", uid)
       +helper_make_query("&token", token)
       +helper_make_query("&tids", tweets_tid_str)
       ;
-
-   doMyrequest(method, url, query, function(results) {
+   doMyrequest(method, url, query, function(results) { //----------通信接口(start)
 
     // var str = JSON.stringify(results);
     // alert(str);
@@ -1314,33 +1398,117 @@ function getFriendTweets(tweets_list){
    for (i=0;i<=tweets_tid.length-1;i++){
       // alert("ok");
      tweets_caodian_list[i]=tweets_tid[i]+'\t'+obj[tweets_tid[i]].length;  
-     alert(tweets_caodian_list[i]);
+//     alert(tweets_caodian_list[i]);
    }
    //s->c:获取tweets_caodian_num数组
    //tweets_caodian_list=['3550724442923154 10','3550758438006620 23','3550708408154489 45','3550809322820919 34'];
    for (i = 0;i<=tweets_caodian_list.length-1;i++){
-     content = tweets_caodian_list[i].split('\t');
-     tweets_tid_new = content[0];
-     tweets_caodian_num = content[1];
+    // content = tweets_caodian_list[i].split('\t');
+     tweets_tid_new = tweets_caodian_list[i].tid;
+     tweets_caodian_num = tweets_caodian_list[i].caodian_num;
    //  var parameter_obj={"tweet_id":tweets_tid_new,"tweet_content":tweets_content[tweets_tid_new]};
      var parameter_obj = new Object();
      parameter_obj.tweet_id = tweets_tid_new;
      parameter_obj.tweet_content = tweets_content[tweets_tid_new];
-     $("#tweet_"+tweets_tid_new).append("<a href=\"javascript:void(0)\" onclick = \"showSimpleComment(\'"+parameter_obj.tweet_id+"\',\'"+parameter_obj.tweet_content+"\')\">吐槽("+tweets_caodian_num+")</a>");
-     $("#tweet_"+tweets_tid_new).append("&nbsp;&nbsp;")  
-     $("#tweet_"+tweets_tid_new).append("<a href=\"javascript:void(0)\" onclick = \"location.href='version_display_new.html?tid="+tweets_tid_new+"&access_token="+token+"&uid="+uid+"'\">显示更多</a>");
+     $("#tweet_"+tweets_tid_new).append("<a href=\"javascript:void(0)\" onclick = \"showSimpleComment(\'"+parameter_obj.tweet_id+"\',\'"+parameter_obj.tweet_content+"\',"+tweets_caodian_num+")\">吐槽("+tweets_caodian_num+")</a>");
+   	 $("#tweet_"+tweets_tid_new).append("&nbsp;&nbsp;")  
+   	 if(tweets_list[i].thumbnail_pic!=undefined){
+   	 	 if(tweets_list[i].retweet_status!=undefined){//有图有转发，不存在
+   	   	$("#tweet_"+tweets_tid_new).append("<a href=\"javascript:void(0)\" onclick = \"location.href=encodeURI('version_display_new.html?tid="+tweets_tid_new+"&access_token="+token+"&uid="+uid+"&thumbnail_src="+tweets_list[i].thumbnail_pic+"&original_src="+tweets_list[i].original_pic+"&tweet_content="+tweets_list[i].content+"&retweet_content="+encodeURI(tweets_list[i].retweet_status.text)+"&user_name="+tweets_list[i].user.name+"&retweeter_name="+tweets_list[i].retweet_status.user.name+"\')\">显示更多</a>");
+       }
+       else{//有图无转发
+  	 	// 	alert("<a href=\"javascript:void(0)\" onclick = \"location.href='version_display_new.html?tid="+tweets_tid_new+"&access_token="+token+"&uid="+uid+"&thumbnail_src="+test_tweets_list[i].thumbnail_pic+"&original_src="+test_tweets_list[i].original_pic+"&tweet_content="+test_tweets_list[i].content+"&user_name="+test_tweets_list[i].user_name+"\'\">显示更多</a>");       
+ 
+   	   	$("#tweet_"+tweets_tid_new).append("<a href=\"javascript:void(0)\" onclick = \"location.href=encodeURI('version_display_new.html?tid="+tweets_tid_new+"&access_token="+token+"&uid="+uid+"&thumbnail_src="+test_tweets_list[i].thumbnail_pic+"&original_src="+test_tweets_list[i].original_pic+"&tweet_content="+test_tweets_list[i].content+"&user_name="+test_tweets_list[i].user_name+"\')\">显示更多</a>");       
+       }
+     }
+     else{
+   	 	 if(tweets_list[i].retweet_status!=undefined){
+   	 	 	 if(tweets_list[i].retweet_status.thumbnail_pic!=undefined){//无图有转发，转发有图
+   	 	  
+   	 	 	 //	alert("<a href=\"javascript:void(0)\" onclick = \"location.href='version_display_new.html?tid="+tweets_tid_new+"&access_token="+token+"&uid="+uid+"&thumbnail_src="+test_tweets_list[i].retweet_status.thumbnail_pic+"&original_src="+test_tweets_list[i].retweet_status.original_pic+"&tweet_content="+test_tweets_list[i].content+"&retweet_content="+test_tweets_list[i].retweet_status.text+"&user_name="+test_tweets_list[i].user_name+"&retweeter_name="+test_tweets_list[i].retweet_status.user.name+"\'\">显示更多</a>");
+   	   	 // $("#tweet_"+tweets_tid_new).append('wd');
+   	   	 
+   	   	  $("#tweet_"+tweets_tid_new).append("<a href=\"javascript:void(0)\" onclick = \"location.href=encodeURI('version_display_new.html?tid="+tweets_tid_new+"&access_token="+token+"&uid="+uid+"&thumbnail_src="+tweets_list[i].retweet_status.thumbnail_pic+"&original_src="+tweets_list[i].retweet_status.original_pic+"&tweet_content="+tweets_list[i].content+"&retweet_content="+tweets_list[i].retweet_status.text+"&user_name="+tweets_list[i].user_name+"&retweeter_name="+tweets_list[i].retweet_status.user.name+"\')\">显示更多</a>");
+         }
+         else{//无图有转发，转发无图
+   	   	  $("#tweet_"+tweets_tid_new).append("<a href=\"javascript:void(0)\" onclick = \"location.href=encodeURI('version_display_new.html?tid="+tweets_tid_new+"&access_token="+token+"&uid="+uid+"&tweet_content="+tweets_list[i].content+"&retweet_content="+tweets_list[i].retweet_status.text+"&user_name="+tweets_list[i].user_name+"&retweeter_name="+tweets_list[i].retweet_status.user.name+"\')\">显示更多</a>");         
+         } 
+       }
+       else{//无图无转发
+   	 	 //	alert("<a href=\"javascript:void(0)\" onclick = \"location.href='version_display_new.html?tid="+tweets_tid_new+"&access_token="+token+"&uid="+uid+"&tweet_content="+test_tweets_list[i].content+"&user_name="+test_tweets_list[i].user_name+"\'\">显示更多</a>");       
+
+   	   	$("#tweet_"+tweets_tid_new).append("<a href=\"javascript:void(0)\" onclick = \"location.href=encodeURI('version_display_new.html?tid="+tweets_tid_new+"&access_token="+token+"&uid="+uid+"&tweet_content="+tweets_list[i].content+"&user_name="+tweets_list[i].user_name+"\')\">显示更多</a>");       
+       }     
+     }
    }
  
 
-   });   
+   });    //----------通信接口(end)
+  
+  // TestGetTweetsCount(tweets_list,tweets_content);// ------------ 测试接口  
+   });
 } 
+
+function TestGetTweetsCount(test_tweets_list,test_tweets_content){
+   var i = 0;
+   var tweets_caodian_list = new Array();
+   for (i = 0;i<=test_tweets_list.length-1;i++){
+      tweets_caodian_list[i] = new Object();
+      tweets_caodian_list[i].tid = test_tweets_list[i].tid;
+      tweets_caodian_list[i].caodian_num = Math.floor(Math.random()*10+1);
+   }
+
+   for (i = 0;i<=tweets_caodian_list.length-1;i++){
+    // content = tweets_caodian_list[i].split('\t');
+     tweets_tid_new = tweets_caodian_list[i].tid;
+     tweets_caodian_num = tweets_caodian_list[i].caodian_num;
+   //  var parameter_obj={"tweet_id":tweets_tid_new,"tweet_content":tweets_content[tweets_tid_new]};
+     var parameter_obj = new Object();
+     parameter_obj.tweet_id = tweets_tid_new;
+     parameter_obj.tweet_content = test_tweets_content[tweets_tid_new];
+     $("#tweet_"+tweets_tid_new).append("<a href=\"javascript:void(0)\" onclick = \"showSimpleComment(\'"+parameter_obj.tweet_id+"\',\'"+parameter_obj.tweet_content+"\',"+tweets_caodian_num+")\">吐槽("+tweets_caodian_num+")</a>");
+   	 $("#tweet_"+tweets_tid_new).append("&nbsp;&nbsp;")  
+   	 if(test_tweets_list[i].thumbnail_pic!=undefined){
+   	 	 if(test_tweets_list[i].retweet_status!=undefined){//有图有转发，不存在
+   	   	$("#tweet_"+tweets_tid_new).append("<a href=\"javascript:void(0)\" onclick = \"location.href=encodeURI('version_display_new.html?tid="+tweets_tid_new+"&access_token="+token+"&uid="+uid+"&thumbnail_src="+test_tweets_list[i].thumbnail_pic+"&original_src="+test_tweets_list[i].original_pic+"&tweet_content="+test_tweets_list[i].content+"&retweet_content="+encodeURI(test_tweets_list[i].retweet_status.text)+"&user_name="+test_tweets_list[i].user.name+"&retweeter_name="+test_tweets_list[i].retweet_status.user.name+"\')\">显示更多</a>");
+       }
+       else{//有图无转发
+  	 	// 	alert("<a href=\"javascript:void(0)\" onclick = \"location.href='version_display_new.html?tid="+tweets_tid_new+"&access_token="+token+"&uid="+uid+"&thumbnail_src="+test_tweets_list[i].thumbnail_pic+"&original_src="+test_tweets_list[i].original_pic+"&tweet_content="+test_tweets_list[i].content+"&user_name="+test_tweets_list[i].user_name+"\'\">显示更多</a>");       
+ 
+   	   	$("#tweet_"+tweets_tid_new).append("<a href=\"javascript:void(0)\" onclick = \"location.href=encodeURI('version_display_new.html?tid="+tweets_tid_new+"&access_token="+token+"&uid="+uid+"&thumbnail_src="+test_tweets_list[i].thumbnail_pic+"&original_src="+test_tweets_list[i].original_pic+"&tweet_content="+test_tweets_list[i].content+"&user_name="+test_tweets_list[i].user_name+"\')\">显示更多</a>");       
+       }
+     }
+     else{
+   	 	 if(test_tweets_list[i].retweet_status!=undefined){
+   	 	 	 if(test_tweets_list[i].retweet_status.thumbnail_pic!=undefined){//无图有转发，转发有图
+   	 	  
+   	 	 	 //	alert("<a href=\"javascript:void(0)\" onclick = \"location.href='version_display_new.html?tid="+tweets_tid_new+"&access_token="+token+"&uid="+uid+"&thumbnail_src="+test_tweets_list[i].retweet_status.thumbnail_pic+"&original_src="+test_tweets_list[i].retweet_status.original_pic+"&tweet_content="+test_tweets_list[i].content+"&retweet_content="+test_tweets_list[i].retweet_status.text+"&user_name="+test_tweets_list[i].user_name+"&retweeter_name="+test_tweets_list[i].retweet_status.user.name+"\'\">显示更多</a>");
+   	   	 // $("#tweet_"+tweets_tid_new).append('wd');
+   	   	 
+   	   	  $("#tweet_"+tweets_tid_new).append("<a href=\"javascript:void(0)\" onclick = \"location.href=encodeURI('version_display_new.html?tid="+tweets_tid_new+"&access_token="+token+"&uid="+uid+"&thumbnail_src="+test_tweets_list[i].retweet_status.thumbnail_pic+"&original_src="+test_tweets_list[i].retweet_status.original_pic+"&tweet_content="+test_tweets_list[i].content+"&retweet_content="+test_tweets_list[i].retweet_status.text+"&user_name="+test_tweets_list[i].user_name+"&retweeter_name="+test_tweets_list[i].retweet_status.user.name+"\')\">显示更多</a>");
+         }
+         else{//无图有转发，转发无图
+   	   	  $("#tweet_"+tweets_tid_new).append("<a href=\"javascript:void(0)\" onclick = \"location.href=encodeURI('version_display_new.html?tid="+tweets_tid_new+"&access_token="+token+"&uid="+uid+"&tweet_content="+test_tweets_list[i].content+"&retweet_content="+test_tweets_list[i].retweet_status.text+"&user_name="+test_tweets_list[i].user_name+"&retweeter_name="+test_tweets_list[i].retweet_status.user.name+"\')\">显示更多</a>");         
+         } 
+       }
+       else{//无图无转发
+   	 	 //	alert("<a href=\"javascript:void(0)\" onclick = \"location.href='version_display_new.html?tid="+tweets_tid_new+"&access_token="+token+"&uid="+uid+"&tweet_content="+test_tweets_list[i].content+"&user_name="+test_tweets_list[i].user_name+"\'\">显示更多</a>");       
+
+   	   	$("#tweet_"+tweets_tid_new).append("<a href=\"javascript:void(0)\" onclick = \"location.href=encodeURI('version_display_new.html?tid="+tweets_tid_new+"&access_token="+token+"&uid="+uid+"&tweet_content="+test_tweets_list[i].content+"&user_name="+test_tweets_list[i].user_name+"\')\">显示更多</a>");       
+       }     
+     }
+   }
+     
+}
+
 
 function getTweetsCount(results){
 	 var tweets_caodian_list = new Array();
 	 var obj = eval ("(" + results + ")");
 	 var i = 0;
 	 for (i=0;i<=tweets_tid.length-1;i++){
-	   tweets_caodian_list[i]=tweets_tid[i]+' '+obj.tweets_tid[i].length;  
+	   tweets_caodian_list[i]=tweets_tid[i]+' '+obj.tweets_tid;  
 	 }
    //s->c:获取tweets_caodian_num数组
    //tweets_caodian_list=['3550724442923154	10','3550758438006620	23','3550708408154489	45','3550809322820919	34'];
@@ -1352,14 +1520,14 @@ function getTweetsCount(results){
      var parameter_obj = new Object();
      parameter_obj.tweet_id = tweets_tid_new;
      parameter_obj.tweet_content = tweets_content[tweets_tid_new];
-     $("#tweet_"+tweets_tid_new).append("<a href=\"javascript:void(0)\" onclick = \"showSimpleComment(\'"+parameter_obj.tweet_id+"\',\'"+parameter_obj.tweet_content+"\')\">吐槽("+tweets_caodian_num+")</a>");
+     $("#tweet_"+tweets_tid_new).append("<a href=\"javascript:void(0)\" onclick = \"showSimpleComment(\'"+parameter_obj.tweet_id+"\',\'"+parameter_obj.tweet_content+"\',"+tweets_caodian_num+")\">吐槽("+tweets_caodian_num+")</a>");
    	 $("#tweet_"+tweets_tid_new).append("&nbsp;&nbsp;")  
    	 $("#tweet_"+tweets_tid_new).append("<a href=\"javascript:void(0)\" onclick = \"location.href='version_display_new.html?tid="+tweets_tid_new+"&access_token="+token+"&uid="+uid+"'\">显示更多</a>");
    }
  
 }
 
-function showSimpleComment(tid,tweet_content_detail){
+function showSimpleComment(tid,tweet_content_detail,caodian_num){
  
 	if($("#comment_show_"+tid).length>0){
 	  $("#comment_show_"+tid).remove();
@@ -1381,9 +1549,9 @@ function showSimpleComment(tid,tweet_content_detail){
 	
 	//alert(uid+","+token+","+tid);
 	//c->s:"bubble/take",uid,token,start=0;count=10;condition:{uids:[uid],tids:[tid],time:{from:null;to:null},type:{words:[1,2,3,4],image:[1,2,3,4]},signal:0}
-  var method = "GET";
-  var url = "1/bubble/search";
-  var condition_str = "{uids:[],"+"tids:[\""+tid+"\"],"+"time:{},"+"type:"+"{words:[1,2,3,4],image:[1,2,3,4]},signal:0}";
+  var method = "GET";  //--------通信接口(start)
+  var url = "1/bubble/take";
+  var condition_str = "{uids:["+uid+"],"+"tids:["+tid+"],"+"time:{},"+"type:"+"{words:[1,2,3,4],image:[1,2,3,4]},signal:0}";
   
   var query = helper_make_query("uid", uid)
       +helper_make_query("&token", token)
@@ -1391,11 +1559,206 @@ function showSimpleComment(tid,tweet_content_detail){
       +helper_make_query("&count",10)
       +helper_make_query("&condition",condition_str)
       ;
-   doMyrequest(method, url, query, getTweetsDetail);  
+   doRequest(method, url, query, function(results){
+
+    var span_list = new Array();
+    var spanId = 1;
+    var offset_index = 0;
+    var new_tweets = "";	
+
+    var obj = eval ("(" + results + ")");
+    $("#tweet_"+obj.bubbles[0].tid).append("<div id=\"comment_show_"+obj.bubbles[0].tid+"\"></div>");
+
+  
+ 	 
+   	for(i=0;i<=obj.bubbles.length-1;i++){
+   		
+      var word_operation = obj.bubbles[i].content.words;
+     // alert(word_operation.length);
+      for(j=0;j<=word_operation.length-1;j++){
+        var word_start_offset = parseInt(word_operation[j].start_at);
+        var word_end_offset = parseInt(word_operation[j].end_at);
+       // alert(span_list[word_start_offset]);
+        if(span_list[word_start_offset]==undefined){
+          span_list[word_start_offset]=spanId;
+          //alert(span_list[word_start_offset]);
+          spanId = spanId + 1;
+        }
+        
+      }      
+    } 
+   
+    if($("#tweet_text_"+obj.bubbles[0].tid).length>0){
+      $("#tweet_text_"+obj.bubbles[0].tid).remove();
+    }
+    var is_found = 0;
+    for(i=0;i<=tweet_content_detail.length-1;i++){
+      is_found = 0;
+      for(j in span_list){    
+      	 if(j-1==i){   
+            new_tweets = new_tweets+"<span id="+obj.bubbles[0].tid+"_"+span_list[j]+">"+tweet_content_detail[i]+"</span>";          
+            is_found = 1;
+            break;
+         }
+         
+      }
+      if(is_found == 1){
+        continue;
+      }
+      new_tweets = new_tweets+tweet_content_detail[i]; 
+   	}
+   	$("#tweet_"+obj.bubbles[0].tid).prepend("<p id=\"tweet_text_"+obj.bubbles[0].tid+"\">"+new_tweets+"</p>");  
+    
+   
+  
+  
+    for(i = 0;i<=obj.bubbles.length-1;i++){
+    	var para_tid = obj.bubbles[i].tid;
+    	var para_word_text = new Array();
+    	var para_word_start_pos = new Array();
+    	for (j=0;j<=obj.bubbles[i].content.words.length-1;j++){
+    	  para_word_text[j]=obj.bubbles[i].content.words[j].text;
+    	  para_word_start_pos[j]=obj.bubbles[i].content.words[j].start_at;
+    	} 
+      $("#comment_show_"+obj.bubbles[i].tid).append("<tr id=comment_content_"+obj.bubbles[i].tid+"_"+obj.bubbles[i].bid+" onmouseup=\"show_list("+obj.bubbles[i].tid+",[\'"+para_word_text+"\'],["+para_word_start_pos+"],"+"["+span_list+"])\"></tr>");
+    	$("#comment_content_"+obj.bubbles[i].tid+"_"+obj.bubbles[i].bid).append("<td>"+obj.bubbles[0].content.words[0].text+"</td><td>"+obj.bubbles[0].created_at+"</td>");
+    }
+    
+   
+    var tablename=document.getElementById("comment_show_"+obj.bubbles[0].tid);
+    var li=tablename.getElementsByTagName("tr");	
+  		//var li=tablename.getElementsByTagName("tr");
+  	for(i=0;i<=li.length-1;i++){	
+      li[i].style.backgroundColor="yellow";
+      li[i].onmouseover=function(){
+  
+      this.style.backgroundColor="#FFFFFF";
+    
+      }
+  
+      li[i].onmouseout=function(){
+  
+      this.style.backgroundColor="yellow"
+  
+      }
+  
+    }    
+   });
+   	    //--------通信接口(end)
+   //TestGetTweetsDetail(tid,tweet_content_detail,caodian_num); // ----------测试接口
 }
+
+function TestGetTweetsDetail(test_tid,test_tweet_content_detail,test_caodian_num){
+  var i = 0;
+  var j = 0;
+  var span_list = new Array();
+  var spanId = 1;
+  var offset_index = 0;
+  var new_tweets = "";	
+  var obj = new Object();
+  
+  obj.bubbles = new Array();
+  for(i=0;i<=test_caodian_num-1;i++){
+    obj.bubbles[i] = new Object();
+    obj.bubbles[i].tid = test_tid;
+    obj.bubbles[i].bid = i;
+    obj.bubbles[i].content = new Object();
+    obj.bubbles[i].content.words = new Array();
+    obj.bubbles[i].content.words[0] = new Object();
+    obj.bubbles[i].content.words[0].type = 1;
+    obj.bubbles[i].content.words[0].start_at = Math.floor(Math.random()*20+1);
+    obj.bubbles[i].content.words[0].end_at = obj.bubbles[i].content.words[0].start_at+1;
+    obj.bubbles[i].content.words[0].text="好笑啊~";
+    obj.bubbles[i].content.words[0].user_data = "";
+    obj.bubbles[i].content.image = new Array();
+    obj.bubbles[i].like = 45;
+    obj.bubbles[i].unlike = 20;
+    obj.bubbles[i].signal = 0;
+    obj.bubbles[i].user_data = "";
+    obj.bubbles[i].created_at = 100000;
+  }
+  $("#tweet_"+obj.bubbles[0].tid).append("<div id=\"comment_show_"+obj.bubbles[0].tid+"\"></div>");
+
+  
+ 	 
+ 	for(i=0;i<=obj.bubbles.length-1;i++){
+ 		
+    var word_operation = obj.bubbles[i].content.words;
+   // alert(word_operation.length);
+    for(j=0;j<=word_operation.length-1;j++){
+      var word_start_offset = parseInt(word_operation[j].start_at);
+      var word_end_offset = parseInt(word_operation[j].end_at);
+     // alert(span_list[word_start_offset]);
+      if(span_list[word_start_offset]==undefined){
+        span_list[word_start_offset]=spanId;
+        //alert(span_list[word_start_offset]);
+        spanId = spanId + 1;
+      }
+      
+    }      
+  } 
+ 
+  if($("#tweet_text_"+obj.bubbles[0].tid).length>0){
+    $("#tweet_text_"+obj.bubbles[0].tid).remove();
+  }
+  var is_found = 0;
+  for(i=0;i<=test_tweet_content_detail.length-1;i++){
+    is_found = 0;
+    for(j in span_list){    
+    	 if(j-1==i){   
+          new_tweets = new_tweets+"<span id="+obj.bubbles[0].tid+"_"+span_list[j]+">"+test_tweet_content_detail[i]+"</span>";          
+          is_found = 1;
+          break;
+       }
+       
+    }
+    if(is_found == 1){
+      continue;
+    }
+    new_tweets = new_tweets+test_tweet_content_detail[i]; 
+ 	}
+ 	$("#tweet_"+obj.bubbles[0].tid).prepend("<p id=\"tweet_text_"+obj.bubbles[0].tid+"\">"+new_tweets+"</p>");  
+  
+ 
+
+
+  for(i = 0;i<=obj.bubbles.length-1;i++){
+  	var para_tid = obj.bubbles[i].tid;
+  	var para_word_text = new Array();
+  	var para_word_start_pos = new Array();
+  	for (j=0;j<=obj.bubbles[i].content.words.length-1;j++){
+  	  para_word_text[j]=obj.bubbles[i].content.words[j].text;
+  	  para_word_start_pos[j]=obj.bubbles[i].content.words[j].start_at;
+  	} 
+    $("#comment_show_"+obj.bubbles[i].tid).append("<tr id=comment_content_"+obj.bubbles[i].tid+"_"+obj.bubbles[i].bid+" onmouseup=\"show_list("+obj.bubbles[i].tid+",[\'"+para_word_text+"\'],["+para_word_start_pos+"],"+"["+span_list+"])\"></tr>");
+  	$("#comment_content_"+obj.bubbles[i].tid+"_"+obj.bubbles[i].bid).append("<td>"+obj.bubbles[0].content.words[0].text+"</td><td>"+obj.bubbles[0].created_at+"</td>");
+  }
+  
+ 
+  var tablename=document.getElementById("comment_show_"+obj.bubbles[0].tid);
+  var li=tablename.getElementsByTagName("tr");	
+		//var li=tablename.getElementsByTagName("tr");
+	for(i=0;i<=li.length-1;i++){	
+    li[i].style.backgroundColor="yellow";
+    li[i].onmouseover=function(){
+
+    this.style.backgroundColor="#FFFFFF";
+  
+    }
+
+    li[i].onmouseout=function(){
+
+    this.style.backgroundColor="yellow"
+
+    }
+
+  }
+}
+
+
 function getTweetsDetail(results){ 
   //s->c:bubbles[10]
- // var results = "{\"Bubble\":[{\"tid\":\"3550724442923154\",\"bid\":\"1\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"4\",\"end_at\":\"5\",\"text\":\"好笑啊~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"2\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"8\",\"end_at\":\"9\",\"text\":\"好笑啊~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"3\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"1\",\"end_at\":\"2\",\"text\":\"好笑啊~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"4\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"4\",\"end_at\":\"5\",\"text\":\"好笑啊~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"5\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"13\",\"end_at\":\"14\",\"text\":\"好笑啊~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"6\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"7\",\"end_at\":\"8\",\"text\":\"好笑啊~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"}]}";
+ // var results = "{\"bubbles\":[{\"tid\":\"3550724442923154\",\"bid\":\"1\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"4\",\"end_at\":\"5\",\"text\":\"好笑啊~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"2\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"8\",\"end_at\":\"9\",\"text\":\"好笑啊~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"3\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"1\",\"end_at\":\"2\",\"text\":\"好笑啊~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"4\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"4\",\"end_at\":\"5\",\"text\":\"好笑啊~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"5\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"13\",\"end_at\":\"14\",\"text\":\"好笑啊~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"6\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"7\",\"end_at\":\"8\",\"text\":\"好笑啊~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"}]}";
   var obj = eval ("(" + results + ")");
   var i = 0;
   var j = 0;
@@ -1456,8 +1819,8 @@ function getTweetsDetail(results){
   	  para_word_text[j]=obj.bubbles[i].content.words[j].text;
   	  para_word_start_pos[j]=obj.bubbles[i].content.words[j].start_at;
   	} 
-    $("#comment_show_"+obj.bubbles[i].tid).append("<tr id=comment_content"+obj.bubbles[i].bid+" onmouseup=\"show_list("+obj.bubbles[i].tid+",[\'"+para_word_text+"\'],["+para_word_start_pos+"],"+"["+span_list+"])\"></tr>");
-  	$("#comment_content"+obj.bubbles[i].bid).append("<td>"+obj.bubbles[0].content.words[0].text+"</td><td>"+obj.bubbles[0].created_at+"</td>");
+    $("#comment_show_"+obj.bubbles[i].tid).append("<tr id=comment_content_"+obj.bubbles[i].tid+"_"+obj.bubbles[i].bid+" onmouseup=\"show_list("+obj.bubbles[i].tid+",[\'"+para_word_text+"\'],["+para_word_start_pos+"],"+"["+span_list+"])\"></tr>");
+  	$("#comment_content+"+obj.bubbles[i].tid+"_"+obj.bubbles[i].bid).append("<td>"+obj.bubbles[0].content.words[0].text+"</td><td>"+obj.bubbles[0].created_at+"</td>");
   }
   
  
@@ -1492,7 +1855,9 @@ function getHottestTweets( ){
 function choice_mode(choice_value){
 	if($("#tweets_content").length>0)
 		 $("#tweets_content").remove();
-
+  if(is_login == 0){
+    return;
+  }
   switch(choice_value){
     case 1://朋友微博
       is_friend = 1;
@@ -1533,12 +1898,66 @@ function changebackground(list_index){
 function show_comment_item(list_index){
 }
 
+function login()  
+{  
+	is_login = 1;
+	
+  if(WB2.checkLogin()) //用户是否登录  
+  {  
+       //获取用户微博信息  
+       
+       
+       $("button").text("退出");
+
+      // getStatus();  
+  }  
+  else  
+  {  
+      WB2.login(  
+        function()  
+        {  
+        	   
+            $("button").text("退出");  
+ 
+       //   getStatus();  
+        }  
+      );  
+     
+  }  
+ }  
+function logout()  
+{  
+	  is_login = 0;
+    WB2.logout(  
+        function()  
+        {  
+            $("button").text("登录");  
+             
+        }  
+    );  
+}  
+
+
+
+ 
+function initial_login()  
+{  
+   if($("#login").text()=="登录")  
+   {  
+        login();  
+   }  
+   if($("#login").text()=="退出")  
+   {  
+        logout();  
+   }  
+}   
+
 </script>
 
 </head>
 
 <body onload="getFriendTweets()">
-	
+<div position="fixed"><button id = "login", onClick="initial_login()">登录</button></div> 	
 <input type="radio" name="choice" value = "friends" checked=true onclick ="this.checked==true?choice_mode(1):choice_mode(4);">好友微博</input>
 <input type="radio" name="choice" value = "trending" onclick ="this.checked==true?choice_mode(2):choice_mode(5);">新浪热点微博</input>
 <input type="radio" name="choice" value = "hottest" onclick ="this.checked==true?choice_mode(3):choice_mode(6);">热门吐槽微博</input>

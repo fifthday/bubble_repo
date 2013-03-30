@@ -1,5 +1,6 @@
-<html>
+ï»¿<html>
 <head>
+<script src=" http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=3816336651" type="text/javascript" charset="utf-8"></script> 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
 <link rel="stylesheet" href="css/screen.css" type="text/css" media="screen, projection">
 <link rel="stylesheet" href="css/print.css" type="text/css" media="print">
@@ -43,6 +44,26 @@ div.content_right
          
        
 }
+
+div.retweet_content_up
+{
+    	   
+    	  background-color:hsla(60,65%,75%,1);
+        
+       
+}
+
+
+div.retweet_dot_up
+{
+        height:0px;
+        width:0px;
+        border-width:10px 7px;
+        border-style:dashed dashed solid dashed;
+        border-color:transparent transparent hsla(60,65%,75%,1) transparent;
+        overflow:hidden;
+}
+
 div.dot_down
 {
         height:0px;
@@ -175,8 +196,9 @@ td {height:5%;}
 var is_friend = 1;
 var is_trending = 0;
 var is_hottest = 0;
-var uid = "123456"; 
-var token = "xyz";
+var uid = "1002"; 
+var token = "ac40a4ad77bb2243b73f9dd239445494";
+var is_login = 0;
 function show_list(tid,para_word_text,para_word_start_pos,span_table){
 	//  alert(list_index);
 		var content = "";
@@ -230,7 +252,7 @@ function myfunction(commentListIndex,comment_idx,parent_index){
       var div_idx = 0;
       var prefix2 = "caodian";
   
-      if(is_choice == 1){//ÇåÁã
+      if(is_choice == 1){//æ¸…é›¶
         return;
       }
       comment_idx = comment_idx + 1; 
@@ -270,7 +292,7 @@ function myfunction(commentListIndex,comment_idx,parent_index){
 	          $("#new_comment"+parent_index).append("<div id=\""+prefix2+parent_index+"apDiv8\"></div>");	
 	          $("#"+prefix2+parent_index+"apDiv8").append("<div class=\"arrow\" id=\"arrow_"+prefix2+parent_index+"apDiv8\"><div class=\"dot_up\"></div></div>");
 	          $("#arrow_"+prefix2+parent_index+"apDiv8").css({"position":"absolute","left":left_pos,"top":top_pos});  
-	          txt=$("<div id=\"content_"+prefix2+parent_index+"apDiv8\" class=\"content_up\"></div>").text("µ¥»÷²é¿´¸ü¶àÍÂ²Û");
+	          txt=$("<div id=\"content_"+prefix2+parent_index+"apDiv8\" class=\"content_up\"></div>").text("å•å‡»æŸ¥çœ‹æ›´å¤šåæ§½");
 	          $("#"+prefix2+parent_index+"apDiv8").append(txt);	
 	          $("#content_"+prefix2+parent_index+"apDiv8").css({"position":"absolute","left":left_pos-document.getElementById("content_"+prefix2+parent_index+"apDiv8").offsetWidth/2,"top":top_pos+document.getElementById("arrow_"+prefix2+parent_index+"apDiv8").offsetHeight});      
  
@@ -380,7 +402,7 @@ function myfunction(commentListIndex,comment_idx,parent_index){
 	   
 	    //  $("#"+prefix2+parent_index+prefix+div_idx).css({"position":"absolute","left":left_pos,"top":top_pos,"border":"thin solid rgb(238,232,170)","background-color":"hsla(120,65%,75%,1)"});        
         if(commentListIndex>=comments.length){ 
-      //	  txt=$("<div id=\""+prefix2+parent_index+"apDiv8\"></div>").text("µ¥»÷²é¿´¸ü¶àÍÂ²Û");
+      //	  txt=$("<div id=\""+prefix2+parent_index+"apDiv8\"></div>").text("å•å‡»æŸ¥çœ‹æ›´å¤šåæ§½");
 	    //    $("#new_comment"+parent_index).append(txt);    
 	        top_pos = x.top+17;
 	        left_pos = x.left;
@@ -388,7 +410,7 @@ function myfunction(commentListIndex,comment_idx,parent_index){
 	        $("#new_comment"+parent_index).append("<div id=\""+prefix2+parent_index+"apDiv8\"></div>");	
 	        $("#"+prefix2+parent_index+"apDiv8").append("<div class=\"arrow\" id=\"arrow_"+prefix2+parent_index+"apDiv8\"><div class=\"dot_up\"></div></div>");
 	        $("#arrow_"+prefix2+parent_index+"apDiv8").css({"position":"absolute","left":left_pos,"top":top_pos});  
-	        txt=$("<div id=\"content_"+prefix2+parent_index+"apDiv8\" class=\"content_up\"></div>").text("µ¥»÷²é¿´¸ü¶àÍÂ²Û");
+	        txt=$("<div id=\"content_"+prefix2+parent_index+"apDiv8\" class=\"content_up\"></div>").text("å•å‡»æŸ¥çœ‹æ›´å¤šåæ§½");
 	        $("#"+prefix2+parent_index+"apDiv8").append(txt);	
 	        $("#content_"+prefix2+parent_index+"apDiv8").css({"position":"absolute","left":left_pos-document.getElementById("content_"+prefix2+parent_index+"apDiv8").offsetWidth/2,"top":top_pos+document.getElementById("arrow_"+prefix2+parent_index+"apDiv8").offsetHeight});      
 
@@ -402,12 +424,12 @@ function myfunction(commentListIndex,comment_idx,parent_index){
 	    $("#new_comment"+parent_index).append("<div id=\""+prefix2+parent_index+"apDiv8\"></div>");	
 	    $("#"+prefix2+parent_index+"apDiv8").append("<div class=\"arrow\" id=\"arrow_"+prefix2+parent_index+"apDiv8\"><div class=\"dot_up\"></div></div>");
 	    $("#arrow_"+prefix2+parent_index+"apDiv8").css({"position":"absolute","left":left_pos,"top":top_pos});  
-	    txt=$("<div id=\"content_"+prefix2+parent_index+"apDiv8\" class=\"content_up\"></div>").text("µ¥»÷²é¿´¸ü¶àÍÂ²Û");
+	    txt=$("<div id=\"content_"+prefix2+parent_index+"apDiv8\" class=\"content_up\"></div>").text("å•å‡»æŸ¥çœ‹æ›´å¤šåæ§½");
 	    $("#"+prefix2+parent_index+"apDiv8").append(txt);	
 	    $("#content_"+prefix2+parent_index+"apDiv8").css({"position":"absolute","left":left_pos-document.getElementById("content_"+prefix2+parent_index+"apDiv8").offsetWidth/2,"top":top_pos+document.getElementById("arrow_"+prefix2+parent_index+"apDiv8").offsetHeight});      
 } 	
 	
-function mainfunction(caodian_index){ //¾Û½¹Ä£Ê½Èë¿Ú
+function mainfunction(caodian_index){ //èšç„¦æ¨¡å¼å…¥å£
 	  
 		  var ForReading = 1;
 		 
@@ -628,7 +650,7 @@ function proceedComment(commentListIndex,comment_idx,parent_index){
       $("#new_comment"+comment_idx).fadeOut(6000,function(){is_locked = 1; if($("#new_comment"+comment_idx).length>0){$("#new_comment"+comment_idx).remove();} proceedComment(commentListIndex,comment_idx,parent_index)});
 } 
 
-function showDetailComment(caodian_index){ //ÒÀ´ÎÏÔÊ¾¸Ã²ÛµãµÄÍÂ²Û£¬×¢ÒâËø×¡
+function showDetailComment(caodian_index){ //ä¾æ¬¡æ˜¾ç¤ºè¯¥æ§½ç‚¹çš„åæ§½ï¼Œæ³¨æ„é”ä½
 	var commentListIndex  = 0;
 	var comment_index = 0;
 	if(is_focus==0)
@@ -643,7 +665,7 @@ function showDetailComment(caodian_index){ //ÒÀ´ÎÏÔÊ¾¸Ã²ÛµãµÄÍÂ²Û£¬×¢ÒâËø×¡
 }
 
 function insertSpan(){
- var tweets = "¡¶Éú»î´ó±¬Õ¨¡·ÄĞĞÇJim Parsons½«¸úÄĞÓÑTodd SpiewakÒ»Í¬ÖÆ×÷Ò»²¿¹ØÓÚÌì²ÅµÄĞÂ¾ç£¬¸Ã¾ç¸Ä±à×ÔyoutubeÉÏÒ»²¿½²ÊöÏÖÊµÉú»îÖĞÌì²ÅµÄ¾ç¼¯¡¶Prodigies¡·¡£Jim±íÊ¾Ëµ£º¡°ÎÒ²Å¿´ÁËÒ»¼¯¾Í¾ö¶¨Òª°Ñ¸Ã¾çÒÔµçÊÓ¾çµÄĞÎÊ½ÍÆ¹ãÏò¸ü¶à¹ÛÖÚ¡£¸úÕâĞ©Ìì²ÅÕâĞ©ÉñÍ¯´ò½»µÀÊÇÒ»¼şºÜÆô·¢Áé¸Ğ¡¢ºÜ¿ìÀÖµÄÊÂ¡£¡±×ª";
+ var tweets = "ã€Šç”Ÿæ´»å¤§çˆ†ç‚¸ã€‹ç”·æ˜ŸJim Parsonså°†è·Ÿç”·å‹Todd Spiewakä¸€åŒåˆ¶ä½œä¸€éƒ¨å…³äºå¤©æ‰çš„æ–°å‰§ï¼Œè¯¥å‰§æ”¹ç¼–è‡ªyoutubeä¸Šä¸€éƒ¨è®²è¿°ç°å®ç”Ÿæ´»ä¸­å¤©æ‰çš„å‰§é›†ã€ŠProdigiesã€‹ã€‚Jimè¡¨ç¤ºè¯´ï¼šâ€œæˆ‘æ‰çœ‹äº†ä¸€é›†å°±å†³å®šè¦æŠŠè¯¥å‰§ä»¥ç”µè§†å‰§çš„å½¢å¼æ¨å¹¿å‘æ›´å¤šè§‚ä¼—ã€‚è·Ÿè¿™äº›å¤©æ‰è¿™äº›ç¥ç«¥æ‰“äº¤é“æ˜¯ä¸€ä»¶å¾ˆå¯å‘çµæ„Ÿã€å¾ˆå¿«ä¹çš„äº‹ã€‚â€è½¬";
  var new_tweets = "";
  var i = 0;
  var offset_index = 0;
@@ -665,7 +687,7 @@ function insertSpan(){
  $("p").append(new_tweets+" ");
 }
 
-function show_glance(comment_global_index){ //ä¯ÀÀÄ£Ê½Èë¿Ú
+function show_glance(comment_global_index){ //æµè§ˆæ¨¡å¼å…¥å£
       var s="";
       var txt = "";
       var prefix = "apDiv";
@@ -683,7 +705,7 @@ function show_glance(comment_global_index){ //ä¯ÀÀÄ£Ê½Èë¿Ú
       var top_pos = 0; 
       var pos_queue = new Array();
       
-      if(is_choice == 1){//ÇåÁã
+      if(is_choice == 1){//æ¸…é›¶
         return;
       }
       if($("#tempshow_part").length>0)
@@ -847,7 +869,7 @@ function show_page(page_num){
       var pos_queue = new Array();
       var k = 0;
       
-      if(is_choice == 1){//ÇåÁã
+      if(is_choice == 1){//æ¸…é›¶
         return;
       }
       if($("#tempshow_part").length>0)
@@ -1009,12 +1031,12 @@ function getSelectedText() {
 			var selection_range = window.getSelection();
 			var range = selection_range.getRangeAt(0);
 		  
- 		 //ÓĞÁ½ÖÖ¿ÉÄÜ£¬Ò»ÖÖÊÇÑ¡ÔÚÎÄ×ÖÉÏÁË£¬Ò»ÖÖÊÇÑ¡ÔÚ±êÇ©ÉÏÁË£¬×¢ÒâÇø·Ö
+ 		 //æœ‰ä¸¤ç§å¯èƒ½ï¼Œä¸€ç§æ˜¯é€‰åœ¨æ–‡å­—ä¸Šäº†ï¼Œä¸€ç§æ˜¯é€‰åœ¨æ ‡ç­¾ä¸Šäº†ï¼Œæ³¨æ„åŒºåˆ†
 		  if(range.startContainer.length > range.startOffset){
 		 		 range.setEnd(range.startContainer,range.startOffset+1);
 		 	   is_choose_tag = 0;
 		 	}
-		 	else{//Ñ¡ÖĞ±êÇ©ÁË£¬¿ÉÒÔ²»´¦Àí£¬µ«ÒªÖªµÀÊÇÑ¡ÖĞÄÄ¸ö±êÇ©ÁË
+		 	else{//é€‰ä¸­æ ‡ç­¾äº†ï¼Œå¯ä»¥ä¸å¤„ç†ï¼Œä½†è¦çŸ¥é“æ˜¯é€‰ä¸­å“ªä¸ªæ ‡ç­¾äº†
 		 		 is_choose_tag = 1;
 		 		 var dt = document.createElement("span");
 		 		 dt.id = new_span_id;
@@ -1039,7 +1061,7 @@ function getSelectedText() {
 		  	 
 		    	}		 		   
 		 		 }
-		 		 //µ¥¶À´¦Àí
+		 		 //å•ç‹¬å¤„ç†
 		 		 
 		  }
 		  if(is_choose_tag == 0){
@@ -1070,11 +1092,11 @@ function getSelectedText() {
 			  }
 			  else{
 			    curStart = range.startOffset;
-			    curEnd = range.startOffset;//curStart,curEndÊÇ×ÖÆ«ÒÆ
+			    curEnd = range.startOffset;//curStart,curEndæ˜¯å­—åç§»
 			 
 			  }
 		//    alert("wd"+curStart);
-		   if(j==0){ //±È½ÏºóÒ»¸öspanµÄ×ø±ê
+		   if(j==0){ //æ¯”è¾ƒåä¸€ä¸ªspançš„åæ ‡
 			  test_position = $("#"+dt.id).offset();
 			  check_position = $("#"+spanIndex[j+1].id).offset();
 			  if(test_position.left == check_position.left && test_position.top == check_position.top){
@@ -1094,7 +1116,7 @@ function getSelectedText() {
 			    totalSpanNum = totalSpanNum + 1;		    
 		    }
 		   }
-		   else if(j>0 && j<spanIndex.length-1){//±È½ÏÇ°ºóÁ½¸öspanµÄ×ø±ê
+		   else if(j>0 && j<spanIndex.length-1){//æ¯”è¾ƒå‰åä¸¤ä¸ªspançš„åæ ‡
 			  test_position = $("#"+dt.id).offset();
 			  check_position = $("#"+spanIndex[j-1].id).offset();
 			  if(test_position.left == check_position.left && test_position.top == check_position.top){
@@ -1127,7 +1149,7 @@ function getSelectedText() {
 		
 		
 		   }
-		   else if(j==spanIndex.length-1){//±È½ÏÇ°Ò»¸öspan×ø±ê
+		   else if(j==spanIndex.length-1){//æ¯”è¾ƒå‰ä¸€ä¸ªspanåæ ‡
 			  test_position = $("#"+dt.id).offset();
 		  	check_position = $("#"+spanIndex[j-1].id).offset();
 			  if(test_position.left == check_position.left && test_position.top == check_position.top){
@@ -1182,7 +1204,7 @@ function getSpanPosition(){
 }
 
 
-function enterComment() { //ÆÀÂÛÄ£Ê½Èë¿Ú
+function enterComment() { //è¯„è®ºæ¨¡å¼å…¥å£
 	if(is_comment == 0)
 	  return;
 	getSelectedText();
@@ -1219,7 +1241,7 @@ function doRequest(method, url, query, callback) {
  }
  
  if(method == "GET") {
-  debug_log(url+"?"+query);
+  //debug_log(url+"?"+query);
   xmlhttp.open("GET", url+"?"+query, true);
   xmlhttp.send();
  } else {
@@ -1228,45 +1250,115 @@ function doRequest(method, url, query, callback) {
  }
 }
 
- 
+function change_img(op_type,tid,img_src,pre_src){
+	if($("#tweet_img_content_"+tid).length>0)
+		$("#tweet_img_content_"+tid).remove();
+		
+	if(op_type == 1){
+       $("#tweet_img_"+tid).prepend("<img src=\""+img_src+"\" id=\"tweet_img_content_"+tid+"\" onmousedown=\"change_img(1,\'"+tid+"\',\'"+pre_src+"\',\'"+img_src+"\')\" z-index=\"0\">");		
+	}
+	else if(op_type == 2){
+	     $("#tweet_img_"+tid).prepend("<img src=\""+img_src+"\" id=\"tweet_img_content_"+tid+"\" onmousedown=\"change_img(2,\'"+tid+"\',\'"+pre_src+"\',\'"+img_src+"\')\" z-index=\"0\">");
+	}
+} 
 
-function getFriendTweets(tweets_list){
-   //c->sina:µ÷ÓÃ2/statuses/home_timeline
-   //sina->c:»ñÈ¡Î¢²©tid+ÄÚÈİ£¬tweets_list = ['tid1	XXXX','tid2	XXXX','tid3	XXXX'...]
-   var tweets_list = ['3550724442923154	Å­ÁË£¡ÎªÊ²Ã´ÕâÃ´¶àÈËÕâÃ´²»Àí½âÊ±Ì¬£¬ÆäÊµÓ¢ÓïÊ±Ì¬¾ÍÊÇÕâÃ´»ØÊÂ£¡µã´óÍ¼£¡	http://ww1.sinaimg.cn/thumbnail/635c14a5jw1e2986cgf4uj.jpg',
-                      '3550758438006620	Èç¹û°Ñ£¨Î÷ÓÎ¼Ç£©ÄæÏòË¼Î¬¡­Õâ¾ø¶ÔÊÇÒ»²¿Éñ×÷£¡	http://ww3.sinaimg.cn/thumbnail/96234a3agw1e29c2z52btj.jpg',
-                      '3550708408154489	½ğÓ¹Àï´óÇé´ó±¯µÄÇÅ¶ÎºÜ¶à£¬ÈôÂÛ×îÎ¢Ãî¡¢×îÒş»ŞÍ¬Ê±Ò²×îÈÃÈË¸ĞÌ¾µÄ£¬Äª¹ıÓÚÒĞÌìÍÀÁú¼ÇµÚ¶şÊ®ÆßÕÂ¡£Ãğ¾øÊ¦Ì«¸æËßÕÅÎŞ¼É£¬ËıµÄÊ¦¸¸¡¢¹ù×æÊ¦µÄÍ½¶ù½Ğ×ö·çÁêÊ¦Ì«¡£³õ¶Á²»ÒÔÎªÒâ£¬ÔÙË¼Ö®£¬ÈçÓĞÅ£Ã«Ï¸Õë´ÌÈëĞÄÖĞ£¬ÒşÒşĞ¡Í´£¬È´ÒÆ²»×ß£¬¸§²»Æ½¡£	null',
-                      '3550809322820919	½üÈÕ£¬Ò»·İ×îĞÂµÄ¡¶ÖĞ¹ú¸÷Ê¡ÄĞÅ®Æ½¾ùÉí¸ß±í¡·ÔÚÎ¢²©ÉÏ³´µÃ»ğÈÈ¡£É½¶«ÄĞ×ÓºÍÅ®×ÓÉí¸ß¶¼Î»¾Ó°ñÊ×£¬ÄĞ×ÓÆ½¾ùÉí¸ß´ïµ½ÁË175.44ÀåÃ×£¬Å®×ÓµÄÉí¸ßÆ½¾ùÊıÔò½Ó½ü170ÀåÃ×¡£±±¾©½ôËæÆäºó£¬·Ö±ğÎª175cmºÍ167cm¡£¿ìÀ´¿´¿´ÄãÄÇ±ßµÄÆ½¾ùÉí¸ß£¬ÄãÍÏºóÍÈÁËÂğ£¿	http://ww3.sinaimg.cn/thumbnail/4c4fac65tw1e29hxb7h1dj.jpg'];
+function getFriendTweets(){
+   //c->sina:è°ƒç”¨2/statuses/home_timeline
+   //sina->c:è·å–å¾®åštid+å†…å®¹ï¼Œtweets_list = ['tid1	XXXX','tid2	XXXX','tid3	XXXX'...]
+  
+   /*var tweets_list = ['3550724442923154	æ€’äº†ï¼ä¸ºä»€ä¹ˆè¿™ä¹ˆå¤šäººè¿™ä¹ˆä¸ç†è§£æ—¶æ€ï¼Œå…¶å®è‹±è¯­æ—¶æ€å°±æ˜¯è¿™ä¹ˆå›äº‹ï¼ç‚¹å¤§å›¾ï¼	http://ww1.sinaimg.cn/thumbnail/635c14a5jw1e2986cgf4uj.jpg',
+                      '3550758438006620	å¦‚æœæŠŠï¼ˆè¥¿æ¸¸è®°ï¼‰é€†å‘æ€ç»´â€¦è¿™ç»å¯¹æ˜¯ä¸€éƒ¨ç¥ä½œï¼	http://ww3.sinaimg.cn/thumbnail/96234a3agw1e29c2z52btj.jpg',
+                      '3550708408154489	é‡‘åº¸é‡Œå¤§æƒ…å¤§æ‚²çš„æ¡¥æ®µå¾ˆå¤šï¼Œè‹¥è®ºæœ€å¾®å¦™ã€æœ€éšæ™¦åŒæ—¶ä¹Ÿæœ€è®©äººæ„Ÿå¹çš„ï¼Œè«è¿‡äºå€šå¤©å± é¾™è®°ç¬¬äºŒåä¸ƒç« ã€‚ç­ç»å¸ˆå¤ªå‘Šè¯‰å¼ æ— å¿Œï¼Œå¥¹çš„å¸ˆçˆ¶ã€éƒ­ç¥–å¸ˆçš„å¾’å„¿å«åšé£é™µå¸ˆå¤ªã€‚åˆè¯»ä¸ä»¥ä¸ºæ„ï¼Œå†æ€ä¹‹ï¼Œå¦‚æœ‰ç‰›æ¯›ç»†é’ˆåˆºå…¥å¿ƒä¸­ï¼Œéšéšå°ç—›ï¼Œå´ç§»ä¸èµ°ï¼ŒæŠšä¸å¹³ã€‚	null',
+                      '3550809322820919	è¿‘æ—¥ï¼Œä¸€ä»½æœ€æ–°çš„ã€Šä¸­å›½å„çœç”·å¥³å¹³å‡èº«é«˜è¡¨ã€‹åœ¨å¾®åšä¸Šç‚’å¾—ç«çƒ­ã€‚å±±ä¸œç”·å­å’Œå¥³å­èº«é«˜éƒ½ä½å±…æ¦œé¦–ï¼Œç”·å­å¹³å‡èº«é«˜è¾¾åˆ°äº†175.44å˜ç±³ï¼Œå¥³å­çš„èº«é«˜å¹³å‡æ•°åˆ™æ¥è¿‘170å˜ç±³ã€‚åŒ—äº¬ç´§éšå…¶åï¼Œåˆ†åˆ«ä¸º175cmå’Œ167cmã€‚å¿«æ¥çœ‹çœ‹ä½ é‚£è¾¹çš„å¹³å‡èº«é«˜ï¼Œä½ æ‹–åè…¿äº†å—ï¼Ÿ	http://ww3.sinaimg.cn/thumbnail/4c4fac65tw1e29hxb7h1dj.jpg'];
+   */
+   var tweets_list = new Array();
    var tweets_index = 0;
    var tweets_detail = '';
     
    var tweets_content = new Array();
-   var tweets_img = '';
+   var tweets_small_img = '';
+   var tweets_middle_img = '';	
+   var tweets_large_img = '';	
    var i = 0;
  
    var tweets_tid_new = '';
    var tweets_caodian_num = 0;
    
    var tweets_tid = new Array();
+  
+ 	 $.getJSON("http://api.weibo.com/2/statuses/home_timeline.json?callback=?", {source:3816336651}, function(o){  
+       // $('#list-body').html("");  
+         
+     for (var result in o.data.statuses) {//o.data.statuses[result].id:å¾®åšid
+     	                                    //o.data.statuses[result].created_at:å¾®åšçš„åˆ›å»ºæ—¶é—´
+     																			//o.data.statuses[result].text:å¾®åšæ–‡å­—å†…å®¹  
+                                          //o.data.statuses[result].thumbnail_pic:å¾®ç¼©ç‰ˆå›¾ç‰‡
+                                          //o.data.statuses[result].bmiddle_pic:ä¸­ç­‰ç‰ˆå›¾ç‰‡
+                                          //o.data.statuses[result].original_pic:åŸå§‹ç‰ˆå›¾ç‰‡
+                                          //o.data.statuses[result].user.id:å¾®åšå‘å¸ƒè€…id
+          //  $("body").insertHtml({  
+                //'avatar': o[result].user.profile_image_url,  
+            //    alert(o.data.statuses[result].text);  
+                //'topic_create_time': iflowg.util.parseDate(o[result].created_at),  
+                //'topic_pic': o[result].thumbnail_pic,  
+           //     alert(o.data.statuses[result].source); 
+               // 'nickname': o[result].user.name  
+           // });  
+            
+           tweets_list[i]=new Object()
+           tweets_list[i].tid=o.data.statuses[result].id;
+           tweets_list[i].created_time=o.data.statuses[result].created_at;
+           tweets_list[i].content = o.data.statuses[result].text;
+           tweets_list[i].thumbnail_pic = o.data.statuses[result].thumbnail_pic;
+           tweets_list[i].bmiddle_pic = o.data.statuses[result].bmiddle_pic;
+           tweets_list[i].original_pic = o.data.statuses[result].original_pic;
+           tweets_list[i].user_id = o.data.statuses[result].user.id;
+           tweets_list[i].retweet_status = o.data.statuses[result].retweeted_status;
+           tweets_list[i].user_name = o.data.statuses[result].user.name;
+           i = i+1;
+      }               
+  
+  
+   //alert(tweets_list.length);
    for (i = 0;i<=tweets_list.length-1;i++){
      tweets_index = i + 1;
-     tweets_detail = tweets_list[i];
-     var content = tweets_detail.split('\t');
-     tweets_tid[i] = content[0];
-     tweets_content[tweets_tid[i]] = content[1];
-     tweets_img = content[2];
+   //  tweets_detail = tweets_list[i];
+   //  var content = tweets_detail.split('\t');
+     tweets_tid[i] = tweets_list[i].tid;
+     tweets_content[tweets_tid[i]] = tweets_list[i].content;
+     tweets_small_img = tweets_list[i].thumbnail_pic;
+     tweets_middle_img = tweets_list[i].bmiddle_pic;
+     tweets_large_img = tweets_list[i].original_pic;
      $("body").append("<div id=\"tweets_content\"></div>");
      $("#tweets_content").append("<div id=\"tweet_top_"+tweets_index+"\"></div>");
      $("#tweet_top_"+tweets_index).append("<h>TOP "+tweets_index+"</br></h>");
-     $("#tweet_top_"+tweets_index).append("<span id=\"tweet_"+tweets_tid[i]+"\">"+"<p id=\"tweet_text_"+tweets_tid[i]+"\">"+tweets_content[tweets_tid[i]]+"</p>"+"</br></span>");
-     if(tweets_img!="null"){
-       $("#tweet_"+tweets_tid[i]).append("<img src=\""+tweets_img+"\" width=\"10%\" height=\"30%\" z-index=\"0\"></br>");
+     $("#tweet_top_"+tweets_index).append("<h style=\"font-weight:bold;\">"+tweets_list[i].user_name+"</br></h>");
+     $("#tweet_top_"+tweets_index).append("<span id=\"tweet_"+tweets_tid[i]+"\">"+"<p id=\"tweet_text_"+tweets_tid[i]+"\">"+tweets_content[tweets_tid[i]]+"</p>"+"</span>");
+     if(tweets_small_img!=undefined){
+       $("#tweet_"+tweets_tid[i]).append("<div id=\"tweet_img_"+tweets_tid[i]+"\"><img src=\""+tweets_small_img+"\" id=\"tweet_img_content_"+tweets_tid[i]+"\" onmousedown=\"change_img(1,\'"+tweets_tid[i]+"\',\'"+tweets_large_img+"\',\'"+tweets_small_img+"\')\"  z-index=\"0\"></br></div>");
+     }
+     if(tweets_list[i].retweet_status!=undefined){
+     	 //alert('wd');
+       $("#tweet_"+tweets_tid[i]).append("<div id=\"retweet_"+tweets_tid[i]+"\"></div>");
+ 	     $("#retweet_"+tweets_tid[i]).append("<div class=\"retweet_arrow\" id=\"retweet_arrow_"+tweets_tid[i]+"\"><div class=\"retweet_dot_up\"></div></div>");
+	   //  $("#retweet_arrow_"+tweets_tid[i]).css({"position":"absolute","left":left_pos,"top":top_pos});  
+	     txt=$("<div id=\"retweet_content_"+tweets_tid[i]+"\" class=\"retweet_content_up\"><h style=\"font-weight:bold;\">@"+tweets_list[i].retweet_status.user.name+"</h></br>"+tweets_list[i].retweet_status.text+"</br></div>")
+	     $("#retweet_"+tweets_tid[i]).append(txt);	
+	     if(tweets_list[i].retweet_status.thumbnail_pic!=undefined){
+	       $("#retweet_content_"+tweets_tid[i]).append("<div id=\"tweet_img_"+tweets_tid[i]+"\"><img src=\""+tweets_list[i].retweet_status.thumbnail_pic+"\" id=\"tweet_img_content_"+tweets_tid[i]+"\" onmousedown=\"change_img(2,\'"+tweets_tid[i]+"\',\'"+tweets_list[i].retweet_status.original_pic+"\',\'"+tweets_list[i].retweet_status.thumbnail_pic+"\')\"  z-index=\"0\"></br></br></div>");
+	     }
+	    // $("#retweet_content_"+tweets_tid[i]).css({"position":"absolute","left":left_pos-document.getElementById("content_"+prefix2+parent_index+"apDiv8").offsetWidth/2,"top":top_pos+document.getElementById("arrow_"+prefix2+parent_index+"apDiv8").offsetHeight});      
+
+ 
+     //  $("#retweet_"+tweets_tid[i]).append("<img src=\""+tweets_list[i].retweet_status.thumbnail_pic+"\" width=\"10%\" height=\"30%\" z-index=\"0\"></br>");
+      // $("#tweet_"+tweets_tid[i]).append("<img src=\""+tweets_small_img+"\" width=\"10%\" height=\"30%\" z-index=\"0\"></br>");
      }
    }
     
-   //c->s:·¢ËÍtweets_tidÊı×é
+   //c->s:å‘é€tweets_tidæ•°ç»„
+
    var method = "GET";
-   var url = "1/bubble/bubble_count";
+   var url = "../1/bubble/take_bids";
    var tweets_tid_str = "["
    for(i=0;i<=tweets_tid.length-2;i++){
       tweets_tid_str+=tweets_tid[i]+","
@@ -1280,8 +1372,140 @@ function getFriendTweets(tweets_list){
       +helper_make_query("&token", token)
       +helper_make_query("&tids", tweets_tid_str)
       ;
-   doRequest(method, url, query, getTweetsCount);   
+   doRequest(method, url, query, function(results) { //----------é€šä¿¡æ¥å£(start)
+
+    // var str = JSON.stringify(results);
+    // alert(str);
+    // alert(tweets_tid[0]);
+
+   var tweets_caodian_list = new Array();
+   var obj = eval ("(" + results + ")");//JSON.parse(results);//eval ("(" + results + ")");
+   var i = 0;
+
+   // var str = JSON.stringify(obj);
+
+   // alert(str);
+   // for(var key in obj) {
+   //    // var temp = obj[key];
+
+   //    alert(JSON.stringify(obj[key]));
+   // }
+
+
+   // alert(obj);
+   // alert
+   // alert("ok");
+   // alert(tweets_tid.length);
+   for (i=0;i<=tweets_tid.length-1;i++){
+      // alert("ok");
+     //tweets_caodian_list[i]=tweets_tid[i]+'\t'+obj[tweets_tid[i]].length;  
+     tweets_caodian_list[i] = new Object();
+     tweets_caodian_list[i].tid = tweets_tid[i];
+     tweets_caodian_list[i].caodian_num = obj[tweets_tid[i]].length;
+//     alert(tweets_caodian_list[i]);
+   }
+   //s->c:è·å–tweets_caodian_numæ•°ç»„
+   //tweets_caodian_list=['3550724442923154 10','3550758438006620 23','3550708408154489 45','3550809322820919 34'];
+   for (i = 0;i<=tweets_caodian_list.length-1;i++){
+    // content = tweets_caodian_list[i].split('\t');
+     tweets_tid_new = tweets_caodian_list[i].tid;
+     tweets_caodian_num = tweets_caodian_list[i].caodian_num;
+   //  var parameter_obj={"tweet_id":tweets_tid_new,"tweet_content":tweets_content[tweets_tid_new]};
+     var parameter_obj = new Object();
+     parameter_obj.tweet_id = tweets_tid_new;
+     parameter_obj.tweet_content = tweets_content[tweets_tid_new];
+     $("#tweet_"+tweets_tid_new).append("<a href=\"javascript:void(0)\" onclick = \"showSimpleComment(\'"+parameter_obj.tweet_id+"\',\'"+parameter_obj.tweet_content+"\',"+tweets_caodian_num+")\">åæ§½("+tweets_caodian_num+")</a>");
+   	 $("#tweet_"+tweets_tid_new).append("&nbsp;&nbsp;")  
+   	 if(tweets_list[i].thumbnail_pic!=undefined){
+   	 	 if(tweets_list[i].retweet_status!=undefined){//æœ‰å›¾æœ‰è½¬å‘ï¼Œä¸å­˜åœ¨
+   	   	$("#tweet_"+tweets_tid_new).append("<a href=\"javascript:void(0)\" onclick = \"location.href=encodeURI('version_display_new.html?tid="+tweets_tid_new+"&access_token="+token+"&uid="+uid+"&thumbnail_src="+tweets_list[i].thumbnail_pic+"&original_src="+tweets_list[i].original_pic+"&tweet_content="+tweets_list[i].content+"&retweet_content="+encodeURI(tweets_list[i].retweet_status.text)+"&user_name="+tweets_list[i].user.name+"&retweeter_name="+tweets_list[i].retweet_status.user.name+"\')\">æ˜¾ç¤ºæ›´å¤š</a>");
+       }
+       else{//æœ‰å›¾æ— è½¬å‘
+  	 	// 	alert("<a href=\"javascript:void(0)\" onclick = \"location.href='version_display_new.html?tid="+tweets_tid_new+"&access_token="+token+"&uid="+uid+"&thumbnail_src="+test_tweets_list[i].thumbnail_pic+"&original_src="+test_tweets_list[i].original_pic+"&tweet_content="+test_tweets_list[i].content+"&user_name="+test_tweets_list[i].user_name+"\'\">æ˜¾ç¤ºæ›´å¤š</a>");       
+ 
+   	   	$("#tweet_"+tweets_tid_new).append("<a href=\"javascript:void(0)\" onclick = \"location.href=encodeURI('version_display_new.html?tid="+tweets_tid_new+"&access_token="+token+"&uid="+uid+"&thumbnail_src="+tweets_list[i].thumbnail_pic+"&original_src="+tweets_list[i].original_pic+"&tweet_content="+tweets_list[i].content+"&user_name="+tweets_list[i].user_name+"\')\">æ˜¾ç¤ºæ›´å¤š</a>");       
+       }
+     }
+     else{
+   	 	 if(tweets_list[i].retweet_status!=undefined){
+   	 	 	 if(tweets_list[i].retweet_status.thumbnail_pic!=undefined){//æ— å›¾æœ‰è½¬å‘ï¼Œè½¬å‘æœ‰å›¾
+   	 	  
+   	 	 	 //	alert("<a href=\"javascript:void(0)\" onclick = \"location.href='version_display_new.html?tid="+tweets_tid_new+"&access_token="+token+"&uid="+uid+"&thumbnail_src="+test_tweets_list[i].retweet_status.thumbnail_pic+"&original_src="+test_tweets_list[i].retweet_status.original_pic+"&tweet_content="+test_tweets_list[i].content+"&retweet_content="+test_tweets_list[i].retweet_status.text+"&user_name="+test_tweets_list[i].user_name+"&retweeter_name="+test_tweets_list[i].retweet_status.user.name+"\'\">æ˜¾ç¤ºæ›´å¤š</a>");
+   	   	 // $("#tweet_"+tweets_tid_new).append('wd');
+   	   	 
+   	   	  $("#tweet_"+tweets_tid_new).append("<a href=\"javascript:void(0)\" onclick = \"location.href=encodeURI('version_display_new.html?tid="+tweets_tid_new+"&access_token="+token+"&uid="+uid+"&thumbnail_src="+tweets_list[i].retweet_status.thumbnail_pic+"&original_src="+tweets_list[i].retweet_status.original_pic+"&tweet_content="+tweets_list[i].content+"&retweet_content="+tweets_list[i].retweet_status.text+"&user_name="+tweets_list[i].user_name+"&retweeter_name="+tweets_list[i].retweet_status.user.name+"\')\">æ˜¾ç¤ºæ›´å¤š</a>");
+         }
+         else{//æ— å›¾æœ‰è½¬å‘ï¼Œè½¬å‘æ— å›¾
+   	   	  $("#tweet_"+tweets_tid_new).append("<a href=\"javascript:void(0)\" onclick = \"location.href=encodeURI('version_display_new.html?tid="+tweets_tid_new+"&access_token="+token+"&uid="+uid+"&tweet_content="+tweets_list[i].content+"&retweet_content="+tweets_list[i].retweet_status.text+"&user_name="+tweets_list[i].user_name+"&retweeter_name="+tweets_list[i].retweet_status.user.name+"\')\">æ˜¾ç¤ºæ›´å¤š</a>");         
+         } 
+       }
+       else{//æ— å›¾æ— è½¬å‘
+   	 	 //	alert("<a href=\"javascript:void(0)\" onclick = \"location.href='version_display_new.html?tid="+tweets_tid_new+"&access_token="+token+"&uid="+uid+"&tweet_content="+test_tweets_list[i].content+"&user_name="+test_tweets_list[i].user_name+"\'\">æ˜¾ç¤ºæ›´å¤š</a>");       
+
+   	   	$("#tweet_"+tweets_tid_new).append("<a href=\"javascript:void(0)\" onclick = \"location.href=encodeURI('version_display_new.html?tid="+tweets_tid_new+"&access_token="+token+"&uid="+uid+"&tweet_content="+tweets_list[i].content+"&user_name="+tweets_list[i].user_name+"\')\">æ˜¾ç¤ºæ›´å¤š</a>");       
+       }     
+     }
+   }
+ 
+
+   });    //----------é€šä¿¡æ¥å£(end)
+  
+  // TestGetTweetsCount(tweets_list,tweets_content);// ------------ æµ‹è¯•æ¥å£  
+   });
 } 
+
+function TestGetTweetsCount(test_tweets_list,test_tweets_content){
+   var i = 0;
+   var tweets_caodian_list = new Array();
+   for (i = 0;i<=test_tweets_list.length-1;i++){
+      tweets_caodian_list[i] = new Object();
+      tweets_caodian_list[i].tid = test_tweets_list[i].tid;
+      tweets_caodian_list[i].caodian_num = Math.floor(Math.random()*10+1);
+   }
+
+   for (i = 0;i<=tweets_caodian_list.length-1;i++){
+    // content = tweets_caodian_list[i].split('\t');
+     tweets_tid_new = tweets_caodian_list[i].tid;
+     tweets_caodian_num = tweets_caodian_list[i].caodian_num;
+   //  var parameter_obj={"tweet_id":tweets_tid_new,"tweet_content":tweets_content[tweets_tid_new]};
+     var parameter_obj = new Object();
+     parameter_obj.tweet_id = tweets_tid_new;
+     parameter_obj.tweet_content = test_tweets_content[tweets_tid_new];
+     $("#tweet_"+tweets_tid_new).append("<a href=\"javascript:void(0)\" onclick = \"showSimpleComment(\'"+parameter_obj.tweet_id+"\',\'"+parameter_obj.tweet_content+"\',"+tweets_caodian_num+")\">åæ§½("+tweets_caodian_num+")</a>");
+   	 $("#tweet_"+tweets_tid_new).append("&nbsp;&nbsp;")  
+   	 if(test_tweets_list[i].thumbnail_pic!=undefined){
+   	 	 if(test_tweets_list[i].retweet_status!=undefined){//æœ‰å›¾æœ‰è½¬å‘ï¼Œä¸å­˜åœ¨
+   	   	$("#tweet_"+tweets_tid_new).append("<a href=\"javascript:void(0)\" onclick = \"location.href=encodeURI('version_display_new.html?tid="+tweets_tid_new+"&access_token="+token+"&uid="+uid+"&thumbnail_src="+test_tweets_list[i].thumbnail_pic+"&original_src="+test_tweets_list[i].original_pic+"&tweet_content="+test_tweets_list[i].content+"&retweet_content="+encodeURI(test_tweets_list[i].retweet_status.text)+"&user_name="+test_tweets_list[i].user.name+"&retweeter_name="+test_tweets_list[i].retweet_status.user.name+"\')\">æ˜¾ç¤ºæ›´å¤š</a>");
+       }
+       else{//æœ‰å›¾æ— è½¬å‘
+  	 	// 	alert("<a href=\"javascript:void(0)\" onclick = \"location.href='version_display_new.html?tid="+tweets_tid_new+"&access_token="+token+"&uid="+uid+"&thumbnail_src="+test_tweets_list[i].thumbnail_pic+"&original_src="+test_tweets_list[i].original_pic+"&tweet_content="+test_tweets_list[i].content+"&user_name="+test_tweets_list[i].user_name+"\'\">æ˜¾ç¤ºæ›´å¤š</a>");       
+ 
+   	   	$("#tweet_"+tweets_tid_new).append("<a href=\"javascript:void(0)\" onclick = \"location.href=encodeURI('version_display_new.html?tid="+tweets_tid_new+"&access_token="+token+"&uid="+uid+"&thumbnail_src="+test_tweets_list[i].thumbnail_pic+"&original_src="+test_tweets_list[i].original_pic+"&tweet_content="+test_tweets_list[i].content+"&user_name="+test_tweets_list[i].user_name+"\')\">æ˜¾ç¤ºæ›´å¤š</a>");       
+       }
+     }
+     else{
+   	 	 if(test_tweets_list[i].retweet_status!=undefined){
+   	 	 	 if(test_tweets_list[i].retweet_status.thumbnail_pic!=undefined){//æ— å›¾æœ‰è½¬å‘ï¼Œè½¬å‘æœ‰å›¾
+   	 	  
+   	 	 	 //	alert("<a href=\"javascript:void(0)\" onclick = \"location.href='version_display_new.html?tid="+tweets_tid_new+"&access_token="+token+"&uid="+uid+"&thumbnail_src="+test_tweets_list[i].retweet_status.thumbnail_pic+"&original_src="+test_tweets_list[i].retweet_status.original_pic+"&tweet_content="+test_tweets_list[i].content+"&retweet_content="+test_tweets_list[i].retweet_status.text+"&user_name="+test_tweets_list[i].user_name+"&retweeter_name="+test_tweets_list[i].retweet_status.user.name+"\'\">æ˜¾ç¤ºæ›´å¤š</a>");
+   	   	 // $("#tweet_"+tweets_tid_new).append('wd');
+   	   	 
+   	   	  $("#tweet_"+tweets_tid_new).append("<a href=\"javascript:void(0)\" onclick = \"location.href=encodeURI('version_display_new.html?tid="+tweets_tid_new+"&access_token="+token+"&uid="+uid+"&thumbnail_src="+test_tweets_list[i].retweet_status.thumbnail_pic+"&original_src="+test_tweets_list[i].retweet_status.original_pic+"&tweet_content="+test_tweets_list[i].content+"&retweet_content="+test_tweets_list[i].retweet_status.text+"&user_name="+test_tweets_list[i].user_name+"&retweeter_name="+test_tweets_list[i].retweet_status.user.name+"\')\">æ˜¾ç¤ºæ›´å¤š</a>");
+         }
+         else{//æ— å›¾æœ‰è½¬å‘ï¼Œè½¬å‘æ— å›¾
+   	   	  $("#tweet_"+tweets_tid_new).append("<a href=\"javascript:void(0)\" onclick = \"location.href=encodeURI('version_display_new.html?tid="+tweets_tid_new+"&access_token="+token+"&uid="+uid+"&tweet_content="+test_tweets_list[i].content+"&retweet_content="+test_tweets_list[i].retweet_status.text+"&user_name="+test_tweets_list[i].user_name+"&retweeter_name="+test_tweets_list[i].retweet_status.user.name+"\')\">æ˜¾ç¤ºæ›´å¤š</a>");         
+         } 
+       }
+       else{//æ— å›¾æ— è½¬å‘
+   	 	 //	alert("<a href=\"javascript:void(0)\" onclick = \"location.href='version_display_new.html?tid="+tweets_tid_new+"&access_token="+token+"&uid="+uid+"&tweet_content="+test_tweets_list[i].content+"&user_name="+test_tweets_list[i].user_name+"\'\">æ˜¾ç¤ºæ›´å¤š</a>");       
+
+   	   	$("#tweet_"+tweets_tid_new).append("<a href=\"javascript:void(0)\" onclick = \"location.href=encodeURI('version_display_new.html?tid="+tweets_tid_new+"&access_token="+token+"&uid="+uid+"&tweet_content="+test_tweets_list[i].content+"&user_name="+test_tweets_list[i].user_name+"\')\">æ˜¾ç¤ºæ›´å¤š</a>");       
+       }     
+     }
+   }
+     
+}
+
 
 function getTweetsCount(results){
 	 var tweets_caodian_list = new Array();
@@ -1290,7 +1514,7 @@ function getTweetsCount(results){
 	 for (i=0;i<=tweets_tid.length-1;i++){
 	   tweets_caodian_list[i]=tweets_tid[i]+' '+obj.tweets_tid;  
 	 }
-   //s->c:»ñÈ¡tweets_caodian_numÊı×é
+   //s->c:è·å–tweets_caodian_numæ•°ç»„
    //tweets_caodian_list=['3550724442923154	10','3550758438006620	23','3550708408154489	45','3550809322820919	34'];
    for (i = 0;i<=tweets_caodian_list.length-1;i++){
      content = tweets_caodian_list[i].split('\t');
@@ -1300,14 +1524,14 @@ function getTweetsCount(results){
      var parameter_obj = new Object();
      parameter_obj.tweet_id = tweets_tid_new;
      parameter_obj.tweet_content = tweets_content[tweets_tid_new];
-     $("#tweet_"+tweets_tid_new).append("<a href=\"javascript:void(0)\" onclick = \"showSimpleComment(\'"+parameter_obj.tweet_id+"\',\'"+parameter_obj.tweet_content+"\')\">ÍÂ²Û("+tweets_caodian_num+")</a>");
+     $("#tweet_"+tweets_tid_new).append("<a href=\"javascript:void(0)\" onclick = \"showSimpleComment(\'"+parameter_obj.tweet_id+"\',\'"+parameter_obj.tweet_content+"\',"+tweets_caodian_num+")\">åæ§½("+tweets_caodian_num+")</a>");
    	 $("#tweet_"+tweets_tid_new).append("&nbsp;&nbsp;")  
-   	 $("#tweet_"+tweets_tid_new).append("<a href=\"javascript:void(0)\" onclick = \"location.href='version_display_new.html?tid="+tweets_tid_new+"&access_token="+token+"&uid="+uid+"'\">ÏÔÊ¾¸ü¶à</a>");
+   	 $("#tweet_"+tweets_tid_new).append("<a href=\"javascript:void(0)\" onclick = \"location.href='version_display_new.html?tid="+tweets_tid_new+"&access_token="+token+"&uid="+uid+"'\">æ˜¾ç¤ºæ›´å¤š</a>");
    }
  
 }
 
-function showSimpleComment(tid,tweet_content_detail){
+function showSimpleComment(tid,tweet_content_detail,caodian_num){
  
 	if($("#comment_show_"+tid).length>0){
 	  $("#comment_show_"+tid).remove();
@@ -1329,8 +1553,8 @@ function showSimpleComment(tid,tweet_content_detail){
 	
 	//alert(uid+","+token+","+tid);
 	//c->s:"bubble/take",uid,token,start=0;count=10;condition:{uids:[uid],tids:[tid],time:{from:null;to:null},type:{words:[1,2,3,4],image:[1,2,3,4]},signal:0}
-  var method = "GET";
-  var url = "1/bubble/take";
+  var method = "GET";  //--------é€šä¿¡æ¥å£(start)
+  var url = "../1/bubble/take";
   var condition_str = "{uids:["+uid+"],"+"tids:["+tid+"],"+"time:{},"+"type:"+"{words:[1,2,3,4],image:[1,2,3,4]},signal:0}";
   
   var query = helper_make_query("uid", uid)
@@ -1339,11 +1563,206 @@ function showSimpleComment(tid,tweet_content_detail){
       +helper_make_query("&count",10)
       +helper_make_query("&condition",condition_str)
       ;
-   doRequest(method, url, query, getTweetsDetail);  
+   doRequest(method, url, query, function(results){
+
+    var span_list = new Array();
+    var spanId = 1;
+    var offset_index = 0;
+    var new_tweets = "";	
+
+    var obj = eval ("(" + results + ")");
+    $("#tweet_"+obj.bubbles[0].tid).append("<div id=\"comment_show_"+obj.bubbles[0].tid+"\"></div>");
+
+  
+ 	 
+   	for(i=0;i<=obj.bubbles.length-1;i++){
+   		
+      var word_operation = obj.bubbles[i].content.words;
+     // alert(word_operation.length);
+      for(j=0;j<=word_operation.length-1;j++){
+        var word_start_offset = parseInt(word_operation[j].start_at);
+        var word_end_offset = parseInt(word_operation[j].end_at);
+       // alert(span_list[word_start_offset]);
+        if(span_list[word_start_offset]==undefined){
+          span_list[word_start_offset]=spanId;
+          //alert(span_list[word_start_offset]);
+          spanId = spanId + 1;
+        }
+        
+      }      
+    } 
+   
+    if($("#tweet_text_"+obj.bubbles[0].tid).length>0){
+      $("#tweet_text_"+obj.bubbles[0].tid).remove();
+    }
+    var is_found = 0;
+    for(i=0;i<=tweet_content_detail.length-1;i++){
+      is_found = 0;
+      for(j in span_list){    
+      	 if(j-1==i){   
+            new_tweets = new_tweets+"<span id="+obj.bubbles[0].tid+"_"+span_list[j]+">"+tweet_content_detail[i]+"</span>";          
+            is_found = 1;
+            break;
+         }
+         
+      }
+      if(is_found == 1){
+        continue;
+      }
+      new_tweets = new_tweets+tweet_content_detail[i]; 
+   	}
+   	$("#tweet_"+obj.bubbles[0].tid).prepend("<p id=\"tweet_text_"+obj.bubbles[0].tid+"\">"+new_tweets+"</p>");  
+    
+   
+  
+  
+    for(i = 0;i<=obj.bubbles.length-1;i++){
+    	var para_tid = obj.bubbles[i].tid;
+    	var para_word_text = new Array();
+    	var para_word_start_pos = new Array();
+    	for (j=0;j<=obj.bubbles[i].content.words.length-1;j++){
+    	  para_word_text[j]=obj.bubbles[i].content.words[j].text;
+    	  para_word_start_pos[j]=obj.bubbles[i].content.words[j].start_at;
+    	} 
+      $("#comment_show_"+obj.bubbles[i].tid).append("<tr id=comment_content_"+obj.bubbles[i].tid+"_"+obj.bubbles[i].bid+" onmouseup=\"show_list("+obj.bubbles[i].tid+",[\'"+para_word_text+"\'],["+para_word_start_pos+"],"+"["+span_list+"])\"></tr>");
+    	$("#comment_content_"+obj.bubbles[i].tid+"_"+obj.bubbles[i].bid).append("<td>"+obj.bubbles[0].content.words[0].text+"</td><td>"+obj.bubbles[0].created_at+"</td>");
+    }
+    
+   
+    var tablename=document.getElementById("comment_show_"+obj.bubbles[0].tid);
+    var li=tablename.getElementsByTagName("tr");	
+  		//var li=tablename.getElementsByTagName("tr");
+  	for(i=0;i<=li.length-1;i++){	
+      li[i].style.backgroundColor="yellow";
+      li[i].onmouseover=function(){
+  
+      this.style.backgroundColor="#FFFFFF";
+    
+      }
+  
+      li[i].onmouseout=function(){
+  
+      this.style.backgroundColor="yellow"
+  
+      }
+  
+    }    
+   });
+   	    //--------é€šä¿¡æ¥å£(end)
+   //TestGetTweetsDetail(tid,tweet_content_detail,caodian_num); // ----------æµ‹è¯•æ¥å£
 }
+
+function TestGetTweetsDetail(test_tid,test_tweet_content_detail,test_caodian_num){
+  var i = 0;
+  var j = 0;
+  var span_list = new Array();
+  var spanId = 1;
+  var offset_index = 0;
+  var new_tweets = "";	
+  var obj = new Object();
+  
+  obj.bubbles = new Array();
+  for(i=0;i<=test_caodian_num-1;i++){
+    obj.bubbles[i] = new Object();
+    obj.bubbles[i].tid = test_tid;
+    obj.bubbles[i].bid = i;
+    obj.bubbles[i].content = new Object();
+    obj.bubbles[i].content.words = new Array();
+    obj.bubbles[i].content.words[0] = new Object();
+    obj.bubbles[i].content.words[0].type = 1;
+    obj.bubbles[i].content.words[0].start_at = Math.floor(Math.random()*20+1);
+    obj.bubbles[i].content.words[0].end_at = obj.bubbles[i].content.words[0].start_at+1;
+    obj.bubbles[i].content.words[0].text="å¥½ç¬‘å•Š~";
+    obj.bubbles[i].content.words[0].user_data = "";
+    obj.bubbles[i].content.image = new Array();
+    obj.bubbles[i].like = 45;
+    obj.bubbles[i].unlike = 20;
+    obj.bubbles[i].signal = 0;
+    obj.bubbles[i].user_data = "";
+    obj.bubbles[i].created_at = 100000;
+  }
+  $("#tweet_"+obj.bubbles[0].tid).append("<div id=\"comment_show_"+obj.bubbles[0].tid+"\"></div>");
+
+  
+ 	 
+ 	for(i=0;i<=obj.bubbles.length-1;i++){
+ 		
+    var word_operation = obj.bubbles[i].content.words;
+   // alert(word_operation.length);
+    for(j=0;j<=word_operation.length-1;j++){
+      var word_start_offset = parseInt(word_operation[j].start_at);
+      var word_end_offset = parseInt(word_operation[j].end_at);
+     // alert(span_list[word_start_offset]);
+      if(span_list[word_start_offset]==undefined){
+        span_list[word_start_offset]=spanId;
+        //alert(span_list[word_start_offset]);
+        spanId = spanId + 1;
+      }
+      
+    }      
+  } 
+ 
+  if($("#tweet_text_"+obj.bubbles[0].tid).length>0){
+    $("#tweet_text_"+obj.bubbles[0].tid).remove();
+  }
+  var is_found = 0;
+  for(i=0;i<=test_tweet_content_detail.length-1;i++){
+    is_found = 0;
+    for(j in span_list){    
+    	 if(j-1==i){   
+          new_tweets = new_tweets+"<span id="+obj.bubbles[0].tid+"_"+span_list[j]+">"+test_tweet_content_detail[i]+"</span>";          
+          is_found = 1;
+          break;
+       }
+       
+    }
+    if(is_found == 1){
+      continue;
+    }
+    new_tweets = new_tweets+test_tweet_content_detail[i]; 
+ 	}
+ 	$("#tweet_"+obj.bubbles[0].tid).prepend("<p id=\"tweet_text_"+obj.bubbles[0].tid+"\">"+new_tweets+"</p>");  
+  
+ 
+
+
+  for(i = 0;i<=obj.bubbles.length-1;i++){
+  	var para_tid = obj.bubbles[i].tid;
+  	var para_word_text = new Array();
+  	var para_word_start_pos = new Array();
+  	for (j=0;j<=obj.bubbles[i].content.words.length-1;j++){
+  	  para_word_text[j]=obj.bubbles[i].content.words[j].text;
+  	  para_word_start_pos[j]=obj.bubbles[i].content.words[j].start_at;
+  	} 
+    $("#comment_show_"+obj.bubbles[i].tid).append("<tr id=comment_content_"+obj.bubbles[i].tid+"_"+obj.bubbles[i].bid+" onmouseup=\"show_list("+obj.bubbles[i].tid+",[\'"+para_word_text+"\'],["+para_word_start_pos+"],"+"["+span_list+"])\"></tr>");
+  	$("#comment_content_"+obj.bubbles[i].tid+"_"+obj.bubbles[i].bid).append("<td>"+obj.bubbles[0].content.words[0].text+"</td><td>"+obj.bubbles[0].created_at+"</td>");
+  }
+  
+ 
+  var tablename=document.getElementById("comment_show_"+obj.bubbles[0].tid);
+  var li=tablename.getElementsByTagName("tr");	
+		//var li=tablename.getElementsByTagName("tr");
+	for(i=0;i<=li.length-1;i++){	
+    li[i].style.backgroundColor="yellow";
+    li[i].onmouseover=function(){
+
+    this.style.backgroundColor="#FFFFFF";
+  
+    }
+
+    li[i].onmouseout=function(){
+
+    this.style.backgroundColor="yellow"
+
+    }
+
+  }
+}
+
+
 function getTweetsDetail(results){ 
   //s->c:bubbles[10]
- // var results = "{\"Bubble\":[{\"tid\":\"3550724442923154\",\"bid\":\"1\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"4\",\"end_at\":\"5\",\"text\":\"ºÃĞ¦°¡~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"2\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"8\",\"end_at\":\"9\",\"text\":\"ºÃĞ¦°¡~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"3\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"1\",\"end_at\":\"2\",\"text\":\"ºÃĞ¦°¡~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"4\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"4\",\"end_at\":\"5\",\"text\":\"ºÃĞ¦°¡~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"5\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"13\",\"end_at\":\"14\",\"text\":\"ºÃĞ¦°¡~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"6\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"7\",\"end_at\":\"8\",\"text\":\"ºÃĞ¦°¡~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"}]}";
+ // var results = "{\"bubbles\":[{\"tid\":\"3550724442923154\",\"bid\":\"1\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"4\",\"end_at\":\"5\",\"text\":\"å¥½ç¬‘å•Š~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"2\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"8\",\"end_at\":\"9\",\"text\":\"å¥½ç¬‘å•Š~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"3\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"1\",\"end_at\":\"2\",\"text\":\"å¥½ç¬‘å•Š~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"4\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"4\",\"end_at\":\"5\",\"text\":\"å¥½ç¬‘å•Š~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"5\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"13\",\"end_at\":\"14\",\"text\":\"å¥½ç¬‘å•Š~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"},{\"tid\":\"3550724442923154\",\"bid\":\"6\",\"uid\":\"123456\",\"content\":{\"words\":[{\"type\":\"1\",\"start_at\":\"7\",\"end_at\":\"8\",\"text\":\"å¥½ç¬‘å•Š~\",\"user_data\":\"\"}],\"image\":[{}]},\"like\":\"23\",\"unlike\":\"45\",\"signal\":\"0\",\"user_data\":\"\",\"created_at\":\"1000000\"}]}";
   var obj = eval ("(" + results + ")");
   var i = 0;
   var j = 0;
@@ -1351,13 +1770,13 @@ function getTweetsDetail(results){
   var spanId = 1;
   var offset_index = 0;
   var new_tweets = "";
-  $("#tweet_"+obj.Bubble[0].tid).append("<div id=\"comment_show_"+obj.Bubble[0].tid+"\"></div>")
+  $("#tweet_"+obj.bubbles[0].tid).append("<div id=\"comment_show_"+obj.bubbles[0].tid+"\"></div>")
 
   
  	 
- 	for(i=0;i<=obj.Bubble.length-1;i++){
+ 	for(i=0;i<=obj.bubbles.length-1;i++){
  		
-    var word_operation = obj.Bubble[i].content.words;
+    var word_operation = obj.bubbles[i].content.words;
    // alert(word_operation.length);
     for(j=0;j<=word_operation.length-1;j++){
       var word_start_offset = parseInt(word_operation[j].start_at);
@@ -1396,20 +1815,20 @@ function getTweetsDetail(results){
  
 
 
-  for(i = 0;i<=obj.Bubble.length-1;i++){
-  	var para_tid = obj.Bubble[i].tid;
+  for(i = 0;i<=obj.bubbles.length-1;i++){
+  	var para_tid = obj.bubbles[i].tid;
   	var para_word_text = new Array();
   	var para_word_start_pos = new Array();
-  	for (j=0;j<=obj.Bubble[i].content.words.length-1;j++){
-  	  para_word_text[j]=obj.Bubble[i].content.words[j].text;
-  	  para_word_start_pos[j]=obj.Bubble[i].content.words[j].start_at;
+  	for (j=0;j<=obj.bubbles[i].content.words.length-1;j++){
+  	  para_word_text[j]=obj.bubbles[i].content.words[j].text;
+  	  para_word_start_pos[j]=obj.bubbles[i].content.words[j].start_at;
   	} 
-    $("#comment_show_"+obj.Bubble[i].tid).append("<tr id=comment_content"+obj.Bubble[i].bid+" onmouseup=\"show_list("+obj.Bubble[i].tid+",[\'"+para_word_text+"\'],["+para_word_start_pos+"],"+"["+span_list+"])\"></tr>");
-  	$("#comment_content"+obj.Bubble[i].bid).append("<td>"+obj.Bubble[0].content.words[0].text+"</td><td>"+obj.Bubble[0].created_at+"</td>");
+    $("#comment_show_"+obj.bubbles[i].tid).append("<tr id=comment_content_"+obj.bubbles[i].tid+"_"+obj.bubbles[i].bid+" onmouseup=\"show_list("+obj.bubbles[i].tid+",[\'"+para_word_text+"\'],["+para_word_start_pos+"],"+"["+span_list+"])\"></tr>");
+  	$("#comment_content+"+obj.bubbles[i].tid+"_"+obj.bubbles[i].bid).append("<td>"+obj.bubbles[0].content.words[0].text+"</td><td>"+obj.bubbles[0].created_at+"</td>");
   }
   
  
-  var tablename=document.getElementById("comment_show_"+obj.Bubble[0].tid);
+  var tablename=document.getElementById("comment_show_"+obj.bubbles[0].tid);
   var li=tablename.getElementsByTagName("tr");	
 		//var li=tablename.getElementsByTagName("tr");
 	for(i=0;i<=li.length-1;i++){	
@@ -1440,27 +1859,29 @@ function getHottestTweets( ){
 function choice_mode(choice_value){
 	if($("#tweets_content").length>0)
 		 $("#tweets_content").remove();
-
+  if(is_login == 0){
+    return;
+  }
   switch(choice_value){
-    case 1://ÅóÓÑÎ¢²©
+    case 1://æœ‹å‹å¾®åš
       is_friend = 1;
       is_trending = 0;
       is_hottest = 0;
       getFriendTweets();
       break;
-    case 2://ĞÂÀËÈÈµãÎ¢²©
+    case 2://æ–°æµªçƒ­ç‚¹å¾®åš
       is_friend = 0;
       is_trending = 1;
       is_hottest = 0;      
       getTrendingTweets();
       break;
-    case 3://ÈÈµãÍÂ²ÛÎ¢²©
+    case 3://çƒ­ç‚¹åæ§½å¾®åš
       is_friend = 0;
       is_trending = 0;       
       is_hottest = 1;
       getHottestTweets();
       break;
-    case 4://½ø¶ÈÌõÄ£Ê½
+    case 4://è¿›åº¦æ¡æ¨¡å¼
       is_friends = 0;
       break;
     case 5:
@@ -1481,15 +1902,69 @@ function changebackground(list_index){
 function show_comment_item(list_index){
 }
 
+function login()  
+{  
+	is_login = 1;
+	
+  if(WB2.checkLogin()) //ç”¨æˆ·æ˜¯å¦ç™»å½•  
+  {  
+       //è·å–ç”¨æˆ·å¾®åšä¿¡æ¯  
+       
+       
+       $("button").text("é€€å‡º");
+
+      // getStatus();  
+  }  
+  else  
+  {  
+      WB2.login(  
+        function()  
+        {  
+        	   
+            $("button").text("é€€å‡º");  
+ 
+       //   getStatus();  
+        }  
+      );  
+     
+  }  
+ }  
+function logout()  
+{  
+	  is_login = 0;
+    WB2.logout(  
+        function()  
+        {  
+            $("button").text("ç™»å½•");  
+             
+        }  
+    );  
+}  
+
+
+
+ 
+function initial_login()  
+{  
+   if($("#login").text()=="ç™»å½•")  
+   {  
+        login();  
+   }  
+   if($("#login").text()=="é€€å‡º")  
+   {  
+        logout();  
+   }  
+}   
+
 </script>
 
 </head>
 
 <body onload="getFriendTweets()">
-	
-<input type="radio" name="choice" value = "friends" checked=true onclick ="this.checked==true?choice_mode(1):choice_mode(4);">ºÃÓÑÎ¢²©</input>
-<input type="radio" name="choice" value = "trending" onclick ="this.checked==true?choice_mode(2):choice_mode(5);">ĞÂÀËÈÈµãÎ¢²©</input>
-<input type="radio" name="choice" value = "hottest" onclick ="this.checked==true?choice_mode(3):choice_mode(6);">ÈÈÃÅÍÂ²ÛÎ¢²©</input>
+<div position="fixed"><button id = "login", onClick="initial_login()">ç™»å½•</button></div> 	
+<input type="radio" name="choice" value = "friends" checked=true onclick ="this.checked==true?choice_mode(1):choice_mode(4);">å¥½å‹å¾®åš</input>
+<input type="radio" name="choice" value = "trending" onclick ="this.checked==true?choice_mode(2):choice_mode(5);">æ–°æµªçƒ­ç‚¹å¾®åš</input>
+<input type="radio" name="choice" value = "hottest" onclick ="this.checked==true?choice_mode(3):choice_mode(6);">çƒ­é—¨åæ§½å¾®åš</input>
 
 </body>
 
